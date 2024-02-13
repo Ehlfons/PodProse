@@ -39,4 +39,4 @@ To get involved with PodProse, start by exploring our content on the platform. C
 
 ## 📝 Additional Notes
 
-For more detailed information about PodProse and its features, please refer to the README.md file located at the root of the repository. Our Discord server is also a great place for help and discussions with other developers and content creators
+For more detailed information about PodProse and its features, please refer to the README.md file located at the root of the repository. Our Discord server is also a great place for help and discussions with other developers and content creators.
