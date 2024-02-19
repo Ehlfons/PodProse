@@ -1,0 +1,24 @@
+footer {
+  position: absolute;
+  top: 1000px;
+  bottom: 0;
+  padding: 25px;
+}
+
+footer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5em;
+}
+
+.container-footer-title {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5em;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.footer-text {
+  margin-bottom: 20px;
+}
