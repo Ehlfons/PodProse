@@ -1,0 +1,44 @@
+.container-hexagon-layout {
+  width: auto;
+  display: flex;
+  align-items: center;
+  align-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.container-hexagon-layout .hexagonArea {
+  display: flex;
+}
+
+.container-hexagon-layout .hexagonArea.second, .container-hexagon-layout .hexagonArea.third  {
+  margin-top: -44px;
+}
+
+/* arrow button */
+
+#short {
+  background-color: transparent;
+}
+
+#short:hover {
+  cursor: default;
+  transform: none;
+  z-index: auto;
+}
+
+#short:hover::before {
+  cursor: default;
+  content: "";
+  background: none;
+}
+
+#short #arrow{
+  position: relative;
+  top: 0px;
+  left: 35px;
+  width: 18%;
+  height: 30%;
+  z-index: 1002;
+  cursor: pointer;
+}

@@ -1,0 +1,17 @@
+div#nav {
+  width: 388px;
+}
+
+div#nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+div#nav ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 22px;
+}

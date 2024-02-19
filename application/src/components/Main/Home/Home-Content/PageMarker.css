@@ -1,0 +1,23 @@
+.page-markers {
+  width: 50px;
+  height: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  position: absolute;
+  bottom: 29%;
+  left: 28.7%;
+}
+
+.marker {
+  opacity: 0.5;
+  width: 10px;
+  height: 100%;
+}
+
+.marker.selected {
+  opacity: 1;
+}
