@@ -4,7 +4,6 @@
   font-style: none;
   font-size: 48px;
   font-weight: 900;
-  letter-spacing: -1px;
 }
 
 .main-paragraph {
@@ -48,55 +47,3 @@
   background-color: var(--main-text-color);
   margin-right: 16px;
 }
-
-/* Clase
-
-.main-title {
-  font-style: none;
-  font-size: 40px;
-  font-weight: 900;
-  letter-spacing: -1px;
-}
-
-.main-paragraph {
-  width: 455px;
-  font-size: 18px;
-  margin-top: 15px;
-}
-
-.start-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  margin-top: 20px;
-}
-
-#start-button {
-  width: 50px;
-}
-
-#start-text {
-  font-size: 17px;
-  margin-left: 15px;
-  font-weight: 400; 
-}
-
-.min-capitalize {
-  font-variant: small-caps;
-  display: flex;
-  align-items: center;
-  font-weight: 400;
-  font-size: 18px;
-}
-
-.min-capitalize::before {
-  content: "";
-  display: block;
-  width: 35px;
-  height: 1px;
-  background-color: var(--main-text-color);
-  margin-right: 10px;
-}
-
-*/
