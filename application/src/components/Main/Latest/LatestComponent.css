@@ -1,0 +1,26 @@
+.container-latest {
+  height: 500px;
+  background-color: var(--secondary-dark-bg-color);
+}
+
+.latest-wrapper {
+  width: 59.48%;
+  margin: 0 auto;
+}
+
+.container-latest-title {
+  padding-top: 42px;
+}
+
+.latest-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.latest-title-greenLine {
+  margin-top: -4px;
+  border: none;
+  height: 3px;
+  width: 259px;
+  background-color: var(--primary-green);
+}

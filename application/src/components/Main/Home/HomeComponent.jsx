@@ -8,9 +8,11 @@ const HomeComponent = () => {
   return (
     <Fragment>
       <section className="home-container">
-        <HexagonLayout />
+        <div className="home-container-HexagonLayout">
+          <HexagonLayout />
+          <PageMarker />
+        </div>
         <MainText />
-        <PageMarker />
       </section>
     </Fragment>
   );

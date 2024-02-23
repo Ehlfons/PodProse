@@ -5,4 +5,13 @@
   align-items: center;
   column-gap: 120px;
   margin-top: 93.17px;
+  padding-bottom: 67px;
+}
+
+.home-container-HexagonLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 35px;
 }

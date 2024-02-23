@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Router } from "react-router-dom";
 import MainPage from "../pages/MainPage.jsx";
 
 const Rutas = () => {

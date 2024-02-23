@@ -1,17 +1,18 @@
 :root {
   /* LightMode */
-  --main-text-color: #222222;
   --main-text-color: #f3f4f9;
+  --secondary-text-color: #222222;
 
   /* DarkMode */
   --main-dark-text-color: #f3f4f9;
   --primary-dark-bg-color: #111111;
   --secondary-dark-bg-color: #222222;
+  --category-cards-dark-color: #E8E8E8;
 
   /* Green */
   --primary-green: #B0E444;
 
-  --default-margin: 35px 55px 0;
+  --default-space: 35px 55px 0;
 }
 
 * {
@@ -24,14 +25,6 @@
 body {
   display: flex;
   flex-direction: column;
-  background-color: var(--secondary-dark-bg-color);
+  background-color: var(--primary-dark-bg-color);
   min-height: 100vh;
-  /* background: linear-gradient(
-    to bottom,
-    var(--primary-dark-bg-color) 0%,
-    var(--primary-dark-bg-color) 73%,
-    var(--secondary-dark-bg-color) 73%,
-    var(--secondary-dark-bg-color) 100%
-  ); */
-
 }
