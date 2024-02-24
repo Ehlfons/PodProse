@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import LatestSlider from "./LatestSlider.jsx";
+import LatestSliderMarker from "./LatestSliderMarker.jsx";
 import "./LatestComponent.css";
 
 const LatestComponent = () => {
@@ -12,6 +13,7 @@ const LatestComponent = () => {
             <hr className="latest-title-greenLine" />
           </div>
           <LatestSlider />
+          <LatestSliderMarker />
         </div>
       </section>
     </Fragment>

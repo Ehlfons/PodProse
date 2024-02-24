@@ -8,6 +8,11 @@
   margin: 27px auto 0;
 }
 
+.latest-slider-wrapper a {
+  display: block;
+  height: 300px;
+}
+
 .latest-slider-fade {
   position: relative;
   width: 300px;

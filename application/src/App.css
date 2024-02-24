@@ -28,3 +28,7 @@ body {
   background-color: var(--primary-dark-bg-color);
   min-height: 100vh;
 }
+
+.selected {
+  opacity: 1;
+}

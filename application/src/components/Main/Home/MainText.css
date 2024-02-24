@@ -1,4 +1,6 @@
-/* main-text */
+.maintext-component {
+  margin-bottom: 35px;
+}
 
 .main-title {
   font-style: none;
