@@ -8,6 +8,11 @@
   margin: 27px auto 0;
 }
 
+.latest-slider-wrapper a {
+  display: block;
+  height: 300px;
+}
+
 .latest-slider-fade {
   position: relative;
   width: 300px;
@@ -52,5 +57,5 @@
   color: var(--category-cards-dark-color);
   font-size: 14.4px;
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 7px;
 }

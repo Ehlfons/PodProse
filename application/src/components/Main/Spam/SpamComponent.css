@@ -1,36 +1,107 @@
 #container-spam {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  height: 400px;
+}
+
+.spam-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  margin: 0 auto;
+  padding-top: 116px;
 }
 
 #social-media-spam {
   text-align: center;
-}
-
-#social-media-logos-spam {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  width: 40.3%;
 }
 
 #social-newsletter-spam {
   text-align: center;
+  width: 35.6%;
+}
+
+#social-newsletter-spam p {
+  font-size: 16px;
+}
+
+.social-media-logos-spam {
+  width: 470px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  margin: 26px auto 0;
+}
+
+.social-media-logos-spam svg {
+  width: 70px;
+  height: 70px;
+  fill: var(--main-text-color);
+  cursor: pointer;
+
+  animation-delay: 0.4s;
+}
+
+.social-media-logos-spam svg:hover {
+  fill: var(--primary-green);
+}
+
+.container-x-logo-spam {
+  width: 130px;
+  height: 91px;
+}
+
+.spam-logo-greenLine {
+  border: none;
+  height: 5px;
+  background-color: var(--primary-green);
+  margin-bottom: 26px;
+  border-radius: 10px;
+  width: 130px;
+}
+
+.social-media-logos-spam div:hover hr {
+  animation: translateGreenLine 0.5s forwards;
+}
+
+.social-media-logos-spam .container-instagram-logo-spam svg {
+  width: 71px;
+  height: 71px;
+}
+
+.social-media-logos-spam .container-github-logo-spam svg {
+  width: 66px;
+  height: 66px;
 }
 
 .titles-spam {
-  color: white;
-  font-size: 40px;
+  color: var(--main-text-color);
+  font-size: 42px;
+  font-weight: 900;
 }
 
 .input-spam {
-  margin-top: 50px;
-  color: white;
+  margin-top: 45px;
+  color: var(--main-text-color);
   background-color: #111111;
-  padding: 10px 100px 10px 100px;
-  border: 2px solid #b0e444;
-  border-radius: 8px;
+  width: 100%;
+  height: 50px;
+  border: 2px solid var(--primary-green);
+  border-radius: 10px;
 }
 
 .input-spam::placeholder {
-  color: white;
+  text-align: center;
+  font-size: 16px;
+  color: var(--main-text-color);
+  opacity: 0.9;
+}
+
+@keyframes translateGreenLine {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(110px);
+  }
 }
