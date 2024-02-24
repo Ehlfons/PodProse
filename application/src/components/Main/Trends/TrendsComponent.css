@@ -1,0 +1,34 @@
+.container-trends {
+  height: 2410px;
+  background-color: var(--secondary-dark-bg-color);
+}
+
+.trends-wrapper {
+  width: 66.25%;
+  margin: 0 auto;
+}
+
+.container-trends-title {
+  padding-top: 48px;
+}
+
+.trends-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.trends-title-greenLine {
+  margin-top: -4px;
+  border: none;
+  height: 3px;
+  width: 361px;
+  background-color: var(--primary-green);
+}
+
+.trends-showMore {
+  color: var(--trends-secondary-dark-color);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 7px;
+}

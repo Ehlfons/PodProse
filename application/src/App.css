@@ -8,11 +8,13 @@
   --primary-dark-bg-color: #111111;
   --secondary-dark-bg-color: #222222;
   --category-cards-dark-color: #E8E8E8;
+  --trends-secondary-dark-color: #D9DADE;
 
   /* Green */
   --primary-green: #B0E444;
 
-  --default-space: 35px 55px 0;
+  /* Measures */
+  --default-space: 35px 55px;
 }
 
 * {

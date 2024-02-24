@@ -6,9 +6,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 70%;
+  
   margin: 0 auto;
   padding-top: 116px;
+  
+  width: 70%;
 }
 
 #social-media-spam {
@@ -26,10 +28,12 @@
 }
 
 .social-media-logos-spam {
-  width: 470px;
-  height: 60px;
   display: flex;
   justify-content: space-between;
+  
+  width: 470px;
+  height: 125px;
+  
   margin: 26px auto 0;
 }
 
@@ -38,11 +42,18 @@
   height: 70px;
   fill: var(--main-text-color);
   cursor: pointer;
-
-  animation-delay: 0.4s;
 }
 
-.social-media-logos-spam svg:hover {
+.social-media-logos-spam .container-instagram-logo-spam svg,
+.social-media-logos-spam .container-x-logo-spam svg,
+.social-media-logos-spam .container-github-logo-spam svg {
+  transition: fill 0s;
+}
+
+.social-media-logos-spam .container-instagram-logo-spam:hover svg,
+.social-media-logos-spam .container-x-logo-spam:hover svg,
+.social-media-logos-spam .container-github-logo-spam:hover svg {
+  transition-delay: 0.175s;
   fill: var(--primary-green);
 }
 
@@ -52,16 +63,22 @@
 }
 
 .spam-logo-greenLine {
-  border: none;
-  height: 5px;
   background-color: var(--primary-green);
-  margin-bottom: 26px;
-  border-radius: 10px;
+  
+  height: 5px;
   width: 130px;
+  margin-bottom: 26px;
+
+  border: none;
+  border-radius: 10px;
 }
 
 .social-media-logos-spam div:hover hr {
-  animation: translateGreenLine 0.5s forwards;
+  animation: translateGreenLine 1s forwards;
+}
+
+.social-media-logos-spam .container-x-logo-spam {
+  height: 100%;
 }
 
 .social-media-logos-spam .container-instagram-logo-spam svg {
@@ -76,23 +93,30 @@
 
 .titles-spam {
   color: var(--main-text-color);
+  
   font-size: 42px;
   font-weight: 900;
 }
 
 .input-spam {
-  margin-top: 45px;
   color: var(--main-text-color);
-  background-color: #111111;
+  background-color: transparent;
+  
   width: 100%;
   height: 50px;
+  margin-top: 45px;
+  padding: 0 30px;
+  
+  box-sizing: border-box;
   border: 2px solid var(--primary-green);
   border-radius: 10px;
+
+  text-align: center;
+  font-size: 16px;
 }
 
 .input-spam::placeholder {
   text-align: center;
-  font-size: 16px;
   color: var(--main-text-color);
   opacity: 0.9;
 }
@@ -102,6 +126,6 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(110px);
+    transform: translateY(120px);
   }
 }

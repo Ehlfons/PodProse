@@ -42,7 +42,7 @@ const Footer = () => {
               Suscríbete gratuitamente a nuestro Newsletter para tener toda la
               información de tus creadores favoritos.
             </p>
-            <a className="footer-link" href="">
+            <a className="footer-link" href="#container-spam">
               ¡ SUSCRIBETE !
             </a>
           </div>

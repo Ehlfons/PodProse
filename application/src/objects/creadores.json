@@ -1,0 +1,128 @@
+{
+  "podcast1": {
+    "uuid": "a157b484-a80f-45c3-8399-7f2c9fc63b3a",
+    "image": "src/assets/Test/trend1.jpg",
+    "name": "Podcast sobre Viajes",
+    "category": "Estilo de Vida",
+    "upload_date": "2012-04-20"
+  },
+  "podcast2": {
+    "uuid": "2fa46423-5cf5-4e3c-a3e8-08ab69b53d95",
+    "image": "src/assets/Test/trend2.jpg",
+    "name": "Misterios del Espacio",
+    "category": "Ciencia",
+    "upload_date": "2018-10-05"
+  },
+  "podcast3": {
+    "uuid": "d4d78654-d11e-4650-bb4a-2c5f3642d024",
+    "image": "src/assets/Test/trend3.jpg",
+    "name": "Reflexiones Nocturnas",
+    "category": "Estilo de Vida",
+    "upload_date": "2014-08-17"
+  },
+  "podcast4": {
+    "uuid": "e8df93b7-0301-4a4e-b67f-1f79adffbd8a",
+    "image": "src/assets/Test/trend4.jpg",
+    "name": "Historias de la Naturaleza",
+    "category": "Ciencia",
+    "upload_date": "2016-03-02"
+  },
+  "podcast5": {
+    "uuid": "848778d3-14e9-4976-a125-2299717a9a4f",
+    "image": "src/assets/Test/trend5.jpg",
+    "name": "Cocina Creativa",
+    "category": "Estilo de Vida",
+    "upload_date": "2011-11-29"
+  },
+  "podcast6": {
+    "uuid": "d6c282b4-1096-48b9-9e0f-ba5b774cfacd",
+    "image": "src/assets/Test/trend6.jpg",
+    "name": "Negocios en Acción",
+    "category": "Negocios",
+    "upload_date": "2017-06-12"
+  },
+  "podcast7": {
+    "uuid": "4c9b8929-6f44-4cfb-87e5-622a8900a2a2",
+    "image": "src/assets/Test/trend7.jpg",
+    "name": "Misterios del Pasado",
+    "category": "Historia",
+    "upload_date": "2013-07-02"
+  },
+  "podcast8": {
+    "uuid": "f6f0213e-68df-4698-af8f-43b2c330415b",
+    "image": "src/assets/Test/trend8.jpg",
+    "name": "Desarrollo Personal",
+    "category": "Estilo de Vida",
+    "upload_date": "2019-11-16"
+  },
+  "podcast9": {
+    "uuid": "e75a7b07-6ff1-4d5f-bb81-cac8b06731a2",
+    "image": "src/assets/Test/trend9.jpg",
+    "name": "Ciencia Cotidiana",
+    "category": "Ciencia",
+    "upload_date": "2015-09-23"
+  },
+  "podcast10": {
+    "uuid": "c35e3f4d-fdd3-4709-b83f-51c31d8757b9",
+    "image": "src/assets/Test/trend10.jpg",
+    "name": "Estrategias de Inversión",
+    "category": "Negocios",
+    "upload_date": "2010-08-06"
+  },
+  "podcast11": {
+    "uuid": "a4b17854-71aa-41a4-bff2-cac6d6e62cd0",
+    "image": "src/assets/Test/trend11.jpg",
+    "name": "Amor y Relaciones",
+    "category": "Estilo de Vida",
+    "upload_date": "2020-10-31"
+  },
+  "podcast12": {
+    "uuid": "1f8e57d4-1f8c-4f43-9f12-5f0f8a8d1f30",
+    "image": "src/assets/Test/trend12.jpg",
+    "name": "Aventuras en la Selva",
+    "category": "Naturaleza",
+    "upload_date": "2010-12-24"
+  },
+  "podcast13": {
+    "uuid": "e1bfb1d5-6935-476b-914d-6a4d02a27aa0",
+    "image": "src/assets/Test/trend13.jpg",
+    "name": "Meditaciones Diarias",
+    "category": "Estilo de Vida",
+    "upload_date": "2022-07-17"
+  },
+  "podcast14": {
+    "uuid": "7277d0ab-60ff-457b-b682-c9cbff923ca4",
+    "image": "src/assets/Test/trend14.jpg",
+    "name": "Misterios del Océano",
+    "category": "Ciencia",
+    "upload_date": "2014-11-08"
+  },
+  "podcast15": {
+    "uuid": "d8376f18-6b07-4c4b-b6c3-215ca20f1d25",
+    "image": "src/assets/Test/trend15.jpg",
+    "name": "Recetas Rápidas",
+    "category": "Estilo de Vida",
+    "upload_date": "2024-02-19"
+  },
+  "podcast16": {
+    "uuid": "7adad179-0592-431f-83f2-86f7e3c92d53",
+    "image": "src/assets/Test/trend16.png",
+    "name": "Historias de la Antigüedad",
+    "category": "Historia",
+    "upload_date": "2011-10-02"
+  },
+  "podcast17": {
+    "uuid": "92b5d4a7-3437-49e0-b387-94dd08fbb41d",
+    "image": "src/assets/Test/trend17.jpg",
+    "name": "Secretos del Universo",
+    "category": "Ciencia",
+    "upload_date": "2017-09-12"
+  },
+  "podcast18": {
+    "uuid": "139c95f7-ff4d-4d25-99c0-1814c1a8d29a",
+    "image": "src/assets/Test/trend18.jpg",
+    "name": "Emprendedores en Acción",
+    "category": "Negocios",
+    "upload_date": "2023-12-31"
+  }
+}
