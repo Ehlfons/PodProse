@@ -54,9 +54,9 @@ const Footer = () => {
               las nuevas actualizaciones!
             </p>
             <div className="footer-icons">
-              <InstagramLogo />
-              <XLogo />
-              <GithubLogo />
+              <a href="https://www.instagram.com/podprose.official"><InstagramLogo /></a>
+              <a href="https://www.x.com/podprose.official"><XLogo /></a>
+              <a href="https://github.com/LitoHDD/PodProse"><GithubLogo /></a>
             </div>
           </div>
         </div>

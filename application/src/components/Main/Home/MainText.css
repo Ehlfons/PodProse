@@ -24,6 +24,7 @@
 
 #start-button {
   width: 60px;
+  cursor: pointer;
 }
 
 #start-text {

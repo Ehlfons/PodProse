@@ -14,15 +14,15 @@ const SpamComponent = () => {
             <div className="social-media-logos-spam">
               <div className="container-instagram-logo-spam">
                 <hr className="spam-logo-greenLine" />
-                <InstagramLogo />
+                <a href="https://www.instagram.com/podprose.official"><InstagramLogo /></a>
               </div>
               <div className="container-x-logo-spam">
                 <hr className="spam-logo-greenLine" />
-                <XLogo />
+                <a href="https://www.x.com/podprose.official"><XLogo /></a>
               </div>
               <div className="container-github-logo-spam">
                 <hr className="spam-logo-greenLine" />
-                <GithubLogo />
+                <a href="https://github.com/LitoHDD/PodProse"><GithubLogo /></a>
               </div>
             </div>
           </div>

@@ -35,7 +35,7 @@
 
 > ### **Copiar archivos de _Descargas_ al directorio _assets_ del proyecto local (sad).**
 
-- mv ~/Descargas/\* ~/Escritorio/PodProse/application/src/assets/
+- mv ~/Descargas/* ~/Escritorio/PodProse/application/src/assets/
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 

@@ -4,7 +4,7 @@
 }
 
 .trends-wrapper {
-  width: 66.25%;
+  width: 65.1%;
   margin: 0 auto;
 }
 
@@ -27,8 +27,130 @@
 
 .trends-showMore {
   color: var(--trends-secondary-dark-color);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   margin-top: 7px;
+}
+
+.trends-showMore:hover {
+  text-decoration: underline;
+}
+
+/* Cards */
+
+.trends-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 74px;
+  width: 100%;
+}
+
+.trend-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 300px;
+}
+
+.trend-category {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 59.89%;
+}
+
+.trend-category img {
+  width: 40.078%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.trend-category-info {
+  width: 55.307%;
+}
+
+.trend-category-info .trend-category-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.trend-category-info .trend-num-podcasts {
+  font-size: 14px;
+  font-weight: normal;
+  margin-top: 2px;
+  color: var(--trends-secondary-dark-color);
+  text-transform: uppercase;
+}
+
+.trend-category-info .trend-description {
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 29px;
+  line-height: 1.5;
+}
+
+.trend-podcasts {
+  width: 34.163%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.trend-podcast {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 80px;
+}
+
+.trend-podcast img {
+  width: 80px;
+  height: 100%;
+  border-radius: 10px;
+  margin-right: 31px;
+}
+
+.trend-podcast-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 74px;
+  margin-top: 3px;
+}
+
+.trend-podcast-info .trend-podcast-title {
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 1.35;
+}
+
+.trend-podcast-info .trend-stats-podcast {
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--trends-secondary-dark-color);
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trend-podcast-info .trend-stats-podcast .trend-podcast-date {
+  font-style: normal;
+}
+
+.trends-card-separator {
+  border: none;
+  border-bottom: 1px solid var(--trends-secondary-dark-color);
+  margin: 78px 0;
+}
+
+/* effects */
+
+.trends-cards img {
+  cursor: url("src/assets/Play-Green-Cursor.svg") 20 20, pointer;
 }
