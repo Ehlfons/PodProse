@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import json from "../../../objects/creadores.json";
+import json from "../../../objects/podcasts.json";
 import "./LatestSlider.css";
 
 const LatestSlider = () => {
