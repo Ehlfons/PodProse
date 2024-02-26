@@ -1,12 +1,14 @@
 import React, { Fragment } from "react";
 import { Routes, Route, Router } from "react-router-dom";
 import MainPage from "../pages/MainPage.jsx";
+import LoginPage from "../pages/LoginPage.jsx";
 
 const Rutas = () => {
   return (
     <Fragment>
       <Routes>
         <Route path='/' element={<MainPage />} />
+        <Route path='/login' element={<LoginPage />} />
       </Routes>
     </Fragment>
   );

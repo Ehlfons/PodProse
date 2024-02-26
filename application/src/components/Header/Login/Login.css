@@ -2,3 +2,7 @@
   font-size: 22px;
   font-weight: bold;
 }
+
+.login-button a {
+  text-decoration: none;
+}
