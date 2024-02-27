@@ -1,24 +1,24 @@
-.login-header {
+.register-header {
   font-size: 22px;
 }
 
-.login-header a {
+.register-header a {
   text-decoration: none;
   cursor: pointer;
 }
 
-.login-header-back {
+.register-header-back {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100px;
 }
 
-.login-header-register {
+.register-header-login {
   cursor: pointer;
 }
 /* ------------------------------------------------- */
-.login-main {
+.register-main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@
   padding-top: 30px;
 }
 
-.login-main-title {
+.register-main-title {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,21 +38,21 @@
   width: 240;
 }
 
-.login-main-title svg {
+.register-main-title svg {
   width: 127.65px;
 }
 
-.login-main-title h1 {
+.register-main-title h1 {
   font-family: 'Poppins', 'DM Sans', sans-serif;
   font-size: 35.9px;
   font-weight: 500;
 }
 
-.login-main input {
+.register-main input {
   height: 50px;
 }
 /* ------------------------------------------------- */
-.login-main-form {
+.register-main-form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -62,7 +62,7 @@
   width: 100%;
 }
 
-.login-main-inputs {
+.register-main-inputs {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,7 +71,7 @@
   width: 49.26%;
 }
 
-.login-main-inputs-wrapper {
+.register-main-inputs-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -80,13 +80,13 @@
   height: 249px;
 }
 
-.login-main-inputs-wrapper label {
+.register-main-inputs-wrapper label {
   font-family: 'Poppins', 'DM Sans', sans-serif;
   font-size: 14px;
   color: var(--main-text-color-80);
 }
 
-.login-main-input-email, .login-main-input-passwd {
+.register-main-input-email, .register-main-input-passwd {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -95,7 +95,7 @@
   width: 100%;
 }
 
-.login-main-common-input {
+.register-main-common-input {
   width: 100%;
   border-radius: 10px;
   border: 1px solid var(--main-text-color-80) ;
@@ -105,12 +105,12 @@
   color: var(--main-text-color);
 }
 
-.login-main-common-input:focus {
+.register-main-common-input:focus {
   outline: none;
   border: 3px solid var(--main-text-color);
 }
 
-.login-main-input-login {
+.register-main-input-register {
   width: 100%;
   border-radius: 28px;
   background-color: var(--main-text-color-25);
@@ -123,12 +123,12 @@
   transition: all 0.3s ease-in-out;
 }
 
-.login-main-input-login:hover {
+.register-main-input-register:hover {
   background-color: var(--main-text-color);
   color: var(--primary-dark-bg-color);
 }
 /* ------------------------------------------------- */
-.login-main-separator {
+.register-main-separator {
   height: 100%;
   position: relative;
   display: flex;
@@ -137,7 +137,7 @@
   justify-content: center;
 }
 
-.login-main-separator p {
+.register-main-separator p {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,7 +147,7 @@
   text-transform: uppercase;
 }
 
-.login-main-separator p::before {
+.register-main-separator p::before {
   content: "";
   position: absolute;
   top: 0;
@@ -156,7 +156,7 @@
   background-color: var(--main-text-color-60);
 }
 
-.login-main-separator p::after {
+.register-main-separator p::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -165,7 +165,7 @@
   background-color: var(--main-text-color-60);
 }
 /* ------------------------------------------------- */
-.login-main-options {
+.register-main-options {
   width: 49.26%;
   height: 100%;
   display: flex;
@@ -174,7 +174,7 @@
   justify-content: center;
 }
 
-.login-main-options-wrapper {
+.register-main-options-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -183,7 +183,7 @@
   width: 317px;
 }
 
-.login-main-options-wrapper button {
+.register-main-options-wrapper button {
   width: 100%;
   height: 50px;
   border-radius: 28px;
@@ -197,33 +197,33 @@
   transition: all 0.3s ease-in-out;
 }
 
-.login-main-options-wrapper button:hover {
+.register-main-options-wrapper button:hover {
   background-color: var(--main-text-color-25);
 }
 
-.login-main-options-wrapper button:hover p {
+.register-main-options-wrapper button:hover p {
   color: var(--main-text-color);
 }
 
-.login-main-options-wrapper p {
+.register-main-options-wrapper p {
   font-size: 19px;
   font-weight: 300;
   margin-left: 15px;
   color: var(--terciary-text-color);
 }
 
-.login-main-option-github svg, .login-main-option-x svg {
+.register-main-option-github svg, .register-main-option-x svg {
   width: 28px;
   height: 28px;
   fill: var(--primary-dark-bg-color);
   transition: fill 0.3s ease-in-out;
 }
 
-.login-main-option-github:hover svg, .login-main-option-x:hover svg {
+.register-main-option-github:hover svg, .register-main-option-x:hover svg {
   fill: var(--main-text-color);
 }
 /* ------------------------------------------------- */
-.login-main-footer {
+.register-main-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -232,18 +232,18 @@
   width: 307px;
 }
 
-.login-main-footer-passwd {
+.register-main-footer-passwd {
   font-family: 'Poppins', 'DM Sans', sans-serif;
   font-size: 14px;
   color: var(--main-text-color);
   cursor: pointer;
 }
 
-.login-main-footer-passwd:hover {
+.register-main-footer-passwd:hover {
   text-decoration: underline;
 }
 
-.login-main-footer-terms {
+.register-main-footer-terms {
   text-align: center;
   font-family: 'Poppins', 'DM Sans', sans-serif;
   font-size: 12px;

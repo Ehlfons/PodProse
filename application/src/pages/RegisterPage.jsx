@@ -6,54 +6,43 @@ import PodProseLogo from "../components/svg/PodProseLogo.jsx";
 import GithubLogo from "../components/svg/GithubLogo.jsx";
 import XLogo from "../components/svg/XLogo.jsx";
 import GoogleLogo from "../components/svg/GoogleLogo.jsx";
-import "./LoginPage.css";
+import "./RegisterPage.css";
 
-const LoginPage = () => {
-  const {
-    iniciarSesion,
-    actualizarDato,
-    errorUsuario,
-    actualizarErrorUsuario,
-  } = useUsuarios();
+const RegisterPage = () => {
+  const { actualizarDato, errorUsuario, registro } = useUsuarios();
 
-  const navigate = useNavigate();
-  
-  const manejarInicioSesion = (e) => {
+  // Lógica para el evento onClick del botón de registro.
+  const manejarRegistro = (e) => {
     e.preventDefault();
-    iniciarSesion();
-    actualizarErrorUsuario("");
-    navigate("/");
+    registro();
   };
 
+  const navigate = useNavigate();
   return (
     <Fragment>
-      <header className="login-header">
-        <Link to="/" className="login-header-back">
+      <header className="register-header">
+        <Link to="/" className="register-header-back">
           <ArrowLogin />
           <p>Volver</p>
         </Link>
-        <Link
-          onClick={() => actualizarErrorUsuario("")}
-          to="/register"
-          className="login-header-register"
-        >
-          Crear una cuenta
+        <Link to="/login" className="register-header-login">
+          Login
         </Link>
       </header>
-      <section className="login-main">
-        <div className="login-main-title">
+      <section className="register-main">
+        <div className="register-main-title">
           <PodProseLogo />
-          <h1>Iniciar Sesión</h1>
+          <h1>Crea una cuenta</h1>
         </div>
-        <div className="login-main-form">
-          <div className="login-main-inputs">
-            <div className="login-main-inputs-wrapper">
-              <div className="login-main-input-email">
+        <div className="register-main-form">
+          <div className="register-main-inputs">
+            <div className="register-main-inputs-wrapper">
+              <div className="register-main-input-email">
                 <label htmlFor="email">Usuario / Correo Electrónico</label>
                 <input
-                  className="login-main-common-input"
-                  title="Email"
+                  className="register-main-common-input"
                   type="email"
+                  title="Email"
                   id="email"
                   name="email"
                   onChange={(e) => {
@@ -62,10 +51,10 @@ const LoginPage = () => {
                 />
               </div>
 
-              <div className="login-main-input-passwd">
+              <div className="register-main-input-passwd">
                 <label htmlFor="password">Contraseña</label>
                 <input
-                  className="login-main-common-input"
+                  className="register-main-common-input"
                   title="Contraseña"
                   type="password"
                   id="password"
@@ -77,12 +66,12 @@ const LoginPage = () => {
               </div>
 
               <input
-                className="login-main-input-login"
-                title="Iniciar Sesión"
+                className="register-main-input-register"
+                title="Registrarse"
                 type="button"
-                value="Iniciar Sesión"
+                value="Registrarse"
                 onClick={(e) => {
-                  manejarInicioSesion(e);
+                  manejarRegistro(e);
                 }}
               />
             </div>
@@ -90,31 +79,37 @@ const LoginPage = () => {
               <div className="error-usuario">{errorUsuario}</div>
             )}
           </div>
-          <div className="login-main-separator">
+          <div className="register-main-separator">
             <p>o</p>
           </div>
-          <div className="login-main-options">
-            <div className="login-main-options-wrapper">
-              <button className="login-main-option-google">
+          <div className="register-main-options">
+            <div className="register-main-options-wrapper">
+              <button className="register-main-option-google">
                 <GoogleLogo />
                 <p>Continuar con Google</p>
               </button>
-              <button className="login-main-option-github">
+              <button className="register-main-option-github">
                 <GithubLogo />
                 <p>Continuar con Github</p>
               </button>
-              <button className="login-main-option-x">
+              <button className="register-main-option-x">
                 <XLogo />
                 <p>Continuar con X</p>
               </button>
             </div>
           </div>
         </div>
-        <div className="login-main-footer">
-          <p className="login-main-footer-passwd">¿Olvidaste tu contraseña?</p>
-          <p className="login-main-footer-terms">
-            Inicio de Sesión Seguro con 2FA sujeto a los Términos y Privacidad
-            de Google
+        <div className="register-main-footer">
+          <a
+            className="register-main-footer-passwd"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            ¿Ya estás registrado?
+          </a>
+          <p className="register-main-footer-terms">
+            Registro Seguro con 2FA sujeto a los Términos y Privacidad de Google
           </p>
         </div>
       </section>
@@ -122,4 +117,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

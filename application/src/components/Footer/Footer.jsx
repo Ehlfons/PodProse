@@ -9,8 +9,9 @@ import "./Footer.css";
 const Footer = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
+  const isRegisterPage = location.pathname === "/register";
 
-  if (isLoginPage) {
+  if (isLoginPage || isRegisterPage) {
     return null;
   }
   return (
