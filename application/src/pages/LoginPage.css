@@ -13,6 +13,10 @@
   align-items: center;
   width: 100px;
 }
+
+.login-header-register {
+  cursor: pointer;
+}
 /* ------------------------------------------------- */
 .login-main {
   display: flex;
@@ -103,7 +107,7 @@
 
 .login-main-common-input:focus {
   outline: none;
-  border: 2px solid var(--main-text-color);
+  border: 3px solid var(--main-text-color);
 }
 
 .login-main-input-login {
@@ -212,6 +216,7 @@
   width: 28px;
   height: 28px;
   fill: var(--primary-dark-bg-color);
+  transition: fill 0.3s ease-in-out;
 }
 
 .login-main-option-github:hover svg, .login-main-option-x:hover svg {
@@ -231,6 +236,11 @@
   font-family: 'Poppins', 'DM Sans', sans-serif;
   font-size: 14px;
   color: var(--main-text-color);
+  cursor: pointer;
+}
+
+.login-main-footer-passwd:hover {
+  text-decoration: underline;
 }
 
 .login-main-footer-terms {
@@ -238,4 +248,5 @@
   font-family: 'Poppins', 'DM Sans', sans-serif;
   font-size: 12px;
   color: var(--main-text-color-60);
+  cursor: default;
 }
