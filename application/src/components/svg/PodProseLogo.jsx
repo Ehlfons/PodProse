@@ -9,10 +9,10 @@ const PodProseLogo = () => {
         version="1.1"
         viewBox="0.00 0.00 1105.00 564.00"
       >
-        <g stroke-width="2.00" fill="none" stroke-linecap="butt">
+        <g strokeWidth="2.00" fill="none" strokeLinecap="butt">
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 355.02 44.01
   A 35.84 35.84 0.0 0 0 319.18 8.17
@@ -26,7 +26,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 823.35 43.79
   A 35.61 35.61 0.0 0 0 787.74 8.18
@@ -40,7 +40,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 1028.52 53.66
   C 977.97 30.76 918.81 49.25 888.05 94.99
@@ -61,7 +61,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 233.20 398.17
   Q 235.01 394.59 235.73 390.85
@@ -84,7 +84,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 172.95 158.01
   A 49.91 49.91 0.0 0 0 123.04 108.10
@@ -94,7 +94,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 1032.95 158.01
   A 49.91 49.91 0.0 0 0 983.04 108.10
@@ -104,7 +104,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 589.16 105.39
   A 35.42 35.42 0.0 0 0 553.74 69.97
@@ -118,7 +118,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 471.8251 181.5566
   A 35.39 35.39 0.0 0 0 436.3733 146.2285
@@ -132,7 +132,7 @@ const PodProseLogo = () => {
           />
           <path
             stroke="#587222"
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             d="
   M 706.3350 181.6035
   A 35.31 35.31 0.0 0 0 671.0866 146.2319

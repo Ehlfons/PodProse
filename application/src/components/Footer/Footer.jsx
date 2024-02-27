@@ -1,11 +1,18 @@
 import { Fragment } from "react";
-import "./Footer.css";
+import { useLocation } from "react-router-dom";
 import PodProseLogo from "../svg/PodProseLogo.jsx";
 import InstagramLogo from "../svg/InstagramLogo.jsx";
 import XLogo from "../svg/XLogo.jsx";
 import GithubLogo from "../svg/GithubLogo.jsx";
+import "./Footer.css";
 
 const Footer = () => {
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
+
+  if (isLoginPage) {
+    return null;
+  }
   return (
     <Fragment>
       <hr className="footer-greenline" />
@@ -54,9 +61,15 @@ const Footer = () => {
               las nuevas actualizaciones!
             </p>
             <div className="footer-icons">
-              <a href="https://www.instagram.com/podprose.official"><InstagramLogo /></a>
-              <a href="https://www.x.com/podprose.official"><XLogo /></a>
-              <a href="https://github.com/LitoHDD/PodProse"><GithubLogo /></a>
+              <a href="https://www.instagram.com/podprose.official">
+                <InstagramLogo />
+              </a>
+              <a href="https://www.x.com/podprose.official">
+                <XLogo />
+              </a>
+              <a href="https://github.com/LitoHDD/PodProse">
+                <GithubLogo />
+              </a>
             </div>
           </div>
         </div>
