@@ -1,3 +1,241 @@
-.saveFile {
-  
+.login-header {
+  font-size: 22px;
+}
+
+.login-header a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-header-back {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+}
+/* ------------------------------------------------- */
+.login-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 691px;
+  width: 877px;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
+.login-main-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 133px;
+  width: 240;
+}
+
+.login-main-title svg {
+  width: 127.65px;
+}
+
+.login-main-title h1 {
+  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-size: 35.9px;
+  font-weight: 500;
+}
+
+.login-main input {
+  height: 50px;
+}
+/* ------------------------------------------------- */
+.login-main-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 404px;
+  width: 100%;
+}
+
+.login-main-inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 49.26%;
+}
+
+.login-main-inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 317px;
+  height: 249px;
+}
+
+.login-main-inputs-wrapper label {
+  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--main-text-color-80);
+}
+
+.login-main-input-email, .login-main-input-passwd {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 78px;
+  width: 100%;
+}
+
+.login-main-common-input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--main-text-color-80) ;
+  background-color: transparent;
+  padding: 0 20px;
+  box-sizing: border-box;
+  color: var(--main-text-color);
+}
+
+.login-main-common-input:focus {
+  outline: none;
+  border: 2px solid var(--main-text-color);
+}
+
+.login-main-input-login {
+  width: 100%;
+  border-radius: 28px;
+  background-color: var(--main-text-color-25);
+  border: none;
+  color: var(--main-text-color);
+  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-main-input-login:hover {
+  background-color: var(--main-text-color);
+  color: var(--primary-dark-bg-color);
+}
+/* ------------------------------------------------- */
+.login-main-separator {
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-main-separator p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--main-text-color-60);
+  text-transform: uppercase;
+}
+
+.login-main-separator p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 1.8px;
+  height: 42.578%;
+  background-color: var(--main-text-color-60);
+}
+
+.login-main-separator p::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 1.8px;
+  height: 42.578%;
+  background-color: var(--main-text-color-60);
+}
+/* ------------------------------------------------- */
+.login-main-options {
+  width: 49.26%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-main-options-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 193px;
+  width: 317px;
+}
+
+.login-main-options-wrapper button {
+  width: 100%;
+  height: 50px;
+  border-radius: 28px;
+  border: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.login-main-options-wrapper button:hover {
+  background-color: var(--main-text-color-25);
+}
+
+.login-main-options-wrapper button:hover p {
+  color: var(--main-text-color);
+}
+
+.login-main-options-wrapper p {
+  font-size: 19px;
+  font-weight: 300;
+  margin-left: 15px;
+  color: var(--terciary-text-color);
+}
+
+.login-main-option-github svg, .login-main-option-x svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--primary-dark-bg-color);
+}
+
+.login-main-option-github:hover svg, .login-main-option-x:hover svg {
+  fill: var(--main-text-color);
+}
+/* ------------------------------------------------- */
+.login-main-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 81px;
+  width: 307px;
+}
+
+.login-main-footer-passwd {
+  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--main-text-color);
+}
+
+.login-main-footer-terms {
+  text-align: center;
+  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--main-text-color-60);
 }

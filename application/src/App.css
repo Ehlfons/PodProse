@@ -2,9 +2,9 @@
   /* LightMode */
   --main-text-color: #f3f4f9;
   --secondary-text-color: #222222;
+  --terciary-text-color: #333333;
 
   /* DarkMode */
-  --main-dark-text-color: #f3f4f9;
   --primary-dark-bg-color: #111111;
   --secondary-dark-bg-color: #222222;
   --category-cards-dark-color: #E8E8E8;
@@ -15,6 +15,11 @@
 
   /* Measures */
   --default-space: 35px 55px;
+
+  /* Opacity colors */
+  --main-text-color-60: #f3f4f999;
+  --main-text-color-80: #f3f4f9cc;
+  --main-text-color-25: #f3f4f940;
 }
 
 * {
