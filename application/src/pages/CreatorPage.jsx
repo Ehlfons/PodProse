@@ -6,15 +6,27 @@ import "./CreatorPage.css";
 
 const CreatorPage = () => {
   const { listadoPodcasts, audioUrl, actualizarAudioUrl } = usePodcasts();
-  
+
   return (
     <Fragment>
       <div className="listado-podcasts">
-        {listadoPodcasts.length > 0
-          ? listadoPodcasts.map((podcast, i) => (
-              <Podcast key={i} datos={podcast} onClick={() => actualizarAudioUrl(podcast.audio_url)}/>
-            ))
-          : <div className="error-message">No tienes podcasts publicados o no se han encontrado.</div>}
+        {listadoPodcasts.length > 0 ? (
+          listadoPodcasts.map((podcast, i) => {
+            return (
+              <Podcast
+                key={i}
+                datos={podcast}
+                onClick={() => {
+                  actualizarAudioUrl(podcast.audio_url);
+                }}
+              />
+            );
+          })
+        ) : (
+          <div className="error-message">
+            No tienes podcasts publicados o no se han encontrado.
+          </div>
+        )}
       </div>
 
       {audioUrl && (
