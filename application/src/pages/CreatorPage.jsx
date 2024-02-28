@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import ReactAudioPlayer from "react-audio-player";
 import Podcast from "../components/Main/Podcast/Podcast.jsx";
 import usePodcasts from "../hooks/usePodcasts.jsx";
