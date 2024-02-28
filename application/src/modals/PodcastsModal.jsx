@@ -14,7 +14,7 @@ const PodcastsModal = ({ mostrarPodcasts, manejarCerradoPodcasts }) => {
               </span>
             </div>
             <div className="modal-body" id="modal-body">
-              <FormularioPodcasts />
+              <FormularioPodcasts cierre={manejarCerradoPodcasts} />
             </div>
           </div>
         </div>

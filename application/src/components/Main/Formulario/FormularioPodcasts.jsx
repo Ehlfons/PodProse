@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import usePodcasts from "../../../hooks/usePodcasts.jsx";
 import "./FormularioPodcasts.css";
 
-const FormularioPodcasts = () => {
+const FormularioPodcasts = ({cierre}) => {
   const {
     podcast,
     situacion,
@@ -16,10 +16,10 @@ const FormularioPodcasts = () => {
   // Manejador del evento clic del botón Crear Podcast.
   const manejarClick = (e) => {
     const { esValido, errores } = validarFormulario(podcast); // Validar el formulario.
-    console.log(validarFormulario(podcast));
 
     if (esValido) {
       updatePodcast(e);
+      cierre(); // Cerrar el modal.
       
       // Limpiar todos los errores al enviar el formulario.
       actualizarErroresFormulario({
@@ -131,12 +131,12 @@ const FormularioPodcasts = () => {
             </p>
             <p>
               <button
-                className="crear-podcast-modal"
+                className="actualizar-podcast-modal"
                 onClick={(e) => {
                   manejarClick(e);
                 }}
               >
-                "Actualizar Podcast"
+                Actualizar Podcast
               </button>
             </p>
           </div>

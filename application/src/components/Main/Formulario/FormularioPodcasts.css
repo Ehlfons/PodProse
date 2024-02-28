@@ -1,4 +1,3 @@
-
 #detailsformsmodal {
   margin-top: 20px;
 }
@@ -14,112 +13,60 @@
 
 .labelmodal {
   font-size: 1em;
-  color: #111111;
+  color: var(--main-text-color);
 }
 
 #formulariomodal p {
   margin-top: 2px;
-  padding: 0 30px;
-  color: #111111;
+  padding: 10px 0;
+  color: var(--main-text-color);
+  font-size: 1.1em;
+  width: 100%;
+}
+
+#formulariomodal p:last-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #formulariomodal input.inputmodal {
   margin-top: 2px;
-  width: 280px;
+  width: 100%;
   height: 40px;
   border-radius: 5px;
-  border: 1px solid #111111;
-  padding: 0 10px;
+  border: none;
+  padding: 20px 10px;
   font-size: 16px;
   box-sizing: border-box;
   outline: none;
-  color: #111111;
-  background-color: lavender;
+  color: var(--primary-dark-bg-color);
+  background-color: var(--main-text-color);
 }
 #formulariomodal input.inputmodal:focus {
-  border: 2px solid #111111;
-  scale: 1.03;
+  box-shadow: 0 0 10px 1px var(--primary-green);
 }
 
-.crear-producto-modal {
-  background-color: lavender;
-  border: 1px solid #111111;
-  border-radius: 5px;
+.actualizar-podcast-modal {
+  background-color: var(--main-text-color);
+  border: none;
+  border-radius: 30px;
   padding: 10px 20px;
   font-size: 0.9em;
   font-weight: 400;
   margin-top: 10px;
   cursor: pointer;
+  color: var(--primary-dark-bg-color);
+  box-sizing: border-box;
+  outline: none;
 }
-.crear-producto-modal:hover {
-  background-color: #111111;
-  color: lavender;
+.actualizar-podcast-modal:hover {
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px 0 var(--primary-green);
 }
 
 #modal-body {
   margin-bottom: 0;
-}
-
-#formulario {
-  width: 40%;
-  margin: 20px auto 0;
-  padding: 20px 20px 10px 20px;
-  background: #111111;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-  border: 2px solid lavender;
-}
-
-.formulario-h2 {
-  text-align: center;
-  color: lavender;
-  font-size: 1.2em;
-}
-
-.label {
-  font-size: 1em;
-  color: lavender;
-}
-
-#formulario input.input {
-  margin-top: 5px;
-  width: 100%;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid lavender;
-  padding: 0 10px;
-  font-size: 16px;
-  box-sizing: border-box;
-  outline: none;
-  color: lavender;
-  background-color: #111111;
-}
-#formulario input.input:focus {
-  border: 3px solid lavender;
-  scale: 1.03;
-}
-
-.crear-producto {
-  background-color: lavender;
-  border: 2px solid lavender;
-  border-radius: 5px;
-  padding: 5px 10px;
-  font-size: 0.8em;
-  font-weight: 400;
-  margin-top: 10px;
-}
-.crear-producto:hover {
-  background-color: #111111;
-  color: lavender;
-  transition: all 0.3s ease-in-out;
-}
-
-#detailsforms {
-  margin: 0 5px;
-  height: auto;
-  border: 2px solid lavender;
-  padding-bottom: 20px;
 }
 
 #formulario small {

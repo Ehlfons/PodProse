@@ -5,8 +5,8 @@ const ContactPage = () => {
   return (
     <div id="contactPageContainer">
       <div id="contactPageForm">
-        <h1 className="contactText">CONTACTO</h1>
-        <p className="contactText secondary">Envianos un mensaje</p>
+        <h1 className="contactText">contacto</h1>
+        <p className="secondary">Envianos un mensaje</p>
         <form>
           <div className="formRow">
             <div className="formGroup">
@@ -52,8 +52,8 @@ const ContactPage = () => {
               />
             </div>
           </div>
-          <div className="formRow">
-            <div className="formGroup">
+          <div>
+            <div className="formGroup" id="formGroupLast">
               <label htmlFor="message">Mensaje:</label>
               <textarea
                 className="formTextSpaces"
@@ -63,9 +63,7 @@ const ContactPage = () => {
               ></textarea>
             </div>
           </div>
-          <button id="sendFormButton" type="submit">
-            Enviar
-          </button>
+          <input type="button" id="sendFormButton" value="Enviar" />
         </form>
       </div>
       <div id="contactPageContainerCeo">
@@ -76,7 +74,7 @@ const ContactPage = () => {
             src="https://avatars.githubusercontent.com/u/145800843?v=4"
             alt=""
           />
-          <h1 className="rankText">CEO</h1>
+          <h1 className="rankText">ceo</h1>
         </div>
         <div className="secondCeo">
           <h2 className="ceosText">Sergio Sánchez</h2>
@@ -85,7 +83,7 @@ const ContactPage = () => {
             src="https://i.ibb.co/nkJpBJX/120760753-1.png"
             alt=""
           />
-          <h1 className="rankText">CEO</h1>
+          <h1 className="rankText">ceo</h1>
         </div>
       </div>
     </div>

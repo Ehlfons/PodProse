@@ -22,11 +22,6 @@ function DeleteModal({ mostrar, manejarCerrado, idPodcast }) {
           <div className="modal">
             <div className="modal-header">
               <h2>Eliminar</h2>
-              <span className="cerrar-modal" onClick={manejarCerrado}>
-                {" "}
-                {/* Al hacer clic en la X, se cierra el modal. */}
-                &times;
-              </span>
             </div>
             <div className="modal-body">
               <p>¿Seguro qué quieres eliminar el podcast?</p>

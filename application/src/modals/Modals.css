@@ -12,13 +12,13 @@
 }
 
 .modal {
-  background: whitesmoke;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: var(--primary-dark-bg-color-90);
   width: 300px;
   padding: 25px 40px;
-  color: #111111;
-  border: 2px solid rgb(43, 142, 223);
-  border-radius: 5px;
+  color: var(--primary-dark-bg-color);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 var(--primary-green);
+  border: 2px solid var(--main-text-color);
 }
 
 .modal-header {
@@ -28,11 +28,15 @@
   height: 40px;
 }
 
+.modal-header h2 {
+  font-size: 26px;
+}
+
 .modal-body {
   display: flex;
   flex-direction: column;
-  margin-bottom: 25px;
-  font-size: 0.8em;
+  margin: 5px 0 30px;
+  font-size: 0.95em;
 }
 
 .modal-footer {
@@ -42,8 +46,8 @@
 
 .cerrar-modal {
   cursor: pointer;
-  font-size: 25px;
-  color: #aaa;
+  font-size: 30px;
+  color: var(--main-text-color);
 }
 
 .modal-footer button {
@@ -56,21 +60,21 @@
 }
 
 .modal-footer button.btn-cancelar {
-  background-color: #cccccc;
-  color: #111111;
+  background-color: var(--main-text-color);
+  color: var(--primary-dark-bg-color);
 }
 
 .modal-footer button.btn-cancelar:hover {
-  background-color: #bbbbbb;
+  background-color: var(--primary-grey);
 }
 
 .modal-footer button.btn-confirmar {
-  background-color: rgb(43, 142, 223);
-  color: #ffffff;
+  background-color: var(--primary-blue);
+  color: var(--main-text-color);
 }
 
 .modal-footer button.btn-confirmar:hover {
-  background-color: rgb(25, 116, 190);
+  background-color: var(--secondary-blue);
 }
 
 #input-nombre-lista {

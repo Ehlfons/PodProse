@@ -14,6 +14,7 @@ const Footer = () => {
   if (isLoginPage || isRegisterPage) {
     return null;
   }
+
   return (
     <Fragment>
       <hr className="footer-greenline" />
@@ -50,7 +51,7 @@ const Footer = () => {
               Suscríbete gratuitamente a nuestro Newsletter para tener toda la
               información de tus creadores favoritos.
             </p>
-            <a className="footer-link" href="#container-spam">
+            <a className="footer-link" href="/#container-spam">
               ¡ SUSCRIBETE !
             </a>
           </div>
@@ -77,7 +78,7 @@ const Footer = () => {
         <hr className="footer-separator-greenline" />
         <small>
           <p className="footer-copyright">
-            Creado por SSS <em className="middot">&middot;</em> Copyright 2024{" "}
+            Creado por SSS <em className="middot">&middot;</em> Copyright 2024
             <em className="middot">&middot;</em> Todos los derechos reservados
           </p>
           <div className="footer-terms">
