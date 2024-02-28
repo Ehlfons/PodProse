@@ -10,7 +10,7 @@ import "./Podcast.css";
 const Podcast = (props) => {
   const { podcast_id, title, description, cover_image, upload_date } =
     props.datos; // Datos del podcast.
-  const { idPodcastActual } = usePodcasts(); // Importado desde el contexto a través del hook usePodcasts.
+  const { idPodcastActual, getPodcast } = usePodcasts(); // Importado desde el contexto a través del hook usePodcasts.
 
   // Valor inicial del modal de confirmación.
   const valorInicialModal = false;
@@ -19,6 +19,13 @@ const Podcast = (props) => {
   const [mostrarModal, setMostrarModal] = useState(valorInicialModal);
   const [mostrarModalPodcasts, setMostrarModalPodcasts] =
     useState(valorInicialModal);
+
+  // Función para abrir el modal de edición.
+  const abrirModalEditar = (e) => {
+    e.stopPropagation(); // Evita que se active el sonido del podcast al hacer clic en el icono.
+    getPodcast(podcast_id); // Obtener los datos del podcast al que se le hizo clic en el ícono de edición
+    setMostrarModalPodcasts(true); // Mostrar el modal de edición
+  };
 
   // Función para abrir el modal de confirmación.
   const abrirModal = (e) => {
@@ -53,7 +60,14 @@ const Podcast = (props) => {
 
   return (
     <Fragment>
-      <article className="podcast" id={podcast_id} onClick={props.onClick}>
+      <article
+        className="podcast"
+        id={podcast_id}
+        onClick={(e) => {
+          props.onClick();
+          getPodcast(e.currentTarget.id);
+        }}
+      >
         <img
           src={
             cover_image
@@ -69,9 +83,9 @@ const Podcast = (props) => {
               <div
                 alt="trash"
                 className="trash"
-                onClick={abrirModalPodcasts} // Al hacer clic en la papelera, se abre el modal.
+                onClick={abrirModalEditar} // Al hacer clic en la papelera, se abre el modal.
               >
-                <EditIcon />
+                <EditIcon/>
               </div>
               <div
                 alt="trash"
