@@ -18,7 +18,7 @@ const SpamComponent = () => {
               </div>
               <div className="container-x-logo-spam">
                 <hr className="spam-logo-greenLine" />
-                <a href="https://www.x.com/podprose.official"><XLogo /></a>
+                <a href="https://www.x.com/podprose"><XLogo /></a>
               </div>
               <div className="container-github-logo-spam">
                 <hr className="spam-logo-greenLine" />

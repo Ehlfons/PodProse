@@ -65,7 +65,7 @@ const Footer = () => {
               <a href="https://www.instagram.com/podprose.official">
                 <InstagramLogo />
               </a>
-              <a href="https://www.x.com/podprose.official">
+              <a href="https://www.x.com/podprose">
                 <XLogo />
               </a>
               <a href="https://github.com/LitoHDD/PodProse">

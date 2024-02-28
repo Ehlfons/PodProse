@@ -129,11 +129,9 @@ const ProveedorUsuarios = ({ children }) => {
     const suscripcion = supabaseConexion.auth.onAuthStateChange(
       (e, session) => {
        if (session) {
-          navigate("/"); // Redirige a la página principal.
           setSesionIniciada(true); // Cambia el estado de la sesión a iniciada.
           obtenerUsuario(); // Obtiene los datos del usuario.
         } else {
-          navigate("/"); // Redirige a la página principal.
           setSesionIniciada(false); // Cambia el estado de la sesión a no iniciada.
         }
       }
