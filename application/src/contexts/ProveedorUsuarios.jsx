@@ -79,6 +79,7 @@ const ProveedorUsuarios = ({ children }) => {
       await supabaseConexion.auth.signOut();
       // Se redirige la aplicación a la parte pública (<usuario anon>).
       setSesionIniciada(false);
+      navigate("/");
     } catch (error) {
       setErrorUsuario("Error al cerrar sesión:" + error.message);
     }

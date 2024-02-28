@@ -1,0 +1,45 @@
+.podcast {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 800px;
+  margin: 70px auto 50px;
+  gap: 40px;
+}
+
+.podcast img {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.podcast-info {
+  margin-top: 20px;
+}
+
+.podcast-info h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.podcast-info p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.podcast-info p:nth-child(3) {
+  color: var(--main-text-color-60);
+}
+
+.trash {
+  cursor: pointer;
+  position: relative;
+  top: 0;
+  width: 30px;
+  height: 30x;
+}
+
+.trash svg {
+  width: 30px;
+  height: 30px;
+}

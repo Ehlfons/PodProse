@@ -16,5 +16,9 @@
   align-items: end;
   width: 100%;
   background-color: var(--primary-dark-bg-color);
-  height: 70vh;
+}
+
+.null {
+  margin-left: 20px;
+  color: var(--primary-red);
 }

@@ -9,7 +9,7 @@ import GoogleLogo from "../components/svg/GoogleLogo.jsx";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
-  const { actualizarDato, errorUsuario, registro } = useUsuarios();
+  const { actualizarDato, errorUsuario, registro, actualizarErrorUsuario } = useUsuarios();
 
   // Lógica para el evento onClick del botón de registro.
   const manejarRegistro = (e) => {
@@ -25,7 +25,7 @@ const RegisterPage = () => {
           <ArrowLogin />
           <p>Volver</p>
         </Link>
-        <Link to="/login" className="register-header-login">
+        <Link to="/login" className="register-header-login" onClick={() => actualizarErrorUsuario("")}>
           Login
         </Link>
       </header>
@@ -104,6 +104,7 @@ const RegisterPage = () => {
             className="register-main-footer-passwd"
             onClick={() => {
               navigate("/login");
+              actualizarErrorUsuario("");
             }}
           >
             ¿Ya estás registrado?

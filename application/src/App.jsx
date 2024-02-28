@@ -4,6 +4,7 @@ import Main from "./components/Main/Main.jsx";
 import Header from "./components/Header/Header.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import ProveedorUsuarios from "./contexts/ProveedorUsuarios.jsx";
+import ProveedorPodcasts from "./contexts/ProveedorPodcasts.jsx";
 import "./App.css";
 
 function App() {
@@ -11,9 +12,11 @@ function App() {
     <Fragment>
       <BrowserRouter>
         <ProveedorUsuarios>
-          <Header />
-          <Main />
-          <Footer />
+          <ProveedorPodcasts>
+            <Header />
+            <Main />
+            <Footer />
+          </ProveedorPodcasts>
         </ProveedorUsuarios>
       </BrowserRouter>
     </Fragment>

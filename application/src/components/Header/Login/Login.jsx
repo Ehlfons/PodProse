@@ -1,31 +1,52 @@
 import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useUsuarios from "../../../hooks/useUsuarios.jsx";
+import DefaultUserProfile from "../../svg/DefaultUserProfile.jsx";
+import LogoutIcon from "../../svg/LogoutIcon.jsx";
 import Alert from "react-bootstrap/Alert";
 import "./Login.css";
 
 const Login = () => {
   // Importar el estado y las funciones del contexto de usuarios.
-  const { sesionIniciada, cerrarSesion, confirmacionInicioSesion } = useUsuarios();
+  const {
+    sesionIniciada,
+    cerrarSesion,
+    confirmacionInicioSesion,
+    actualizarErrorUsuario,
+  } = useUsuarios();
 
   const navigate = useNavigate();
   return (
     <Fragment>
       {confirmacionInicioSesion && (
         <Alert variant="success" className="check">
+          {" "}
+          {/* Estilo básico manual ya que no funciona el success de react-bootstrap */}
           Se ha iniciado sesión correctamente
         </Alert>
       )}
-      {/* {confirmacionInicioSesion && <div className="check">&#10003; Se ha iniciado sesión correctamente &#10003;</div>} */}
 
       <div className="login-button">
-        <a
-          onClick={() => {
-            sesionIniciada ? cerrarSesion() : navigate("/login"); // Si la sesión está iniciada, se cierra. Si no, se redirige a la página de inicio de sesión.
-          }}
-        >
-          {sesionIniciada ? "Cerrar Sesión" : "Login"} {/* Si la sesión está iniciada, se muestra "Cerrar Sesión". Si no, se muestra "Login".*/}
-        </a>
+        <div>
+          <a
+            onClick={() => {
+              if (sesionIniciada) {
+                cerrarSesion();
+              } else {
+                navigate("/login");
+                actualizarErrorUsuario("");
+              }
+            }}
+          >
+            {sesionIniciada ? <LogoutIcon /> : "Login"}{" "}
+            {/* Si la sesión está iniciada, se muestra el icono de cerrar sesión. Si no, se muestra "Login".*/}
+          </a>
+          {sesionIniciada && (
+            <Link to="/creator" className="userProfile">
+              <DefaultUserProfile />
+            </Link>
+          )}
+        </div>
       </div>
     </Fragment>
   );

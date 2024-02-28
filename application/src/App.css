@@ -13,6 +13,7 @@
   /* Custom colors */
   --primary-green: #B0E444;
   --primary-blue: #3ab0ff;
+  --primary-red: #ff3a3a;
 
   /* Measures */
   --default-space: 35px 55px;
@@ -42,6 +43,13 @@ body {
   color: var(--primary-blue);
   font-size: 12px;
   margin-top: 10px;
+}
+
+.error-message {
+  padding: 10vh 0;
+  text-align: center;
+  color: var(--primary-red);
+  font-size: 22px;
 }
 
 .selected {
