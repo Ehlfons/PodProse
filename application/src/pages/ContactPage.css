@@ -1,0 +1,99 @@
+#contactPageContainer {
+  height: 700px;
+  display: grid;
+  grid-template-columns: repeat(2, 40%);
+  align-items: center;
+  justify-content: center;
+}
+
+#contactPageForm {
+  margin: 0 auto;
+}
+
+#contactPageContainerCeo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#sendFormButton {
+  width: 100%;
+  border-radius: 28px;
+  background-color: var(--main-text-color-25);
+  border: none;
+  color: var(--main-text-color);
+  font-family: "Poppins", "DM Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+#sendFormButton:hover {
+  background-color: var(--main-text-color);
+  color: var(--primary-dark-bg-color);
+}
+
+.contactText {
+  text-align: center;
+}
+
+.contactText.secondary {
+  margin-bottom: 50px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.ceoImageContact {
+  width: 288px;
+  height: 288px;
+  border-radius: 50%;
+}
+
+.firstCeo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.secondCeo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.formTextSpaces {
+  color: var(--main-text-color);
+  background-color: transparent;
+
+  width: 100%;
+  height: 50px;
+  padding: 0 30px;
+
+  box-sizing: border-box;
+  border: 2px solid var(--primary-green);
+  border-radius: 10px;
+
+  text-align: center;
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button[type="submit"] {
+  width: auto;
+  padding: 10px 20px;
+  margin-top: 10px;
+}
