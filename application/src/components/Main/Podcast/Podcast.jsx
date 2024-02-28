@@ -12,7 +12,6 @@ const Podcast = (props) => {
     title,
     description,
     cover_image,
-    audio_url,
     upload_date,
   } = props.datos; // Datos del podcast.
   const { idPodcastActual } = usePodcasts(); // Importado desde el contexto a través del hook usePodcasts.
@@ -56,13 +55,13 @@ const Podcast = (props) => {
 
   return (
     <Fragment>
-      <article className="podcast" id={podcast_id}>
-        <img src={cover_image} alt={title} />
+      <article className="podcast" id={podcast_id} onClick={props.onClick}>
+        <img src={cover_image ? cover_image : "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg"} alt={title} />
         <div className="podcast-info">
           <h2>
             <strong>{title}</strong>
           </h2>
-          <p>{description}</p>
+          <p>{description ? description : "Sin descripción."}</p>
           <p>{formatearFechaEuropea(upload_date)}</p>
         </div>
         <div

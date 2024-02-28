@@ -12,6 +12,7 @@ const ProveedorPodcasts = ({ children }) => {
   const valoresInicialesPodcast = {
     lista_nombre: null,
   };
+  const audioInicial = null;
 
   // Estados.
   const [listadoPodcasts, setListadoPodcasts] = useState(arrayInicial);
@@ -21,10 +22,10 @@ const ProveedorPodcasts = ({ children }) => {
   const [productosPodcast, setProductosPodcast] = useState(arrayInicial); // Estado para guardar los productos de la podcast.
   const [erroresPodcast, setErroresPodcast] = useState(arrayInicial); // Estado para guardar los errores de la creación de la podcast.
   const [cantidad, setCantidad] = useState(cadenaInicial);
+  const [audioUrl, setAudioUrl] = useState(audioInicial);
 
   // Usuario para obtener el ID del usuario autenticado.
   const { usuario } = useUsuarios();
-  console.log(usuario)
 
   // Función para obtener el listado de Podcasts.
   const obtenerListadoPodcasts = async () => {
@@ -35,8 +36,7 @@ const ProveedorPodcasts = ({ children }) => {
           .from("podcasts")
           .select("*")
           .eq("user_id", usuario.id); // Se obtienen las listas del usuario autenticado.
-          
-  
+
         if (error) {
           throw error;
         } else {
@@ -45,7 +45,8 @@ const ProveedorPodcasts = ({ children }) => {
       } catch (error) {
         setSituacion(`Error al obtener el listado: ${error.message}`);
       }
-    } else { // Si el usuario no está autenticado, se muestra un mensaje.
+    } else {
+      // Si el usuario no está autenticado, se muestra un mensaje.
       setSituacion("El usuario no está autenticado.");
     }
   };
@@ -60,6 +61,15 @@ const ProveedorPodcasts = ({ children }) => {
 
       if (error) {
         throw error;
+      }
+
+      // Si el podcast que se está reproduciendo se elimina, detenemos la reproducción.
+      if (
+        audioUrl ===
+        listadoPodcasts.find((podcast) => podcast.podcast_id === podcast_id)
+          ?.audio_url
+      ) {
+        setAudioUrl(null);
       }
 
       // Se crea un nuevo array sin el podcast eliminado.
@@ -131,18 +141,21 @@ const ProveedorPodcasts = ({ children }) => {
   // Función para actualizar los errores de la podcast.
   const actualizarErroresPodcast = (nuevoValor) => {
     setErroresPodcast(nuevoValor);
-  }
+  };
 
   // Función para actualizar la cantidad de productos de la podcast.
   const actualizarCantidad = (nuevoValor) => {
     setCantidad(nuevoValor);
   };
 
+  const actualizarAudioUrl = (nuevoValor) => {
+    setAudioUrl(nuevoValor);
+  }
+
   // Efecto para obtener el listado de Podcasts.
   useEffect(() => {
     if (usuario.id) {
       obtenerListadoPodcasts();
-      console.log("Obteniendo listado de Podcasts..." + obtenerListadoPodcasts);
     }
   }, [usuario]); // Se ejecuta cada vez que cambie el usuario, para obtener las listas del usuario con la sesión iniciada.
 
@@ -162,10 +175,12 @@ const ProveedorPodcasts = ({ children }) => {
     actualizarIdPodcastActual,
     idPodcastActual,
     erroresPodcast,
-    actualizarErroresPodcast,    
+    actualizarErroresPodcast,
     validarFormulario,
     cantidad,
     actualizarCantidad,
+    audioUrl,
+    actualizarAudioUrl,
     /* insertProductoPodcastCantidad, */
   };
 
