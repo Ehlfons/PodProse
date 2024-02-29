@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PodProseLogo from "../svg/PodProseLogo.jsx";
 import InstagramLogo from "../svg/InstagramLogo.jsx";
 import XLogo from "../svg/XLogo.jsx";
@@ -14,6 +14,8 @@ const Footer = () => {
   if (isLoginPage || isRegisterPage) {
     return null;
   }
+
+  const navigate = useNavigate();
 
   return (
     <Fragment>
@@ -40,7 +42,7 @@ const Footer = () => {
               Contacta con nosotros y solucionaremos tus problemas y cuestiones
               lo antes posible!
             </p>
-            <a className="footer-link" href="">
+            <a className="footer-link" onClick={() => navigate('/contact')}>
               ¡ CONTÁCTANOS !
             </a>
           </div>

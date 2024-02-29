@@ -19,7 +19,6 @@ const Login = () => {
   const { actualizarAudioUrl } = usePodcasts();
 
   const navigate = useNavigate();
-  const handleLinkClick = () => {};
   return (
     <Fragment>
       {confirmacionInicioSesion && (

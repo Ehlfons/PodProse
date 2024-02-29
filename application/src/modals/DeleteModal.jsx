@@ -1,10 +1,8 @@
 import usePodcasts from "../hooks/usePodcasts";
-import useUsuarios from "../hooks/useUsuarios";
 import "./Modals.css";
 
 function DeleteModal({ mostrar, manejarCerrado, idPodcast }) {
   const { deletePodcast } = usePodcasts(); // Importado desde el contexto a través del hook usePodcasts.
-  const { usuario } = useUsuarios(); // Importado desde el contexto a través del hook useUsuarios.
 
   // Función para manejar el borrado del podcast.
   const manejarBorrado = () => {

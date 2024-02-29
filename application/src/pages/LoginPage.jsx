@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import useUsuarios from "../hooks/useUsuarios.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowLogin from "../components/svg/ArrowLogin.jsx";
@@ -14,16 +14,23 @@ const LoginPage = () => {
     actualizarDato,
     errorUsuario,
     actualizarErrorUsuario,
+    confirmacionInicioSesion,
   } = useUsuarios();
 
   const navigate = useNavigate();
-  
-  const manejarInicioSesion = (e) => {
+
+  const manejarInicioSesion = async (e) => {
     e.preventDefault();
     iniciarSesion();
     actualizarErrorUsuario("");
-    navigate("/");
   };
+
+  // Redirigir al usuario a la página principal si se ha iniciado sesión correctamente.
+  useEffect(() => {
+    if (confirmacionInicioSesion) {
+      navigate("/");
+    }
+  }, [confirmacionInicioSesion, navigate]);
 
   return (
     <Fragment>
@@ -57,6 +64,7 @@ const LoginPage = () => {
                   id="email"
                   name="email"
                   onChange={(e) => {
+                    actualizarErrorUsuario("");
                     actualizarDato(e);
                   }}
                 />
@@ -71,6 +79,7 @@ const LoginPage = () => {
                   id="password"
                   name="password"
                   onChange={(e) => {
+                    actualizarErrorUsuario("");
                     actualizarDato(e);
                   }}
                 />
