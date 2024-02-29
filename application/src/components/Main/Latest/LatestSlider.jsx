@@ -43,6 +43,7 @@ const LatestSlider = () => {
     }));
   };
 
+  // Obtiene 3 podcasts aleatorios (5 en un futuro cuando hagamos el slider personalizado)
   const randomPodcasts = getRandomPodcasts(json, 3);
 
   return (
@@ -61,7 +62,7 @@ const LatestSlider = () => {
                   src={podcast.image}
                   alt={`Image ${index + 1}`}
                   onClick={() => {
-                    window.location.href = podcast.link; // Redirige a la página del podcast. cambiar por un navigate cuando esté bien hecho y la pagina de podcast funcione.
+                    window.location.href = podcast.link; // Redirige a la página del podcast (mediante su id). cambiar por un navigate cuando esté bien hecho y la pagina de podcast funcione.
                   }}
                 />
               </div>

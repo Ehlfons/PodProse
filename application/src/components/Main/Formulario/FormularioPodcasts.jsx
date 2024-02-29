@@ -126,8 +126,16 @@ const FormularioPodcasts = ({cierre}) => {
                 value={podcast.audio_url || ""}
                 onChange={(e) => {
                   cambiarDatosPodcast(e);
+                  // Limpiar el error al cambiar el contenido del campo.
+                  actualizarErroresFormulario((prevErrores) => ({
+                    ...prevErrores,
+                    audio_url: undefined,
+                  }));
                 }}
               />
+              {erroresFormulario.audio_url ? (
+                <small>{erroresFormulario.audio_url}</small>
+              ) : null}
             </p>
             <p>
               <button

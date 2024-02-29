@@ -8,8 +8,7 @@ import "./Podcast.css";
 
 // Estructura de cada Podcast.
 const Podcast = (props) => {
-  const { podcast_id, title, description, cover_image, upload_date } =
-    props.datos; // Datos del podcast.
+  const { podcast_id, title, description, cover_image, upload_date } = props.datos; // Datos del podcast.
   const { getPodcast, actualizarErroresFormulario } = usePodcasts(); // Importado desde el contexto a través del hook usePodcasts.
 
   // Valor inicial del modal de confirmación.
@@ -51,11 +50,11 @@ const Podcast = (props) => {
     setMostrarModalPodcasts(false);
   };
 
-  // Función para formatear la fecha en formato europeo.
+  // Función para formatear la fecha en formato europeo. (mover a una biblioteca cuando tengamos más funciones de uso general como esta)
   const formatearFechaEuropea = (fecha) => {
     const fechaFormateada = new Date(fecha);
     const dia = String(fechaFormateada.getDate()).padStart(2, "0");
-    const mes = String(fechaFormateada.getMonth() + 1).padStart(2, "0"); // +1 porque los meses empiezan en 0.
+    const mes = String(fechaFormateada.getMonth() + 1).padStart(2, "0");
     const anio = fechaFormateada.getFullYear();
     return `${dia}-${mes}-${anio}`;
   };

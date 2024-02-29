@@ -3,8 +3,8 @@ import Hexagon from "./Hexagon.jsx";
 import "./HexagonLayout.css";
 
 const HexagonLayout = ({ userData = [] }) => {
-  // Lo defino como un array vacio pa que no de error si no se le pasa nada.
-  // Función para generar un src aleatorio. (se cambiará cuando sepamos como vamos a hacerlo)
+  // Lo defino como un array vacio para que no de error si no se le pasa nada.
+  // Función para generar un src aleatorio. (se cambiará cuando tengamos los suficientes usuarios con imágenes de perfil)
   const getRandomSrc = () => {
     // Supongamos que userData es un array de objetos de usuario, donde cada objeto tiene una propiedad 'profileImage' que contiene la URL de la imagen de perfil.
     const randomIndex = Math.floor(Math.random() * userData.length);
@@ -25,6 +25,7 @@ const HexagonLayout = ({ userData = [] }) => {
               </Fragment>
             ))
           ) : (
+            /* Código provisional hasta que tengamos los usuarios con imagen */
             <Fragment>
               <div className="hexagon">
                 <img src="src/assets/Test/trend14.jpg" alt="" />
