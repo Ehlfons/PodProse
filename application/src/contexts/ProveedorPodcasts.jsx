@@ -20,30 +20,27 @@ const ProveedorPodcasts = ({ children }) => {
 
   // Estados.
   const [listadoPodcasts, setListadoPodcasts] = useState(arrayInicial);
-  const [podcast, setPodcast] = useState(valoresInicialesPodcast); // Estado para guardar los datos de la podcast.
-  const [idPodcastActual, setIdPodcastActual] = useState(cadenaInicial); // Estado para guardar el ID de la podcast actual.
+  const [podcast, setPodcast] = useState(valoresInicialesPodcast); // Estado para guardar los datos del podcast.
+  const [idPodcastActual, setIdPodcastActual] = useState(cadenaInicial); // Estado para guardar el ID del podcast actual.
   const [situacion, setSituacion] = useState(cadenaInicial);
-  const [erroresPodcast, setErroresPodcast] = useState(arrayInicial); // Estado para guardar los errores de la creación de la podcast.
+  const [erroresPodcast, setErroresPodcast] = useState(arrayInicial); // Estado para guardar los errores del creación del podcast.
   const [cantidad, setCantidad] = useState(cadenaInicial);
   const [audioUrl, setAudioUrl] = useState(audioInicial);
-  const [erroresFormulario, setErroresFormulario] = useState(
-    valorInicialFormulario
-  );
-  const [podcastSeleccionadoId, setPodcastSeleccionadoId] =
-    useState(audioInicial);
+  const [erroresFormulario, setErroresFormulario] = useState(valorInicialFormulario);
+  const [podcastSeleccionadoId, setPodcastSeleccionadoId] = useState(audioInicial); // Estado para guardar el ID del podcast seleccionado.
 
   // Usuario para obtener el ID del usuario autenticado.
   const { usuario } = useUsuarios();
 
   // Función para obtener el listado de Podcasts.
   const obtenerListadoPodcasts = async () => {
-    // Si el usuario está autenticado, se obtienen las listas.
+    // Si el usuario está autenticado, se obtiene el listado de podcasts.
     if (usuario) {
       try {
         const { data, error } = await supabaseConexion
           .from("podcasts")
           .select("*")
-          .eq("user_id", usuario.id); // Se obtienen las listas del usuario autenticado.
+          .eq("user_id", usuario.id); // Se obtienen los podcasts del usuario autenticado.
 
         if (error) {
           throw error;
@@ -51,7 +48,7 @@ const ProveedorPodcasts = ({ children }) => {
           setListadoPodcasts(data);
         }
       } catch (error) {
-        setSituacion(`Error al obtener el listado: ${error.message}`);
+        setSituacion(`Error al obtener el listado de podcasts: ${error.message}`);
       }
     } else {
       // Si el usuario no está autenticado, se muestra un mensaje.
@@ -59,7 +56,7 @@ const ProveedorPodcasts = ({ children }) => {
     }
   };
 
-  //Función para obtener los datos de un registro.
+  // Función para obtener los datos de un registro.
   const getPodcast = async (podcast_id) => {
     try {
       setPodcastSeleccionadoId(podcast_id);
@@ -72,7 +69,7 @@ const ProveedorPodcasts = ({ children }) => {
         throw error;
       }
 
-      setPodcast(data[0]); // Se actualiza el estado "podcast" con los datos del registro, para que el formulario se rellene con los datos del producto. El data[0] es porque el resultado de la consulta es un array con un único elemento.
+      setPodcast(data[0]); // Se actualiza el estado "podcast" con los datos del registro, para que el formulario se rellene con los datos del podcast. El data[0] es porque el resultado del consulta es un array con un único elemento.
     } catch (error) {
       setSituacion(`Error al obtener los datos del podcast: ${error.message}`);
     }
@@ -117,6 +114,7 @@ const ProveedorPodcasts = ({ children }) => {
     setPodcast({ ...podcast, [name]: value });
   };
 
+  // Función para actualizar un podcast.
   const updatePodcast = async () => {
     try {
       const { error } = await supabaseConexion
@@ -161,9 +159,11 @@ const ProveedorPodcasts = ({ children }) => {
         "La descripción no puede superar los 240 caracteres.";
     }
 
-    // Validar la URL de la imagen del podcast si está presente.
+    /* Estas validaciones son para URL VÁLIDAS, las que tenemos por el momento son de supabase y no permiten guardar los cambios, en un futuro activarlas ya que serán archivo en vez de urls */
+
+    // Validar la URL del imagen del podcast si está presente.
     /* if (podcast.cover_image && podcast.cover_image.trim() !== "") {
-      // Verificar si la URL de la imagen es válida
+      // Verificar si la URL del imagen es válida
       const urlExpresion = /^(https?:\/\/)?[\w\-_.]+$/i;
       const esURLValida = urlExpresion.test(podcast.cover_image);
       if (!esURLValida) {
@@ -190,20 +190,12 @@ const ProveedorPodcasts = ({ children }) => {
     return { esValido, errores };
   };
 
-  // Función para actualizar el nombre de la podcast.
-  const createPodcast = (nuevoValor) => {
-    setPodcast({
-      ...podcast,
-      lista_nombre: nuevoValor, // Se actualiza el nombre de la podcast.
-    });
-  };
-
-  // Función para actualizar el ID de la podcast actual.
+  // Función para actualizar el ID del podcast actual.
   const actualizarIdPodcastActual = (nuevoValor) => {
     setIdPodcastActual(nuevoValor);
   };
 
-  // Función para actualizar los errores de la podcast.
+  // Función para actualizar los errores del podcast.
   const actualizarErroresPodcast = (nuevoValor) => {
     setErroresPodcast(nuevoValor);
   };
@@ -212,7 +204,7 @@ const ProveedorPodcasts = ({ children }) => {
     setErroresFormulario(nuevoValor);
   };
 
-  // Función para actualizar la cantidad de podcasts de la podcast.
+  // Función para actualizar la cantidad de podcasts del podcast.
   const actualizarCantidad = (nuevoValor) => {
     setCantidad(nuevoValor);
   };
@@ -226,7 +218,7 @@ const ProveedorPodcasts = ({ children }) => {
     if (usuario.id) {
       obtenerListadoPodcasts();
     }
-  }, [usuario]); // Se ejecuta cada vez que cambie el usuario, para obtener las listas del usuario con la sesión iniciada.
+  }, [usuario]); // Se ejecuta cada vez que cambie el usuario, para obtener los podcasts del usuario con la sesión iniciada.
 
   // Datos a exportar al contexto.
   const datosAExportar = {
@@ -234,12 +226,7 @@ const ProveedorPodcasts = ({ children }) => {
     podcast,
     situacion,
     obtenerListadoPodcasts,
-    /* getPodcastsPodcast, */
     deletePodcast,
-    /* deletePodcastPodcast, */
-    /* insertPodcast, */
-    /* insertPodcastPodcast, */
-    createPodcast,
     actualizarIdPodcastActual,
     idPodcastActual,
     erroresPodcast,
@@ -254,7 +241,6 @@ const ProveedorPodcasts = ({ children }) => {
     erroresFormulario,
     actualizarErroresFormulario,
     getPodcast,
-    /* insertPodcastPodcastCantidad, */
   };
 
   return (

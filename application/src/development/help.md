@@ -41,7 +41,7 @@
 
 - mv ~/Descargas/* ~/Escritorio/PodProse/application/src/assets/
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/>
 
 > ### **Simbología para commits (sad).**
 

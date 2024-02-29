@@ -90,6 +90,7 @@ footer .footer-cols {
   font-size: 15.84px;
   color: var(--primary-green);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .footer-link:hover {

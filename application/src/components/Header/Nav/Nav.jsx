@@ -12,7 +12,7 @@ const Nav = () => {
               <Link to="/">Inicio</Link>
             </li>
             <li>
-              <Link to="/">Explorar</Link>
+              <Link to="/">Explorar</Link> {/* esto será un desplegable en el que aparecerá un search para creadores y podcasts, y las categorías (con posibilidad de filtro directo). */}
             </li>
             <li>
               <Link to="/contact">Contacto</Link>
