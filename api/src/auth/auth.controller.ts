@@ -1,0 +1,69 @@
+// auth/auth.controller.ts
+
+import { Controller, Post, Body, UnauthorizedException, Get, Request, UseGuards  , InternalServerErrorException, ExecutionContext, ValidationPipe} from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
+import { AuthGuard } from './guard/auth.guard';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { JwtService } from '@nestjs/jwt';
+import { Request as ExpressRequest } from 'express'; // Importa Request de Express
+import { UsersService } from 'src/users/users.service';
+import { AuthAdminGuard } from './guard/authAdmin.guard';
+
+
+@Controller('auth')
+export class AuthController {
+  constructor(
+    private readonly authService: AuthService ,
+    private readonly prisma: PrismaService ,
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService, 
+  ) {}
+
+  @Post('register')
+  async register(@Body(ValidationPipe) registerDto: RegisterDto) {
+    await this.authService.register(registerDto);
+    return { message: 'Usuario registrado correctamente' };
+  }
+
+  @Post('login')
+  async login(@Body() loginDto: LoginDto) {
+    const loginResult = await this.authService.login(loginDto);
+    if (!loginResult || !loginResult.access_token) {
+      throw new UnauthorizedException('Contraseña o email incorrecto');
+    }
+    const { access_token, user } = loginResult;
+    return { access_token, user };
+  }
+
+  @Get('onlyAdmin')
+  @UseGuards(AuthAdminGuard)
+  async onlyAdmin() {
+    return true;
+  }
+  
+  
+
+  // @Get('user')
+  // @UseGuards(AuthGuard)
+  // async getUserProfile(@Request() req: ExpressRequest) {
+  //   try {
+  //     const token = req.headers.authorization.split(' ')[1]; // Obtiene el token del encabezado de autorización
+  //     const decodedToken = this.jwtService.verify(token); // Decodifica el token JWT
+  //     const userId = decodedToken.sub; // Obtiene el ID de usuario del token
+
+  //     const user = await this.usersService.findOne(userId); // Busca el usuario en la base de datos utilizando el ID
+      
+  //     if (!user) {
+  //       throw new Error('User not found');
+  //     }
+
+  //     return user;
+  //   } catch (error) {
+  //     console.error('Error in getUserProfile:', error);
+  //     throw new InternalServerErrorException('Internal server error occurred');
+  //   }
+  // }
+}
+

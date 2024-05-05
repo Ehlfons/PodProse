@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String       @id @unique @default(uuid())
+  name       String
+  username   String       @unique
+  email      String       @unique
+  password   String
+  role       String       @default("user")
+  url_img    String?
+  createdAt  DateTime     @default(now())
+  status     UserStatus?
+  podcasts   Podcast[]
+  Comments   Comments[]
+  valoration Valoration[]
+  suscription Suscription[]
+
+  verificateAt DateTime?
+}
+
+model Podcast {
+  id          String       @id @unique @default(uuid())
+  title       String
+  description String
+  url_img     String
+  url_audio   String
+  createdAt   DateTime     @default(now())
+  ad_status   Boolean      @default(true)
+  ad          Ads?         @relation(fields: [adId], references: [id])
+  adId        String?
+  user        User         @relation(fields: [userId], references: [id])
+  userId      String
+  comments    Comments[]
+  valorations Valoration[]
+  categories  Category[]
+}
+
+model Comments {
+  id        String   @id @unique @default(uuid())
+  comment   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  podcast   Podcast  @relation(fields: [podcastId], references: [id])
+  podcastId String
+}
+
+model Valoration {
+  id        String   @id @unique @default(uuid())
+  rating    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  podcast   Podcast  @relation(fields: [podcastId], references: [id])
+  podcastId String
+}
+
+model Category {
+  id       String    @id @unique @default(uuid())
+  name     String
+  podcasts Podcast[]
+}
+
+model Ads {
+  id        String   @id @unique @default(uuid())
+  title     String
+  audio_url String
+  createdAt DateTime @default(now())
+  podcasts  Podcast[]
+}
+
+model Suscription {
+  id        String   @id @unique @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  startDate DateTime @default(now())
+  endDate   DateTime
+  status    Boolean  @default(true)
+}
+
+model VerificationUser {
+  userId            String @id @unique
+  verificationToken String
+}
+
+model ResetPassword {
+  userId     String   @id @unique
+  resetToken String
+  createdAt  DateTime @default(now())
+}
+
+model FailedLoginAttempt {
+  id        Int      @id @default(autoincrement())
+  username  String
+  createdAt DateTime @default(now())
+}
+
+model UserStatus {
+  id     String @id @default(uuid())
+  userId String @unique
+  status Int
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
