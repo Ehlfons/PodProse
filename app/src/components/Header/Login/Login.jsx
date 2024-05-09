@@ -1,9 +1,9 @@
 import { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useUsuarios from "../../../hooks/useUsuarios.jsx";
-import usePodcasts from "../../../hooks/usePodcasts.jsx";
-import DefaultUserProfile from "../../svg/DefaultUserProfile.jsx";
-import LogoutIcon from "../../svg/LogoutIcon.jsx";
+import useUsuarios from "@components/hooks/useUsuarios.jsx";
+import usePodcasts from "@components/hooks/usePodcasts.jsx";
+import DefaultUserProfile from "@components/svg/DefaultUserProfile.jsx";
+import LogoutIcon from "@components/svg/LogoutIcon.jsx";
 import Alert from "react-bootstrap/Alert";
 import "./Login.css";
 

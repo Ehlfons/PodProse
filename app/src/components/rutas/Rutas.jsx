@@ -1,10 +1,6 @@
 import { Fragment } from "react";
 import { Routes, Route } from "react-router-dom";
-import MainPage from "../pages/MainPage.jsx";
-import LoginPage from "../pages/LoginPage.jsx";
-import RegisterPage from "../pages/RegisterPage.jsx";
-import CreatorPage from "../pages/CreatorPage.jsx";
-import ContactPage from "../pages/ContactPage.jsx";
+import { MainPage, LoginPage, RegisterPage, CreatorPage, ContactPage } from "@pages/index";
 
 const Rutas = () => {
   return (

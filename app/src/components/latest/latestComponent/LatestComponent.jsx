@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import LatestSlider from "./LatestSlider.jsx";
-import LatestSliderMarker from "./LatestSliderMarker.jsx";
+import LatestSlider from "../latestSlider/LatestSlider.jsx";
+import LatestSliderMarker from "../latestSliderMarker/LatestSliderMarker.jsx";
 import "./LatestComponent.css";
 
 const LatestComponent = () => {

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import FormularioPodcasts from "../components/Main/Formulario/FormularioPodcasts.jsx";
+import FormularioPodcasts from "@components/formulario/FormularioPodcasts.jsx";
 
 const PodcastsModal = ({ mostrarPodcasts, manejarCerradoPodcasts }) => {
   return (

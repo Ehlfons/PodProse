@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { supabaseConexion } from "../config/supabase.js";
-import useUsuarios from "../hooks/useUsuarios.jsx";
+import useUsuarios from "@components/hooks/useUsuarios.jsx";
 
 // Contexto para las listas.
 const ContextoPodcasts = createContext();

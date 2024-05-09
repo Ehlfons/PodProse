@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import PodProseLogo from "../../svg/PodProseLogo.jsx";
+import PodProseLogo from "@components/svg/PodProseLogo.jsx";
 import { Link } from "react-router-dom";
 import "./Logo.css";
 

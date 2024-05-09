@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Rutas from "../Rutas.jsx";
+import Rutas from "../rutas/Rutas.jsx";
 
 const Main = () => {
   return (

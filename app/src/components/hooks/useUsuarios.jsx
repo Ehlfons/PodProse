@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ContextoUsuarios } from "../contexts/ProveedorUsuarios.jsx";
+import { ContextoUsuarios } from "@contexts/ProveedorUsuarios.jsx";
 
 // Hook para usar el contexto de Usuarios.
 const useUsuarios = () => {
