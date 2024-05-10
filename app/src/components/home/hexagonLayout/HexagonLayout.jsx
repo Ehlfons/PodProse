@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Hexagon from "../hexagon/Hexagon.jsx";
+import { Hexagon } from "@components/home";
 import "./HexagonLayout.css";
 
 const HexagonLayout = ({ userData = [] }) => {

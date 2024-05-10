@@ -1,11 +1,8 @@
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useUsuarios from "@components/hooks/useUsuarios.jsx";
-import ArrowLogin from "@components/svg/ArrowLogin.jsx";
-import PodProseLogo from "@components/svg/PodProseLogo.jsx";
-import GithubLogo from "@components/svg/GithubLogo.jsx";
-import XLogo from "@components/svg/XLogo.jsx";
-import GoogleLogo from "@components/svg/GoogleLogo.jsx";
+import { useUsuarios } from "@components/hooks";
+
+import { ArrowLogin, PodProseLogo, GithubLogo, XLogo, GoogleLogo } from "@components/svg";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {

@@ -1,5 +1,6 @@
 import { Fragment } from "react";
-import usePodcasts from "@components/hooks/usePodcasts.jsx";
+
+import { usePodcasts } from "@components/hooks";
 import "./FormularioPodcasts.css";
 
 const FormularioPodcasts = ({cierre}) => {

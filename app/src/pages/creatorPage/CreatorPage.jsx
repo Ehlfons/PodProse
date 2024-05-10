@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import ReactAudioPlayer from "react-audio-player";
 import Podcast from "@components/podcast/Podcast.jsx";
-import usePodcasts from "@components/hooks/usePodcasts.jsx";
+import { usePodcasts } from "@components/hooks";
 import "./CreatorPage.css";
 
 const CreatorPage = () => {

@@ -1,9 +1,8 @@
 import { Fragment, useState } from "react";
-import DeleteModal from "@components/modals/DeleteModal.jsx";
-import PodcastsModal from "@components/modals/PodcastsModal.jsx";
-import usePodcasts from "@components/hooks/usePodcasts.jsx";
-import DeleteOrClose from "@components/svg/DeleteOrClose.jsx";
-import EditIcon from "@components/svg/EditIcon.jsx";
+
+import {DeleteModal, PodcastsModal} from "@components/modals";
+import { usePodcasts } from "@components/hooks";
+import { EditIcon, DeleteOrClose } from "@components/svg";
 import "./Podcast.css";
 
 // Estructura de cada Podcast.

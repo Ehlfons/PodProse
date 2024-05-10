@@ -1,7 +1,5 @@
 import { Fragment } from "react";
-import HexagonLayout from "../hexagonLayout/HexagonLayout.jsx";
-import MainText from "../mainText/MainText.jsx";
-import PageMarker from "../pageMarker/PageMarker.jsx";
+import { HexagonLayout, MainText, PageMarker } from "@components/home";
 import "./HomeComponent.css";
 
 const HomeComponent = () => {

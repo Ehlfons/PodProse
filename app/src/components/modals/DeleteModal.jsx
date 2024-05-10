@@ -1,4 +1,4 @@
-import usePodcasts from "../hooks/usePodcasts";
+import { usePodcasts } from "@components/hooks";
 import "./Modals.css";
 
 function DeleteModal({ mostrar, manejarCerrado, idPodcast }) {

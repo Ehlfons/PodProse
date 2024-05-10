@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
-import Login from "./login/Login.jsx";
-import Logo from "./logo/Logo.jsx";
-import Nav from "./nav/Nav.jsx";
+
+import { Logo, Nav, Login } from "@components/header";
 import "./Header.css";
 
 const Header = () => {

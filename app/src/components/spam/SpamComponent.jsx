@@ -1,7 +1,6 @@
 import { Fragment } from "react";
-import InstagramLogo from "../svg/InstagramLogo.jsx";
-import XLogo from "../svg/XLogo.jsx";
-import GithubLogo from "../svg/GithubLogo.jsx";
+
+import { GithubLogo, InstagramLogo, XLogo } from "@components/svg";
 import "./SpamComponent.css";
 
 const SpamComponent = () => {
