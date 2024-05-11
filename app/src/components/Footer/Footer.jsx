@@ -1,9 +1,7 @@
 import { Fragment } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import PodProseLogo from "../svg/PodProseLogo.jsx";
-import InstagramLogo from "../svg/InstagramLogo.jsx";
-import XLogo from "../svg/XLogo.jsx";
-import GithubLogo from "../svg/GithubLogo.jsx";
+
+import { PodProseLogo, InstagramLogo, XLogo, GithubLogo } from "@components/svg";
 import "./Footer.css";
 
 const Footer = () => {

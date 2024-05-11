@@ -1,13 +1,16 @@
 import { Fragment } from "react";
-import PodProseLogo from "../../svg/PodProseLogo.jsx";
 import { Link } from "react-router-dom";
+
+import { PodProseLogo } from "@components/svg";
 import "./Logo.css";
 
 const Logo = () => {
   return (
     <Fragment>
       <figure className="container-logo-svg">
-        <Link to="/"><PodProseLogo /></Link>
+        <Link to="/">
+          <PodProseLogo />
+        </Link>
       </figure>
     </Fragment>
   );

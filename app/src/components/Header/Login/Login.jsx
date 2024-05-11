@@ -1,10 +1,9 @@
 import { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useUsuarios from "../../../hooks/useUsuarios.jsx";
-import usePodcasts from "../../../hooks/usePodcasts.jsx";
-import DefaultUserProfile from "../../svg/DefaultUserProfile.jsx";
-import LogoutIcon from "../../svg/LogoutIcon.jsx";
-import Alert from "react-bootstrap/Alert";
+import Alert from "react-bootstrap/Alert"; // Cambiar por sonner alert
+
+import { useUsuarios, usePodcasts } from "@components/hooks";
+import { LogoutIcon, DefaultUserProfile } from "@components/svg";
 import "./Login.css";
 
 const Login = () => {

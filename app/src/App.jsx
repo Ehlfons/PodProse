@@ -1,10 +1,11 @@
 import { Fragment } from "react";
 import { BrowserRouter } from "react-router-dom";
-import Main from "./components/Main/Main.jsx";
-import Header from "./components/Header/Header.jsx";
-import Footer from "./components/Footer/Footer.jsx";
-import ProveedorUsuarios from "./contexts/ProveedorUsuarios.jsx";
-import ProveedorPodcasts from "./contexts/ProveedorPodcasts.jsx";
+import { Header } from "@components/header";
+import Footer from "@components/footer/Footer";
+import Rutas from "@components/rutas/Rutas.jsx";
+// import ProveedorUsuarios from "@contexts/ProveedorUsuarios";
+// import ProveedorPodcasts from "@contexts/ProveedorPodcasts";
+import { ProveedorUsuarios, ProveedorPodcasts } from "@contexts/index";
 import "./App.css";
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
         <ProveedorUsuarios>
           <ProveedorPodcasts>
             <Header />
-            <Main />
+            <main>
+              <Rutas />
+            </main>
             <Footer />
           </ProveedorPodcasts>
         </ProveedorUsuarios>
