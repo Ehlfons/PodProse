@@ -3,7 +3,9 @@ import { PrismaService } from '../prisma/prisma.service';
 import { HolidaysService } from './holidays.service';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { AuthAdminGuard } from 'src/auth/guard/authAdmin.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Festivos Para Empresas || Recuperar provincias y localidades')
 @Controller('holidays')
 export class HolidaysController {
     constructor(
@@ -12,14 +14,13 @@ export class HolidaysController {
     ) {}
 
     @Get('provinces')
-    // @UseGuards(AuthAdminGuard)
+    @UseGuards(AuthAdminGuard)
     async getProvincias() {
         return this.holidaysService.getProvince();
     }
 
     
     @Get(':province/localities')
-    //@UseGuards(AuthGuard)
     async getLocalidades(@Param('province') province: string) {
       return this.holidaysService.getLocalities(province);
     }
@@ -32,9 +33,6 @@ export class HolidaysController {
       @Query('province') province: string,
     ) {
 
-        
-      //return [localidad, provincia , festivosNacionales] ;
-      
       return this.holidaysService.getHolidays(withNationals, locality, province);
     }
 

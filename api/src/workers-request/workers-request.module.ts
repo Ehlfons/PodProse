@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { WorkersRequestService } from './workers-request.service';
 import { WorkersRequestController } from './workers-request.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { WorkersHolidaysService } from 'src/workers-holidays/workers-holidays.service';
-import { MailerService } from 'src/mailer/mailer.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
+import { WorkersHolidaysModule } from 'src/workers-holidays/workers-holidays.module';
+import { MailerModule } from 'src/mailer/mailer.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
+  imports:[PrismaModule,WorkersHolidaysModule,MailerModule , JwtModule],
   controllers: [WorkersRequestController],
-  providers: [WorkersRequestService , PrismaService , WorkersHolidaysService , MailerService],
+  providers: [WorkersRequestService ],
+  exports:[WorkersRequestService]
 })
 export class WorkersRequestModule {}

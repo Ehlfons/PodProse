@@ -2,6 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } fro
 import { CompanyVacationsYearService } from './company-vacations-year.service';
 import { CreateCompanyVacationsYearDto } from './dto/create-company-vacations-year.dto';
 import { UpdateCompanyVacationsYearDto } from './dto/update-company-vacations-year.dto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Dias x año de Vacaciones para Empresas')
 
 @Controller('company-vacations-year')
 export class CompanyVacationsYearController {

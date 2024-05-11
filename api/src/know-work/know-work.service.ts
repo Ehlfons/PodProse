@@ -40,7 +40,7 @@ export class KnowWorkService {
             const result = { work: false, message: text , status:status};
             return result;
         } else {
-            const companyWorkday = await this.companyWorkday.todayWorkday(userId);
+            const companyWorkday = await this.companyWorkday.todayWorkday(userId , today);
             if (companyWorkday === "00:00") {
                 let text = "Tu empresa hoy está descansando, tú deberías hacer lo mismo...";
                 status = 6 ;

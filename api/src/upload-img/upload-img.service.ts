@@ -19,7 +19,7 @@ export class UploadImgService {
         console.log(mimeType)
         if (!mimeType || !mimeType.startsWith('image/') || mimeType.endsWith('/svg+xml') || mimeType.endsWith('/svgz+xml')) {
 
-            const imagePath = path.join(__dirname, '..', '..', '..', 'uploads', fileName);
+            const imagePath = path.join(__dirname, '..', '..', '..', 'uploads/img', fileName);
             try {
                 fs.unlinkSync(imagePath);
                 console.log(`Archivo ${fileName} eliminada correctamente.`);

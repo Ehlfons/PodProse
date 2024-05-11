@@ -9,7 +9,9 @@ import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Subir imágenes')
 
 
 @Controller('upload-img')
@@ -24,7 +26,7 @@ export class UploadImgController {
   @Post()
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './uploads',
+      destination: './uploads/img',
       filename: (req, file, callback) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return callback(null, `${randomName}${extname(file.originalname)}`);

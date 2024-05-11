@@ -1,6 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { WorkersProfileService } from './workers-profile.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Perfil Users')
 @Controller('workers-profile')
 export class WorkersProfileController {
   constructor(private readonly workersProfileService: WorkersProfileService) {}

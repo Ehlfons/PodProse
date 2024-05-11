@@ -1,13 +1,10 @@
-import { PartialType } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { IsString, IsOptional } from 'class-validator';
 import { CreateCompanyWorkdayDto } from './create-company-workday.dto';
 
 export class UpdateCompanyWorkdayDto extends PartialType(CreateCompanyWorkdayDto) {
-    description?: string;
-    monday?: string | null;
-    tuesday?: string | null;
-    wednesday?: string | null;
-    thursday?: string | null;
-    friday?: string | null;
-    saturday?: string | null;
-    sunday?: string | null;
+  @ApiProperty({ type: String, description: 'Nueva descripción de la jornada laboral', required: false })
+  @IsString()
+  @IsOptional()
+  description?: string;
 }

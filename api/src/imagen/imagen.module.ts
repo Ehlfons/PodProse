@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ImagenService } from './imagen.service';
 import { ImagenController } from './imagen.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
+  imports:[PrismaModule],
   controllers: [ImagenController],
-  providers: [ImagenService , PrismaService],
+  providers: [ImagenService ],
 })
 export class ImagenModule {}

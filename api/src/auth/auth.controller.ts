@@ -10,8 +10,9 @@ import { JwtService } from '@nestjs/jwt';
 import { Request as ExpressRequest } from 'express'; // Importa Request de Express
 import { UsersService } from 'src/users/users.service';
 import { AuthAdminGuard } from './guard/authAdmin.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags('Registrar y Login')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -28,7 +29,7 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() loginDto: LoginDto) {
+  async login(@Body(ValidationPipe) loginDto: LoginDto) {
     const loginResult = await this.authService.login(loginDto);
     if (!loginResult || !loginResult.access_token) {
       throw new UnauthorizedException('Contraseña o email incorrecto');

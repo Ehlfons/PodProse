@@ -1,7 +1,7 @@
 // auth/auth.module.ts
 
 import { Module } from '@nestjs/common';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
@@ -27,16 +27,40 @@ import { WorkersHolidaysService } from 'src/workers-holidays/workers-holidays.se
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: process.env.API_KEY, // Firma por la que se firma la codificacion , proviene del .env
-      signOptions: { expiresIn: "365d" }, // tiempo de expiración del token
+      secret: process.env.API_KEY,
+      signOptions: { expiresIn: '365d' },
     }),
-    PrismaModule ,
-    MailerModule , 
-    ValidateUserModule , 
-    FailedLoginModule
+    PrismaModule,
+    MailerModule,
+    ValidateUserModule,
+    FailedLoginModule,
   ],
-  providers: [AuthService, JwtStrategy , PrismaService , UsersService , MailerService , ValidateUserService, FailedLoginService  , AuthService ,DataCheckinsService ,  ValidateUserService , HolidaysCompanyService, FailedLoginService , WorkersStatusService , KnowWorkService , RecoverHolidaysWorkersService , CompanyWorkdayService ,  UsersService , WorkersHolidaysService],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    PrismaService,
+    UsersService,
+    MailerService,
+    ValidateUserService,
+    FailedLoginService,
+    DataCheckinsService,
+    HolidaysCompanyService,
+    WorkersStatusService,
+    KnowWorkService,
+    RecoverHolidaysWorkersService,
+    CompanyWorkdayService,
+    WorkersHolidaysService,
+  ],
   controllers: [AuthController],
-  exports: [JwtModule, PassportModule , AuthModule , MailerModule , ValidateUserModule],
+  exports: [
+    PassportModule,
+    JwtModule,
+    PrismaModule,
+    MailerModule,
+    ValidateUserModule,
+    FailedLoginModule,
+    AuthService,
+    AuthModule
+  ],
 })
 export class AuthModule {}

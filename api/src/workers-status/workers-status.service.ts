@@ -3,18 +3,18 @@ import { KnowWorkService } from 'src/know-work/know-work.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as cron from 'node-cron';
 
+
 @Injectable()
 export class WorkersStatusService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly knowwork: KnowWorkService,
   ) {
-        // Ejemplo de ejecución de una función a las 8:00 AM todos los días
-        cron.schedule('59 13 * * *', () => {
-          console.log("Te vas para caasa");
-        });
-
-    
+    // A x hora salta la funcion para comprobar el status de los trabajadores para ese dia
+    cron.schedule('47 15 * * *', () => {
+      this.checkGlobalStatusAutomatic();
+      console.log('Fin');
+    });
   }
 
   async createStatus(userId: string, companyId: string, status: number = 3) {
@@ -46,55 +46,59 @@ export class WorkersStatusService {
     }
   }
 
-  async statusFinal(userId: string) {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
-    const knowWork = await this.knowwork.knowWorkByUserId(userId, tomorrow);
-
+  async verifyAndChangeStatus(userId: string) {
+    const today = new Date();
+    const knowWork = await this.knowwork.knowWorkByUserId(userId, today);
     await this.changueStatus(userId, knowWork.status);
   }
 
-  async knowStatus(userId : string){
-    return await this.prisma.statusWorkers.findFirstOrThrow({ 
-        where : { userId } ,
-        select : {
-            status:true
-        }
+  async knowStatus(userId: string) {
+    return await this.prisma.statusWorkers.findFirstOrThrow({
+      where: { userId },
+      select: {
+        status: true,
+      },
     });
   }
-
 
   async knowStatusByCompanyId(companyId: string) {
     const statusData = await this.prisma.company.findUnique({
       where: {
-        id: companyId
+        id: companyId,
       },
       select: {
         statusWorkers: {
           select: {
-            status: true
-          }
-        }
-      }
+            status: true,
+          },
+        },
+      },
     });
-  
-    // Inicializamos un objeto para contener la cantidad de cada estado
+
     const statusCounts = {
       '1': 0,
       '2': 0,
       '3': 0,
       '4': 0,
-      '5': 0
+      '5': 0,
+      '6': 0,
     };
-  
-    // Contamos la cantidad de cada estado
+
     statusData.statusWorkers.forEach((worker) => {
       statusCounts[worker.status.toString()]++;
     });
-  
-    // Devolvemos los conteos en un objeto JSON
+
     return statusCounts;
   }
-  
+
+  async checkGlobalStatusAutomatic() {
+    const users = await this.prisma.user.findMany();
+    //console.log(users); ;
+
+    users.forEach((user) => {
+      this.verifyAndChangeStatus(user.id);
+    });
+  }
+
+
 }

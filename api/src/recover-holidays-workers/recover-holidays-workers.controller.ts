@@ -1,6 +1,8 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { RecoverHolidaysWorkersService } from './recover-holidays-workers.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Recuperar Vacaciones de User')
 @Controller('recover-holidays-workers')
 export class RecoverHolidaysWorkersController {
   constructor(private readonly recoverHolidaysWorkersService: RecoverHolidaysWorkersService) {}

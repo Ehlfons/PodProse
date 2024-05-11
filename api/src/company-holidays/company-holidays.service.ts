@@ -13,8 +13,7 @@ export class HolidaysCompanyService {
 
     constructor(
         private prisma: PrismaService ,
-        private jwtService : JwtService ,
-        private usersService : UsersService   
+        private jwtService : JwtService ,  
     ){}
 
     async addHolidaysToCompanyById ( days , companyId : string ) {
@@ -36,11 +35,9 @@ export class HolidaysCompanyService {
 
     //Add los datos a la bbdd 
       try {
-
         await this.prisma.companyHolidays.createMany({
             data: daysCompanyFormatted,
           })
-        
       } catch (error) {
         console.error('Error:', error);
         throw new Error('Problemitas con las fechas');
@@ -50,19 +47,13 @@ export class HolidaysCompanyService {
     async getHolidaysCompany(companyId :string  ) : Promise<CompanyHolidays[]>{
 
         try {
-
         const holidaysCompanyFound = await this.prisma.companyHolidays.findMany({
             where: {
                 companyId: companyId
             }
         });
-
         holidaysCompanyFound.sort((a, b) => a.date.getTime() - b.date.getTime());
-
-
-        return holidaysCompanyFound;
-
-            
+        return holidaysCompanyFound;   
         } catch (error) {
             console.error('Error obteniendo los datos del usuario:', error);
             throw new InternalServerErrorException('Internal server error occurred');

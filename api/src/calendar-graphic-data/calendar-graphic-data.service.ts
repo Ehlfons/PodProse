@@ -39,12 +39,12 @@ export class CalendarGraphicDataService {
         resum: "Vacaciones , Vacaciones , Vacaciones , Vacaciones todo el día de Vacaciones"
       };
       return response;
-    }else if( this.checkIfDateIsHoliday(date,diasVacacionesEmpresa)){ 
-      const response = {
-        mode: "Vacations",
-        resum: this.returnHolidayMessage(date,diasVacacionesEmpresa)
-      };
-      return response;
+    // }else if( this.checkIfDateIsHoliday(date,diasVacacionesEmpresa)){ 
+    //   const response = {
+    //     mode: "Vacations",
+    //     resum: this.returnHolidayMessage(date,diasVacacionesEmpresa)
+    //   };
+    //   return response;
     }else {
       const response = {
         mode: "freeDay",
@@ -81,29 +81,23 @@ export class CalendarGraphicDataService {
 
 
 
-  returnHolidayMessage(dateToCheck, holidaysArray) {
+  // returnHolidayMessage(dateToCheck, holidaysArray) {
 
-    const  dateToCheckReset = new Date(dateToCheck);
-    dateToCheckReset.setDate(dateToCheckReset.getDate() + 1);
+  //   const  dateToCheckReset = new Date(dateToCheck);
+  //   dateToCheckReset.setDate(dateToCheckReset.getDate() + 1);
 
-    const formattedDateToCheck = new Date(dateToCheckReset).toISOString().split("T")[0];
+  //   const formattedDateToCheck = new Date(dateToCheckReset).toISOString().split("T")[0];
 
-    for (const holiday of holidaysArray) {
-        const formattedHolidayDate = holiday.date.toISOString().split("T")[0];
-        if (formattedDateToCheck === formattedHolidayDate) {
+  //   for (const holiday of holidaysArray) {
+  //       const formattedHolidayDate = holiday.date.toISOString().split("T")[0];
+  //       if (formattedDateToCheck === formattedHolidayDate) {
             
-            return holiday.description ;
-        }
-    }
-    // La fecha no está en el array de vacaciones
-    return "No se que dia es hoy..";
-  }
-  
-
-
-
-   
-
+  //           return holiday.description ;
+  //       }
+  //   }
+  //   // La fecha no está en el array de vacaciones
+  //   return "No se que dia es hoy..";
+  // }
 
 
 }

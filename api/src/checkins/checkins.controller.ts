@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } 
 import { CheckinsService } from './checkins.service';
 import { NotFoundError } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Checkins Diarios')
 @Controller('checkins')
 export class CheckinsController {
     constructor(
@@ -19,7 +21,6 @@ export class CheckinsController {
             if(error instanceof NotFoundException) {
                 return { message: error.message};
             }
-            throw error;
         }
     }
 
@@ -32,7 +33,6 @@ export class CheckinsController {
             if(error instanceof NotFoundException) {
                 return { message: error.message};
             }
-            throw error;
         }
     }
 
@@ -45,7 +45,6 @@ export class CheckinsController {
             if(error instanceof NotFoundException) {
                 return { message: error.message};
             }
-            throw error;
         }
     }
 
@@ -58,48 +57,26 @@ export class CheckinsController {
             if(error instanceof NotFoundException) {
                 return { message: error.message};
             }
-            throw error;
         }
     }
 
     @Get(':userId/recover-checkin')
     async recoverCheckIn(@Param('userId') userId: string ){
-        try {
-            const checkin = await this.checkinsService.recoverCheckIn(userId);
-            return checkin;
-        }catch(error){
-            if(error instanceof NotFoundException) {
-                return { message: error.message};
-            }
-            throw error;
-        }
+        return await this.checkinsService.recoverCheckIn(userId);
+        
     }
 
     @Get('data/:userId/:date')
     async calculateByDate(@Param('userId') userId: string , @Param('date') date: Date ){
-        try {
-            const dataSummary = await this.checkinsService.calculateByDate(userId,date);
-            return dataSummary;
-        }catch(error){
-            if(error instanceof NotFoundException) {
-                return { message: error.message};
-            }
-            throw error;
-        }
+        return await this.checkinsService.calculateByDate(userId,date);
+  
     }
 
-    @Get(':userId/delete')
+    @Delete(':userId/delete')
     async delete(@Param('userId') userId: string ){
-        try {
-            const deleteUser = await this.prismaService.checkIns_Users.deleteMany({
-                where : { userId : userId}
-            })  ;
-            return true;
-        }catch(error){
-            if(error instanceof NotFoundException) {
-                return { message: error.message};
-            }
-            throw error;
-        }
+        const deleteUser = await this.prismaService.checkIns_Users.deleteMany({
+            where : { userId : userId}
+        })  ;
+        return true;
     }
 }

@@ -1,7 +1,9 @@
 import { Controller, Get, Param, Post } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CompanyService } from './company.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Company')
 @Controller('company')
 export class CompanyController {
 

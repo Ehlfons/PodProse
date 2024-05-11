@@ -14,6 +14,7 @@ export class MailerService {
   }
 
   async sendEmail(to: string, subject: string, text: string) {
+    
     const mailOptions = {
       from: mailerConfig.auth.user,
       to,
@@ -30,7 +31,7 @@ export class MailerService {
   }
 
   async sendRegistrationEmail(to: string, username: string , token: string ) {
-    const subject = 'Restablecer Contraseña';
+    const subject = 'Bienvenido a TRACKOW!';
     const URL_FRONT = process.env.FRONT;
     const link = `${URL_FRONT}/validar/${token}`;
 
@@ -93,6 +94,8 @@ export class MailerService {
       </body>
     </html>
   `;
+
+  
 
     const mailOptions = {
       from: mailerConfig.auth.name,
@@ -173,7 +176,8 @@ export class MailerService {
     </html>
   `;
 
-    const mailOptions = {
+  
+    let mailOptions = {
       from: mailerConfig.auth.name,
       to,
       subject,
@@ -206,7 +210,7 @@ export class MailerService {
       subject = '¡Solicitud RECHAZADA!';
       header = ` Tu solicitud ha sido rechazada , debido a que ${updateRequest.response}`
     }
-    const to = updateRequest.user.email;
+    let to = updateRequest.user.email;
  
 
     const html = `
@@ -269,6 +273,8 @@ export class MailerService {
       </body>
     </html>
   `;
+
+  
 
     const mailOptions = {
       from: mailerConfig.auth.name,

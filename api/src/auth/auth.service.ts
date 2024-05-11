@@ -22,53 +22,58 @@ export class AuthService {
   ) {}
 
   async register({ password, email, name , companyId , DNI , companyWorkdayId }: RegisterDto) {
-    const existingUser = await this.prisma.user.findUnique({ where: { email } });
-    const existingDNI = await this.prisma.user.findUnique({where: {DNI}});
-    const existCompany = await this.prisma.company.findFirst({where:{id : companyId}});
-    
-    if (!existCompany) {
-      throw new BadRequestException('No existe la company');
+    try {
+      const existingUser = await this.prisma.user.findUnique({ where: { email } });
+      if (existingUser) {
+        throw new BadRequestException('Ya existe un usuario con este correo electrónico');
+      }
+
+      const existingDNI = await this.prisma.user.findUnique({ where: { DNI } });
+      if (existingDNI) {
+        throw new BadRequestException('Ya existe un usuario con este DNI');
+      }
+
+      const existCompany = await this.prisma.company.findFirst({ where: { id: companyId } });
+      if (!existCompany) {
+        throw new BadRequestException('No se encontró la empresa especificada');
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      function obtenerImagenAleatoria(): string {
+        const numero = Math.floor(Math.random() * 5) + 1;
+        return `default${numero}.png`;
+      }
+
+      const user = await this.prisma.user.create({
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+          companyId,
+          DNI,
+          companyWorkdayId,
+          url_img: obtenerImagenAleatoria(),
+        },
+      });
+      
+      const verificationToken = await this.validate.addTokenVerification(user.id);
+
+      await this.workerSatus.createStatus(user.id,user.companyId);
+  
+      await this.email.sendRegistrationEmail(email,name,verificationToken);
+  
+      return { message: 'Usuario creado correctamente' };
+
+      return user;
+    } catch (error) {
+      throw new BadRequestException('Ha ocurrido un error al procesar el registro');
     }
-    if (existingUser) {
-      throw new BadRequestException('Seguro que no tienes cuenta? Tu email ya existe');
-    }
-    if (existingDNI) {
-      throw new BadRequestException('Seguro que no tienes cuenta? Tu DNI ya existe');
-    }
-
-    function obtenerImagenAleatoria(): string {
-      // Generar un número aleatorio entre 1 y 5 (ambos incluidos)
-      const numero = Math.floor(Math.random() * 5) + 1;
-      // Devolver el nombre de la imagen
-      return `default${numero}.png`;
-    }
-
-    const url_img = obtenerImagenAleatoria();
-
-
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await this.prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        companyId,
-        DNI,
-        companyWorkdayId ,
-        url_img
-      },
-    });
-
-   const verificationToken = await this.validate.addTokenVerification(user.id);
-
-    await this.workerSatus.createStatus(user.id,user.companyId);
-
-    await this.email.sendRegistrationEmail(email,name,verificationToken);
-
-    return { message: 'Usuario creado correctamente' };
   }
+
+
+
+  
   
   async login({ email, password }: LoginDto) {
     try {

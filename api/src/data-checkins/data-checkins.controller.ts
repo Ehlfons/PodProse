@@ -1,6 +1,8 @@
 import { Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { DataCheckinsService } from './data-checkins.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Data Checkins')
 @Controller('data-checkins')
 export class DataCheckinsController {
   constructor(private readonly dataCheckinsService: DataCheckinsService) {}
@@ -19,6 +21,5 @@ export class DataCheckinsController {
           throw error;
       }
   }
-
 
 }

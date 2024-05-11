@@ -11,20 +11,27 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    console.log('Estas dentro amigo');
     const request = context.switchToHttp().getRequest<Request>();
+    //console.log(request);
     const token = this.extractTokenFromHeader(request);
+    console.log(token);
     
     if (!token) {
+      console.log("Buenas tardes");
       return false;
     }
 
     try {
-      const decodedToken = this.jwtService.verify(token);
+      const decodedToken = this.jwtService.decode(token);
+      console.log(`Estas dentro ; ${decodedToken}`);
       const userId = decodedToken.sub;
+      console.log(userId);
 
       const user = await this.prisma.user.findUnique({
         where: { id: userId },
       });
+      console.log(user);
 
       if (!user) {
         return false;

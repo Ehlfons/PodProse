@@ -1,78 +1,46 @@
-## Requirements
 
-+ MySQL:
-  + Server
-  + Workbench
-  + Shell
+## URL para Swagger
 
-+ NodeJs
-  + NPM
+http://localhost:3000/api/
 
-+ Docker container:
-  + Dockerfile
-    + docker build -t mysql-image .
-    + docker run --name mysql-container -d -p 3306:3306 -v mysql-data:/var/lib/mysql mysql-image
 
-```Dockerfile
-FROM mysql:latest
-
-# Set the root password (change it to whatever you want)
-ENV MYSQL_ROOT_PASSWORD=password
-
-# Exposes port 3306 so it can be accessed from other machines
-EXPOSE 3306
-
-# Copy the custom configuration file that allows listening on all IP addresses
-COPY my.cnf /etc/mysql/my.cnf
-
-# Create a directory for the volume where the data will be stored
-VOLUME /var/lib/mysql
-
-# CMD to start MySQL automatically when starting container
-CMD ["mysqld", "--user=mysql", "--console"]
+## Resetear BD
+```bash
+$ npx prisma migrate reset 
 ```
 
-## DB create tables
-
+## Crear tablas BD
 ```bash
-$ npx prisma migrate dev
 $ npx prisma generate
+$ npx prisma migrate dev
 ```
 
-## DB reset
-
-```bash
-$ npx prisma migrate reset
-```
-
-## DB graphical environment
-
+## Entorno gráfico para la base de datos
 ```bash
 $ npx prisma studio
 ```
 
-## Insert data
 
-> Insert 4 users
 
+## Cargar usuarios
+> Carga 4 usuarios
 ```bash
 $ npm run seed
 ```
-
-> Insert 300 users
-
+> Carga 300 usuarios
 ```bash
 $ npm run factory
 ```
 
-## .env file
+
+## Archivo .env
 
 DATABASE_URL="mysql://usuario:contraseña@localhost:3306/nombre_bd"
 
 ## Installation
 
 ```bash
-$ npm i
+$ npm install
 ```
 
 ## Running the app
@@ -88,7 +56,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Tests
+## Test
 
 ```bash
 # unit tests
@@ -113,24 +81,43 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-# Nest is [MIT licensed](LICENSE).
+Nest is [MIT licensed](LICENSE).
+=======
+# LoginNestJs
+>>>>>>> 5b05cb1c0ab2f6ee4580b5e5e947c1aace95d165
 
-## Swagger URL
 
-http://localhost:3000/api/
-
-# API Documentation
 
 **AuthController:**
-
-- POST /auth/register: User register.
-- POST /auth/login: Login.
-- GET /auth/user: Get authenticated user information.
+- POST /auth/register: Registro de usuario.
+- POST /auth/login: Inicio de sesión.
+- GET /auth/user: Obtener información del usuario autenticado.
 
 **UsersController:**
+- POST /users: Crear un nuevo usuario.
+- GET /users: Obtener todos los usuarios.
+- GET /users/:id: Obtener información de un usuario específico.
+- PATCH /users/:id: Actualizar información de un usuario.
+- DELETE /users/:id: Eliminar un usuario.
 
-- POST /users: Create a new user.
-- GET /users: Get all users.
-- GET /users/:id: Get information about a specific user.
-- PATCH /users/:id: Update user information.
-- DELETE /users/:id: Delete a user.
+**CompanyController:**
+- GET /company/:companyId/users: Obtener usuarios asociados a una empresa específica.
+
+**HolidaysController:**
+- GET /holidays/provinces: Obtener lista de provincias con festivos.
+- GET /holidays/:province/localities: Obtener localidades con festivos en una provincia específica.
+- GET /holidays/days: Obtener días festivos.
+
+**HolidaysCompanyController:**
+- POST /holidays-company/add-days: Definir días festivos para una empresa.
+- GET /holidays-company/get-days: Obtener días festivos de una empresa.
+
+**CheckinsController:**
+- POST /checkins/:userId/start-workday: Comenzar el día laboral para un usuario.
+- POST /checkins/:userId/end-workday: Finalizar el día laboral para un usuario.
+- POST /checkins/:userId/pause-workday: Pausar el día laboral para un usuario.
+- POST /checkins/:userId/restart-workday: Reanudar el día laboral para un usuario.
+- POST /checkins/:userId/recover-checkin: Recuperar registro de entrada para un usuario.
+
+
+

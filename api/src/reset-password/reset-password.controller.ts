@@ -1,6 +1,8 @@
 import { Controller, NotFoundException, Param , Post} from '@nestjs/common';
 import { ResetPasswordService } from './reset-password.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Resset Password')
 @Controller('reset-password')
 export class ResetPasswordController {
   constructor(private readonly resetPasswordService: ResetPasswordService) {}

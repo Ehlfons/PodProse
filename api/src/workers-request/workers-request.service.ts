@@ -9,38 +9,46 @@ import { MailerService } from 'src/mailer/mailer.service';
 @Injectable()
 export class WorkersRequestService {
   constructor(
-    private prisma: PrismaService ,
-    private holidays : WorkersHolidaysService,
-    private mail : MailerService
-  ) {} 
+    private prisma: PrismaService,
+    private holidays: WorkersHolidaysService,
+    private mail: MailerService,
+  ) {}
 
   async create(createWorkersRequestDto: CreateWorkersRequestDto) {
     //console.log(createWorkersRequestDto);
-    const user = await this.prisma.user.findFirstOrThrow({where : { id : createWorkersRequestDto.userId}})
+    const user = await this.prisma.user.findFirstOrThrow({
+      where: { id: createWorkersRequestDto.userId },
+    });
 
     const data = {
       ...createWorkersRequestDto,
-      status:"Solicitado",
-      companyId:user.companyId
-    }
+      status: 'Solicitado',
+      companyId: user.companyId,
 
-    return await this.prisma.workersRequest.create({ data : data})
+
+    };
+
+    
+
+    return await this.prisma.workersRequest.create({ data: data });
   }
 
   async getWorkersRequests(companyId: string): Promise<WorkersRequest[]> {
     const company = await this.prisma.company.findUnique({
       where: { id: companyId },
-      include: { workersRequest: {
-          include : {
-            user : {
-              select : {
-                id:true ,
-                name:true,
-                email:true,
-              }
-            }
-          }
-      }},
+      include: {
+        workersRequest: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!company) {
@@ -50,45 +58,57 @@ export class WorkersRequestService {
     return company.workersRequest;
   }
 
+  isWorkday(fecha: Date): boolean {
+    const dia = fecha.getDay();
+    return dia >= 1 && dia <= 5;
+  }
+
   async update(id: string, updateRequestDto: UpdateWorkersRequestDto) {
-    const updateRequest = await this.prisma.workersRequest.update({ 
+    const updateRequest = await this.prisma.workersRequest.update({
       where: { id },
       data: updateRequestDto,
-      include : {
-        user : {
-          select : {
-            id:true ,
-            name:true,
-            email:true,
-          }
-        }
-      }
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
     });
-
 
     const mail = await this.mail.sendStatusRequest(updateRequest);
 
-
-    if (  updateRequest.status === "Aprobado" && updateRequest.type ==="Vacaciones") {
-
+    if (
+      updateRequest.status === 'Aprobado' &&
+      updateRequest.type === 'Vacaciones'
+    ) {
       const startDate = new Date(updateRequest.startDate);
       const endDate = new Date(updateRequest.endDate);
 
-      let holidays= []
+      let holidays = [];
       // Iterar sobre cada día dentro del rango de fechas
-    for (let currentDate = new Date(startDate); currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
-      console.log(currentDate);
-    
-    
-    holidays = [...holidays , await this.holidays.addHolidayByUserId(updateRequest.userId, currentDate, updateRequest.description)] ;
-    
+      for (
+        let currentDate = new Date(startDate);
+        currentDate <= endDate;
+        currentDate.setDate(currentDate.getDate() + 1)
+      ) {
+        if (this.isWorkday(currentDate)) {
+          holidays = [
+            ...holidays,
+            await this.holidays.addHolidayByUserId(
+              updateRequest.userId,
+              currentDate,
+              updateRequest.description,
+            ),
+          ];
+        }
+      }
+      return { updateRequest, holidays };
     }
-    return { updateRequest , holidays};
-  }
 
-    return updateRequest ;
-
-
+    return updateRequest;
   }
 
   async getUserRequests(userId: string): Promise<WorkersRequest[]> {
@@ -103,10 +123,4 @@ export class WorkersRequestService {
 
     return user.workersRequest;
   }
-
-
-
-
-
-
 }

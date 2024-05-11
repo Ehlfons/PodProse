@@ -1,6 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { WorkersHolidaysService } from './workers-holidays.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Vacaciones trabajadores')
 @Controller('workers-holidays')
 export class WorkersHolidaysController {
   constructor(private readonly workersHolidaysService: WorkersHolidaysService) {}

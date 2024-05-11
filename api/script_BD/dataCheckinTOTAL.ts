@@ -207,16 +207,45 @@ export async function calculateByDate(userId: string, day: Date) {
   
     return diferenciaFormateada;
   }
-
-
-
-
-
-
-
-
-
   return dataSend;
+}
+function getWorkdayForToday(workdays) {
+  const today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.getMonth() + 1; // Months are 0 indexed in JavaScript, so we add 1
+
+  // Buscar un workday donde la fecha de hoy esté dentro del rango
+  const matchingWorkday = workdays.find((workday) => {
+      const { dayStart, monthStart, dayEnd, monthEnd } = workday;
+      return (
+          (currentMonth > monthStart || (currentMonth === monthStart && currentDay >= dayStart)) &&
+          (currentMonth < monthEnd || (currentMonth === monthEnd && currentDay <= dayEnd))
+      );
+  });
+
+  // Si se encontró un workday que coincide con la fecha de hoy, devolverlo
+  if (matchingWorkday) {
+      return matchingWorkday;
+  }
+
+  // Si no se encontró ninguna coincidencia, buscar el workday con monthStart igual a 13
+  const defaultWorkday = workdays.find((workday) => workday.monthStart === 13);
+
+  // Si se encontró un workday predeterminado, devolverlo; de lo contrario, devolver null o manejar el caso según sea necesario
+  if (defaultWorkday) {
+      return defaultWorkday;
+  } else {
+    const dataStandard = {
+      "monday": "09:30",
+      "tuesday": "09:30",
+      "wednesday": "09:30",
+      "thursday": "09:30",
+      "friday": "09:00",
+      "saturday": "00:00",
+      "sunday": "00:00"
+  }
+      return dataStandard;
+  }
 }
 
 async function todayWorkday(userId : string , day : Date){
@@ -232,8 +261,15 @@ async function todayWorkday(userId : string , day : Date){
 }
 
 const user = await  prisma.user.findFirstOrThrow({ where : { id : userId}});
-const companyWorkday = user.companyWorkdayId ?  await prisma.companyWorkday.findFirstOrThrow({ where : { id : user.companyWorkdayId}}) : dataStandard ;
+const companyWorkday = await prisma.companyWorkday.findFirstOrThrow({ where : { id : user.companyWorkdayId}});
 
+const workdays = await prisma.workday.findMany({
+  where : {
+    companyWorkdayId : companyWorkday.id
+  }
+});
+
+const filterWorkday = getWorkdayForToday(workdays);
 
 
 try {
@@ -243,7 +279,7 @@ try {
   const nameWeeks = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
   const nameDay = nameWeeks[dayWeek];
 
-  const todayWork = companyWorkday[nameDay];
+  const todayWork = filterWorkday[nameDay];
 
   return todayWork ;
   
@@ -252,6 +288,11 @@ try {
 }
 
 }
+
+
+
+
+
 
 
 

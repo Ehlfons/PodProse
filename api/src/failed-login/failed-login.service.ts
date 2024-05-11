@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { create } from 'domain';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+@ApiTags('FailerLogin -- Evitar ataques')
 @Injectable()
 export class FailedLoginService {
   constructor(private readonly prisma: PrismaService) {}

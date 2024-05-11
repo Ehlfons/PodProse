@@ -48,6 +48,49 @@ export class WorkersHolidaysControlService {
 
 
 
+    async preCalculateDate(  year : string , userId : string , startDate : Date , endData : Date){
+
+        const dataVacations = await this.allDataVacationsByYear(year , userId);
+
+        const start = new Date(startDate);
+        const end = new Date (endData);
+
+        const daysVacations = this.returnDaysTwoDates(start,end);
+
+        const data2send = { 
+            year: year ,
+            daysRequest : daysVacations ,
+            newSpendDays : dataVacations.spendDays + daysVacations ,
+            newAvailableUserDays :  dataVacations.availableUserDays - daysVacations ,
+        }
+
+        return data2send;
+
+    }
+
+    esEntreSemana(fecha: Date): boolean {
+        const dia = fecha.getDay();
+        return dia >= 1 && dia <= 5; 
+    }
+
+    returnDaysTwoDates(fechaInicio: Date, fechaFin: Date): number {
+        let contador = 0;
+        let fechaActual = new Date(fechaInicio); 
+        
+        while (fechaActual <= fechaFin) {
+            if (this.esEntreSemana(fechaActual)) {
+                contador++;
+            }
+            fechaActual.setDate(fechaActual.getDate() + 1);
+        }
+        
+        return contador;
+    }
+    
+    
+    
+
+
 
 
 }
