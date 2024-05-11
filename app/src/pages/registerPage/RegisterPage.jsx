@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUsuarios } from "@components/hooks";
+import { useUsers } from "@components/hooks";
 
 import { ArrowLogin, PodProseLogo, GithubLogo, XLogo, GoogleLogo } from "@components/svg";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
-  const { actualizarDato, errorUsuario, registro, actualizarErrorUsuario } = useUsuarios();
+  const { actualizarDato, errorUsuario, registro, actualizarErrorUsuario } = useUsers();
 
   // Lógica para el evento onClick del botón de registro.
   const manejarRegistro = (e) => {

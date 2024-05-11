@@ -4,9 +4,9 @@ import { ValidateUserController } from './validate-user.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports:[PrismaModule],
+  imports: [PrismaModule],
   controllers: [ValidateUserController],
-  providers: [ValidateUserService ],
-  exports:[ValidateUserService ]
+  providers: [ValidateUserService],
+  exports: [ValidateUserService],
 })
 export class ValidateUserModule {}

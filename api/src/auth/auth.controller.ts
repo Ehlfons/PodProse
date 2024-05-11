@@ -1,5 +1,3 @@
-// auth/auth.controller.ts
-
 import { Controller, Post, Body, UnauthorizedException, Get, Request, UseGuards  , InternalServerErrorException, ExecutionContext, ValidationPipe} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
@@ -43,28 +41,5 @@ export class AuthController {
   async onlyAdmin() {
     return true;
   }
-  
-  
-
-  // @Get('user')
-  // @UseGuards(AuthGuard)
-  // async getUserProfile(@Request() req: ExpressRequest) {
-  //   try {
-  //     const token = req.headers.authorization.split(' ')[1]; // Obtiene el token del encabezado de autorización
-  //     const decodedToken = this.jwtService.verify(token); // Decodifica el token JWT
-  //     const userId = decodedToken.sub; // Obtiene el ID de usuario del token
-
-  //     const user = await this.usersService.findOne(userId); // Busca el usuario en la base de datos utilizando el ID
-      
-  //     if (!user) {
-  //       throw new Error('User not found');
-  //     }
-
-  //     return user;
-  //   } catch (error) {
-  //     console.error('Error in getUserProfile:', error);
-  //     throw new InternalServerErrorException('Internal server error occurred');
-  //   }
-  // }
 }
 

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert"; // Cambiar por sonner alert
 
-import { useUsuarios, usePodcasts } from "@components/hooks";
+import { useUsers, usePodcasts } from "@components/hooks";
 import { LogoutIcon, DefaultUserProfile } from "@components/svg";
 import "./Login.css";
 
@@ -13,7 +13,7 @@ const Login = () => {
     cerrarSesion,
     confirmacionInicioSesion,
     actualizarErrorUsuario,
-  } = useUsuarios();
+  } = useUsers();
 
   const { actualizarAudioUrl } = usePodcasts();
 

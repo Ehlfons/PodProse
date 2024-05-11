@@ -1,34 +1,34 @@
 import React, { Fragment, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useUsuarios } from "@components/hooks";
+import { useUsers } from "@components/hooks";
 import { ArrowLogin, PodProseLogo, GithubLogo, XLogo, GoogleLogo } from "@components/svg";
 
 import "./LoginPage.css";
 
 const LoginPage = () => {
   const {
-    iniciarSesion,
+    email,
+    updateEmail,
+    password,
+    updatePassword,
+    handleLogin,
+    errors,
+
     actualizarDato,
     errorUsuario,
     actualizarErrorUsuario,
     confirmacionInicioSesion,
-  } = useUsuarios();
+  } = useUsers();
 
   const navigate = useNavigate();
 
-  const manejarInicioSesion = async (e) => {
-    e.preventDefault();
-    iniciarSesion();
-    actualizarErrorUsuario("");
-  };
-
   // Redirigir al usuario a la página principal si se ha iniciado sesión correctamente.
-  useEffect(() => {
+  /* useEffect(() => {
     if (confirmacionInicioSesion) {
       navigate("/");
     }
-  }, [confirmacionInicioSesion, navigate]);
+  }, [confirmacionInicioSesion, navigate]); */
 
   return (
     <Fragment>
@@ -62,8 +62,7 @@ const LoginPage = () => {
                   id="email"
                   name="email"
                   onChange={(e) => {
-                    actualizarErrorUsuario("");
-                    actualizarDato(e);
+                    updateEmail(e.target.value);
                   }}
                 />
               </div>
@@ -77,8 +76,7 @@ const LoginPage = () => {
                   id="password"
                   name="password"
                   onChange={(e) => {
-                    actualizarErrorUsuario("");
-                    actualizarDato(e);
+                    updatePassword(e.target.value);
                   }}
                 />
               </div>
@@ -89,7 +87,7 @@ const LoginPage = () => {
                 type="button"
                 value="Iniciar Sesión"
                 onClick={(e) => {
-                  manejarInicioSesion(e);
+                  handleLogin(e);
                 }}
               />
             </div>

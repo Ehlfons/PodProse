@@ -1,4 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
+import { toast } from "sonner";
+import axios from "axios";
+
 import { supabaseConexion } from "../config/supabase.js";
 import { useNavigate } from "react-router-dom";
 
@@ -20,12 +23,133 @@ const ProveedorUsuarios = ({ children }) => {
     password: "",
   };
 
+  const userInitialValue = null;
+  const emailInitialValue = "";
+  const passwordInitialValue = "";
+  const userDataInitialValue = null;
+  const tokenInitialvalue = null;
+  const loggedInInitialValue = false;
+  const errorsInitialValue = {};
+
   // Estados del contexto.
   const [infoSesion, setInfoSesion] = useState(datosSesionInicial);
   const [usuario, setUsuario] = useState(usuarioInicial);
   const [errorUsuario, setErrorUsuario] = useState(errorUsuarioInicial);
   const [sesionIniciada, setSesionIniciada] = useState(sesionInicial);
   const [confirmacionInicioSesion, setConfirmacionInicioSesion] = useState(confirmacionInicioSesionInicial);
+
+  const [user, setUser] = useState(userInitialValue);
+  const [email, setEmail] = useState(emailInitialValue);
+  const [password, setPassword] = useState(passwordInitialValue);
+  const [userData, setUserData] = useState(userDataInitialValue);
+  const [token, setToken] = useState(tokenInitialvalue);
+  const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
+  const [errors, setErrors] = useState(errorsInitialValue);
+
+  // Variables
+  const apiURL = import.meta.env.VITE_API_URL;
+  // const userId = localStorage.getItem("id");
+
+  // Funciones
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const isValidForm = validateLoginForm();
+
+    if (isValidForm) {
+      try {
+        const response = await axios.post(`${apiURL}/auth/login`, {
+          email,
+          password,
+        });
+
+        if (response.status === 201) {
+          const { user, access_token } = response.data;
+
+          localStorage.setItem("token", access_token);
+          localStorage.setItem("id", user.id);
+          localStorage.setItem("user", user.role);
+
+          setToken(token);
+          setUserData(user);
+
+          setLoggedIn(true);
+
+          toast.success("Inicio de sesión exitoso");
+
+          // Limpiar el formulario.
+          setEmail(emailInitialValue);
+          setPassword(passwordInitialValue);
+
+          // Limpiar los errores.
+          setErrors(errorsInitialValue);
+        }
+
+        if (response.status === 203) {
+          toast.error("Demasiados intentos. Inténtelo de nuevo más tarde");
+        }
+      } catch (error) {
+        toast.error("Correo electrónico o contraseña incorrectos");
+      }
+    }
+  };
+
+  // Función para cerrar sesión.
+  const handleLogout = () => {
+    try {
+      // Se eliminan los datos del usuario y el token del localStorage.
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      localStorage.removeItem("user");
+      localStorage.removeItem("companyId");
+
+      setToken(tokenInitialvalue);
+      setUserData(userDataInitialValue);
+
+      setLoggedIn(loggedInInitialValue);
+
+      // Redirigir a la página de login.
+      navigate("/");
+      location.reload();
+
+      toast.success("Cierre de sesión exitoso");
+    } catch (error) {
+      toast.error("Error al cerrar sesión");
+    }
+  };
+
+  // Función para validar el formulario de inicio de sesión.
+  const validateLoginForm = () => {
+    const errors = {};
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+
+    if (!emailPattern.test(email)) {
+      errors.email = "Formato de correo electrónico inválido";
+    }
+
+    // if (!passwordPattern.test(password)) {
+    //   errores.password =
+    //     "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula y un número.";
+    // }
+
+    setErrors(errors);
+
+    // Devolver true si no hay errores
+    return Object.keys(errors).length === 0;
+  };
+
+  const readCookie = () => {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+
+    if (user && token) {
+      setLoggedIn(true);
+      setUserData(user);
+      setToken(token);
+    }
+  };
 
   // Función para crear una cuenta de usuario.
   const registro = async () => {
@@ -51,7 +175,7 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
-  // Función para iniciar sesión.
+  /* // Función para iniciar sesión.
   const iniciarSesion = async () => {
     setErrorUsuario(errorUsuarioInicial); // Se resetea el error del formulario de inicio de sesión.
     try {
@@ -83,7 +207,7 @@ const ProveedorUsuarios = ({ children }) => {
     } catch (error) {
       setErrorUsuario("Error al cerrar sesión:" + error.message);
     }
-  };
+  }; */
 
   // Función para obtener los datos del usuario.
   const obtenerUsuario = async () => {
@@ -126,7 +250,7 @@ const ProveedorUsuarios = ({ children }) => {
     setInfoSesion(datosSesionInicial);
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     const suscripcion = supabaseConexion.auth.onAuthStateChange(
       (e, session) => {
        if (session) {
@@ -137,14 +261,43 @@ const ProveedorUsuarios = ({ children }) => {
         }
       }
     );
+  }, []); */
+
+  const updateEmail = (value) => setEmail(value);
+  const updatePassword = (value) => setPassword(value);
+  const updateLoggedIn = (value) => setLoggedIn(value);
+  const updateUserData = (value) => setUserData(value);
+  const updateToken = (value) => setToken(value);
+  const updateErrors = (value) => setErrors(value);
+
+  useEffect(() => {
+    readCookie();
   }, []);
 
   const datosAExportar = {
+    email,
+    password,
+    user,
+    userData,
+    token,
+    loggedIn,
+    errors,
+
+    updateEmail,
+    updatePassword,
+    updateLoggedIn,
+    updateUserData,
+    updateToken,
+    updateErrors,
+
+    handleLogin,
+    handleLogout,
+
     sesionIniciada,
     errorUsuario,
     registro,
-    iniciarSesion,
-    cerrarSesion,
+    /* iniciarSesion,
+    cerrarSesion, */
     actualizarDato,
     actualizarErrorUsuario,
     usuario,

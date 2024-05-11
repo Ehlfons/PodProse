@@ -4,9 +4,9 @@ import { FailedLoginController } from './failed-login.controller';
 import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports: [PrismaModule ],
+  imports: [PrismaModule],
   controllers: [FailedLoginController],
-  providers: [FailedLoginService ],
-  exports: [FailedLoginService , PrismaModule]
+  providers: [FailedLoginService],
+  exports: [FailedLoginService, PrismaModule],
 })
 export class FailedLoginModule {}

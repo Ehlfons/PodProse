@@ -7,12 +7,8 @@ import { ApiTags } from '@nestjs/swagger';
 export class ValidateUserController {
   constructor(private readonly validateUserService: ValidateUserService) {}
 
-
   @Get(':token')
   async verificateUserByToken(@Param('token') token: string): Promise<string> {
     return this.validateUserService.verificateUserByToken(token);
   }
-
-
-  
 }
