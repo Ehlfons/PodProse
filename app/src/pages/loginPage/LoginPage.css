@@ -5,13 +5,14 @@
 .login-header a {
   text-decoration: none;
   cursor: pointer;
+  color: var(--main-text-color);
 }
 
 .login-header-back {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100px;
+  gap: 20px;
 }
 
 .login-header-register {
@@ -77,7 +78,7 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 317px;
-  height: 249px;
+  gap: 22px;
 }
 
 .login-main-inputs-wrapper label {

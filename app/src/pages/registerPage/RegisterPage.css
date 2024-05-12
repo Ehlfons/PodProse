@@ -5,13 +5,14 @@
 .register-header a {
   text-decoration: none;
   cursor: pointer;
+  color: var(--main-text-color);
 }
 
 .register-header-back {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100px;
+  gap: 20px;
 }
 
 .register-header-login {
@@ -57,8 +58,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  height: 404px;
+  justify-content: center;
   width: 100%;
 }
 
@@ -68,7 +68,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 49.26%;
+  width: 65%;
 }
 
 .register-main-inputs-wrapper {
@@ -76,8 +76,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  width: 317px;
-  height: 249px;
+  width: 100%;
+  gap: 22px;
 }
 
 .register-main-inputs-wrapper label {
@@ -107,7 +107,7 @@
 
 .register-main-common-input:focus {
   outline: none;
-  border: 3px solid var(--main-text-color);
+  border: 2px solid var(--main-text-color);
 }
 
 .register-main-input-register {

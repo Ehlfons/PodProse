@@ -12,36 +12,23 @@ const LoginPage = () => {
     updateEmail,
     password,
     updatePassword,
+    username,
+    updateUsername,
     handleLogin,
-    errors,
 
-    actualizarDato,
     errorUsuario,
     actualizarErrorUsuario,
-    confirmacionInicioSesion,
   } = useUsers();
-
-  const navigate = useNavigate();
-
-  // Redirigir al usuario a la página principal si se ha iniciado sesión correctamente.
-  /* useEffect(() => {
-    if (confirmacionInicioSesion) {
-      navigate("/");
-    }
-  }, [confirmacionInicioSesion, navigate]); */
 
   return (
     <Fragment>
       <header className="login-header">
-        <Link to="/" className="login-header-back">
-          <ArrowLogin />
-          <p>Volver</p>
-        </Link>
         <Link
           onClick={() => actualizarErrorUsuario("")}
           to="/register"
-          className="login-header-register"
+          className="login-header-back"
         >
+          <ArrowLogin />
           Crear una cuenta
         </Link>
       </header>
@@ -61,6 +48,7 @@ const LoginPage = () => {
                   type="email"
                   id="email"
                   name="email"
+                  value={email}
                   onChange={(e) => {
                     updateEmail(e.target.value);
                   }}
@@ -75,6 +63,7 @@ const LoginPage = () => {
                   type="password"
                   id="password"
                   name="password"
+                  value={password}
                   onChange={(e) => {
                     updatePassword(e.target.value);
                   }}

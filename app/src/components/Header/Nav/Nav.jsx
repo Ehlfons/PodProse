@@ -10,10 +10,10 @@ const Nav = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">Inicio</Link>
+              <Link to="/home">Inicio</Link>
             </li>
             <li>
-              <Link to="/">Explorar</Link> {/* esto será un desplegable en el que aparecerá un search para creadores y podcasts, y las categorías (con posibilidad de filtro directo). */}
+              <Link to="/home">Explorar</Link> {/* esto será un desplegable en el que aparecerá un search para creadores y podcasts, y las categorías (con posibilidad de filtro directo). */}
             </li>
             <li>
               <Link to="/contact">Contacto</Link>

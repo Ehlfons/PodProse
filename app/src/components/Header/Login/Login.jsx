@@ -9,10 +9,8 @@ import "./Login.css";
 const Login = () => {
   // Importar el estado y las funciones del contexto de usuarios.
   const {
-    sesionIniciada,
-    cerrarSesion,
-    confirmacionInicioSesion,
-    actualizarErrorUsuario,
+    loggedIn,
+    handleLogout,
   } = useUsers();
 
   const { actualizarAudioUrl } = usePodcasts();
@@ -20,30 +18,21 @@ const Login = () => {
   const navigate = useNavigate();
   return (
     <Fragment>
-      {confirmacionInicioSesion && (
-        <Alert variant="success" className="check">
-          {" "}
-          {/* Estilo básico manual ya que no funciona el success de react-bootstrap */}
-          Se ha iniciado sesión correctamente
-        </Alert>
-      )}
-
       <div className="login-button">
         <div>
           <a
             onClick={() => {
-              if (sesionIniciada) {
-                cerrarSesion();
+              if (loggedIn) {
+                handleLogout();
               } else {
-                navigate("/login");
-                actualizarErrorUsuario("");
+                navigate("/");
               }
             }}
           >
-            {sesionIniciada ? <LogoutIcon /> : "Login"}{" "}
+            {loggedIn ? <LogoutIcon /> : "Login"}{" "}
             {/* Si la sesión está iniciada, se muestra el icono de cerrar sesión. Si no, se muestra "Login".*/}
           </a>
-          {sesionIniciada && (
+          {loggedIn && (
             <Link
               to="/creator"
               className="userProfile"

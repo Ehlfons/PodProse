@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const ContextoUsuarios = createContext();
 
 const ProveedorUsuarios = ({ children }) => {
-
   // Hook para redirigir a otras páginas.
   const navigate = useNavigate();
 
@@ -26,6 +25,8 @@ const ProveedorUsuarios = ({ children }) => {
   const userInitialValue = null;
   const emailInitialValue = "";
   const passwordInitialValue = "";
+  const nameInitialValue = "";
+  const usernameInitialValue = "";
   const userDataInitialValue = null;
   const tokenInitialvalue = null;
   const loggedInInitialValue = false;
@@ -41,6 +42,8 @@ const ProveedorUsuarios = ({ children }) => {
   const [user, setUser] = useState(userInitialValue);
   const [email, setEmail] = useState(emailInitialValue);
   const [password, setPassword] = useState(passwordInitialValue);
+  const [name, setName] = useState(nameInitialValue);
+  const [username, setUsername] = useState(usernameInitialValue);
   const [userData, setUserData] = useState(userDataInitialValue);
   const [token, setToken] = useState(tokenInitialvalue);
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
@@ -84,6 +87,9 @@ const ProveedorUsuarios = ({ children }) => {
 
           // Limpiar los errores.
           setErrors(errorsInitialValue);
+
+          // Redirigir a la página de inicio.
+          navigate("/home");
         }
 
         if (response.status === 203) {
@@ -108,14 +114,50 @@ const ProveedorUsuarios = ({ children }) => {
       setUserData(userDataInitialValue);
 
       setLoggedIn(loggedInInitialValue);
+      toast.success("Sesión cerrada exitosamente");
 
       // Redirigir a la página de login.
       navigate("/");
-      location.reload();
 
-      toast.success("Cierre de sesión exitoso");
     } catch (error) {
       toast.error("Error al cerrar sesión");
+    }
+  };
+
+  // Función para crear una cuenta de usuario.
+  const handleRegister = async (e) => {
+    try {
+      // Se crea la cuenta en el servidor de Supabase.
+      const response = await axios.post(`${apiURL}/auth/register`, {
+        name,
+        email,
+        password,
+        username,
+      });
+
+      if (response.status === 201) {
+        const promise = () => new Promise((resolve) => setTimeout(() => {
+          setName(nameInitialValue);
+          setEmail(emailInitialValue);
+          setPassword(passwordInitialValue);
+          setUsername(usernameInitialValue);
+  
+          // Limpiar los errores.
+          setErrors(errorsInitialValue);
+          handleLogin(e);
+          resolve({})
+        }, 2000));
+  
+        toast.promise(promise, {
+          loading: 'Loading...',
+          success: () => {
+            return `Cuenta creada exitosamente`;
+          },
+          error: 'Error',
+        });
+      }
+    } catch (error) {
+      toast.error("Correo electrónico o contraseña incorrectos");
     }
   };
 
@@ -151,64 +193,6 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
-  // Función para crear una cuenta de usuario.
-  const registro = async () => {
-    try {
-      // Se crea la cuenta en el servidor de Supabase.
-      const { error } = await supabaseConexion.auth.signUp({
-        email: infoSesion.email,
-        password: infoSesion.password,
-      });
-
-      // Si hay un error, se lanza una excepción.
-      if (error) {
-        throw error;
-      } else { // Si no hay error, se muestra un mensaje al usuario.
-        setErrorUsuario(
-          "Recibirás un correo para la confirmación del registro."
-        );
-
-        resetInputs(); // Se resetean los inputs del formulario.
-      }
-    } catch (error) {
-      setErrorUsuario("Error al crear la cuenta: " + error.message);
-    }
-  };
-
-  /* // Función para iniciar sesión.
-  const iniciarSesion = async () => {
-    setErrorUsuario(errorUsuarioInicial); // Se resetea el error del formulario de inicio de sesión.
-    try {
-      // Se inicia sesión en el servidor de Supabase.
-      const { error } = await supabaseConexion.auth.signInWithPassword({
-        email: infoSesion.email,
-        password: infoSesion.password,
-      });
-      if (error) {
-        throw error;
-      }
-
-      confirmInicioSesion(); // Se muestra un mensaje al usuario.
-      resetInputs(); // Se resetean los inputs del formulario.
-
-    } catch (error) {
-      setErrorUsuario("Error al iniciar sesión: " + error.message);
-    }
-  };
-
-  // Función para cerrar la sesión de usuario.
-  const cerrarSesion = async () => {
-    try {
-      // Se cierra la sesión en el servidor de Supabase.
-      await supabaseConexion.auth.signOut();
-      // Se redirige la aplicación a la parte pública (<usuario anon>).
-      setSesionIniciada(false);
-      navigate("/");
-    } catch (error) {
-      setErrorUsuario("Error al cerrar sesión:" + error.message);
-    }
-  }; */
-
   // Función para obtener los datos del usuario.
   const obtenerUsuario = async () => {
     try {
@@ -224,12 +208,6 @@ const ProveedorUsuarios = ({ children }) => {
     } catch (error) {
       setErrorUsuario("Error al obtener el usuario:" + error.message);
     }
-  };
-
-  // Función para actualizar los datos de sesión del usuario.
-  const actualizarDato = (e) => {
-    const { name, value } = e.target;
-    setInfoSesion({ ...infoSesion, [name]: value });
   };
 
   // Función para mostrar al usuario que se ha iniciado sesión.
@@ -250,21 +228,10 @@ const ProveedorUsuarios = ({ children }) => {
     setInfoSesion(datosSesionInicial);
   }
 
-  /* useEffect(() => {
-    const suscripcion = supabaseConexion.auth.onAuthStateChange(
-      (e, session) => {
-       if (session) {
-          setSesionIniciada(true); // Cambia el estado de la sesión a iniciada.
-          obtenerUsuario(); // Obtiene los datos del usuario.
-        } else {
-          setSesionIniciada(false); // Cambia el estado de la sesión a no iniciada.
-        }
-      }
-    );
-  }, []); */
-
   const updateEmail = (value) => setEmail(value);
   const updatePassword = (value) => setPassword(value);
+  const updateName = (value) => setName(value);
+  const updateUsername = (value) => setUsername(value);
   const updateLoggedIn = (value) => setLoggedIn(value);
   const updateUserData = (value) => setUserData(value);
   const updateToken = (value) => setToken(value);
@@ -277,6 +244,8 @@ const ProveedorUsuarios = ({ children }) => {
   const datosAExportar = {
     email,
     password,
+    name,
+    username,
     user,
     userData,
     token,
@@ -285,6 +254,8 @@ const ProveedorUsuarios = ({ children }) => {
 
     updateEmail,
     updatePassword,
+    updateName,
+    updateUsername,
     updateLoggedIn,
     updateUserData,
     updateToken,
@@ -292,13 +263,10 @@ const ProveedorUsuarios = ({ children }) => {
 
     handleLogin,
     handleLogout,
+    handleRegister,
 
     sesionIniciada,
     errorUsuario,
-    registro,
-    /* iniciarSesion,
-    cerrarSesion, */
-    actualizarDato,
     actualizarErrorUsuario,
     usuario,
     confirmacionInicioSesion,

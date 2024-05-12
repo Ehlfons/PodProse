@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+  Logger
+} from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -19,18 +24,22 @@ export class AuthService {
 
   async register({ password, email, name, username }: RegisterDto) {
     try {
-      const existingUser = await this.prisma.user.findUnique({
+      const existingEmail = await this.prisma.user.findUnique({
         where: { email },
       });
-      if (existingUser) {
+      if (existingEmail) {
         throw new BadRequestException(
           'Ya existe un usuario con este correo electrónico',
         );
       }
 
-      const existingUsername = await this.prisma.user.findUnique({ where: { username } });
+      const existingUsername = await this.prisma.user.findUnique({
+        where: { username },
+      });
       if (existingUsername) {
-        throw new BadRequestException('Ya existe un usuario con este nombre de usuario');
+        throw new BadRequestException(
+          'Ya existe un usuario con este nombre de usuario',
+        );
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -51,11 +60,9 @@ export class AuthService {
       });
 
       return { message: 'Usuario creado correctamente' };
-
-      return user;
     } catch (error) {
       throw new BadRequestException(
-        'Ha ocurrido un error al procesar el registro',
+        Logger.error(`Error al procesar el registro: ${error.message}`, error.stack, 'AuthService'),
       );
     }
   }
