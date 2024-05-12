@@ -12,8 +12,6 @@ const LoginPage = () => {
     updateEmail,
     password,
     updatePassword,
-    username,
-    updateUsername,
     handleLogin,
     googleLogin,
   } = useUsers();
@@ -32,13 +30,13 @@ const LoginPage = () => {
       <section className="login-main">
         <div className="login-main-title">
           <PodProseLogo />
-          <h1>Iniciar Sesión</h1>
+          <h1>Inicia sesión</h1>
         </div>
         <div className="login-main-form">
           <div className="login-main-inputs">
             <div className="login-main-inputs-wrapper">
               <div className="login-main-input-email">
-                <label htmlFor="email">Usuario / Correo Electrónico</label>
+                <label htmlFor="email">Correo Electrónico</label>
                 <input
                   className="login-main-common-input"
                   title="Email"
