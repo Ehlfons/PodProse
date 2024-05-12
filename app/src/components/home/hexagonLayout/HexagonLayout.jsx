@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Hexagon } from "@components/home";
+
 import "./HexagonLayout.css";
 
 const HexagonLayout = ({ userData = [] }) => {
@@ -10,6 +11,7 @@ const HexagonLayout = ({ userData = [] }) => {
     const randomIndex = Math.floor(Math.random() * userData.length);
     return userData[randomIndex].profileImage;
   };
+
   return (
     <Fragment>
       <div className="container-hexagon-layout">
@@ -49,9 +51,7 @@ const HexagonLayout = ({ userData = [] }) => {
           )}
         </div>
         <div className="hexagonArea second">
-          <div className="hexagon" id="short">
-            <img id="arrow" src="src/assets/Arrow.svg" alt="" />
-          </div>
+          <div className="hexagon" id="short" />
           {/* Verificar si hay datos en userData antes de hacer el mapeo */}
           {userData.length > 0 ? (
             userData.map((user, index) => (
