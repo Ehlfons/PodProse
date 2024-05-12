@@ -31,13 +31,10 @@ const ProveedorUsuarios = ({ children }) => {
   const tokenInitialvalue = null;
   const loggedInInitialValue = false;
   const errorsInitialValue = {};
+  const isLoadingInitialValue = false;
 
   // Estados del contexto.
-  const [infoSesion, setInfoSesion] = useState(datosSesionInicial);
   const [usuario, setUsuario] = useState(usuarioInicial);
-  const [errorUsuario, setErrorUsuario] = useState(errorUsuarioInicial);
-  const [sesionIniciada, setSesionIniciada] = useState(sesionInicial);
-  const [confirmacionInicioSesion, setConfirmacionInicioSesion] = useState(confirmacionInicioSesionInicial);
 
   const [user, setUser] = useState(userInitialValue);
   const [email, setEmail] = useState(emailInitialValue);
@@ -48,6 +45,7 @@ const ProveedorUsuarios = ({ children }) => {
   const [token, setToken] = useState(tokenInitialvalue);
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
   const [errors, setErrors] = useState(errorsInitialValue);
+  const [isLoading, setIsLoading] = useState(isLoadingInitialValue);
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -57,6 +55,7 @@ const ProveedorUsuarios = ({ children }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    updateIsLoading(true);
 
     const isValidForm = validateLoginForm();
 
@@ -97,6 +96,10 @@ const ProveedorUsuarios = ({ children }) => {
         }
       } catch (error) {
         toast.error("Correo electrónico o contraseña incorrectos");
+      } finally {
+        setTimeout(() => {
+          updateIsLoading(false);
+        } , 2000);
       }
     }
   };
@@ -161,14 +164,6 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
-  const googleLogin = async () => {
-    try {
-      window.open(`http://localhost:3001/auth/google-logins/${from.replaceAll('/', '@')}`, "_self");
-    } catch (ex) {
-      console.log(ex)
-    }
-  }
-
   // Función para validar el formulario de inicio de sesión.
   const validateLoginForm = () => {
     const errors = {};
@@ -218,14 +213,6 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
-  // Función para mostrar al usuario que se ha iniciado sesión.
-  const confirmInicioSesion = () => {
-    setConfirmacionInicioSesion(true);
-    setTimeout(() => {
-      setConfirmacionInicioSesion(false);
-    }, 3000);
-  };
-
   // Función para actualizar el error del usuario.
   const actualizarErrorUsuario = (nuevoValor) => {
     setErrorUsuario(nuevoValor);
@@ -244,6 +231,7 @@ const ProveedorUsuarios = ({ children }) => {
   const updateUserData = (value) => setUserData(value);
   const updateToken = (value) => setToken(value);
   const updateErrors = (value) => setErrors(value);
+  const updateIsLoading = (value) => setIsLoading(value);
 
   useEffect(() => {
     readCookie();
@@ -259,6 +247,7 @@ const ProveedorUsuarios = ({ children }) => {
     token,
     loggedIn,
     errors,
+    isLoading,
 
     updateEmail,
     updatePassword,
@@ -268,19 +257,14 @@ const ProveedorUsuarios = ({ children }) => {
     updateUserData,
     updateToken,
     updateErrors,
+    updateIsLoading,
 
     handleLogin,
     handleLogout,
     handleRegister,
 
-    sesionIniciada,
-    errorUsuario,
-    actualizarErrorUsuario,
+    resetInputs,
     usuario,
-    confirmacionInicioSesion,
-    infoSesion,
-    confirmInicioSesion,  
-    resetInputs  
   };
 
   return (

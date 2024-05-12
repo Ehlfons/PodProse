@@ -24,10 +24,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 691px;
   width: 877px;
   margin: 0 auto;
   padding-top: 30px;
+  gap: 20px;
 }
 
 .register-main-title {
@@ -47,6 +47,7 @@
   font-family: 'Poppins', 'DM Sans', sans-serif;
   font-size: 35.9px;
   font-weight: 500;
+  transition: all 0.3s ease-in-out;
 }
 
 .register-main input {
@@ -68,7 +69,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 65%;
+  width: 75%;
 }
 
 .register-main-inputs-wrapper {
@@ -106,8 +107,8 @@
 }
 
 .register-main-common-input:focus {
-  outline: none;
-  border: 2px solid var(--main-text-color);
+  outline: 2px solid var(--main-text-color);
+  border: none;
 }
 
 .register-main-input-register {
@@ -249,4 +250,17 @@
   font-size: 12px;
   color: var(--main-text-color-60);
   cursor: default;
+}
+
+@media (max-width: 877px) {
+  .register-main {
+    width: 100%;
+    margin-bottom: 80px;
+  }
+}
+
+@media (max-width: 568px) {
+  .register-main-title h1 {
+    font-size: 32px;
+  }
 }
