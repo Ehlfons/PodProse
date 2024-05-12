@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
 import { useUsers } from "@components/hooks";
 import { ArrowLogin, PodProseLogo, GithubLogo, XLogo, GoogleLogo } from "@components/svg";
@@ -15,16 +15,13 @@ const LoginPage = () => {
     username,
     updateUsername,
     handleLogin,
-
-    errorUsuario,
-    actualizarErrorUsuario,
+    googleLogin,
   } = useUsers();
 
   return (
     <Fragment>
       <header className="login-header">
         <Link
-          onClick={() => actualizarErrorUsuario("")}
           to="/register"
           className="login-header-back"
         >
@@ -80,16 +77,13 @@ const LoginPage = () => {
                 }}
               />
             </div>
-            {errorUsuario && (
-              <div className="error-usuario">{errorUsuario}</div>
-            )}
           </div>
           <div className="login-main-separator">
             <p>o</p>
           </div>
           <div className="login-main-options">
             <div className="login-main-options-wrapper">
-              <button className="login-main-option-google">
+              <button className="login-main-option-google" onClick={googleLogin}>
                 <GoogleLogo />
                 <p>Continuar con Google</p>
               </button>

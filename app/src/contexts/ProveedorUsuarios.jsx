@@ -161,6 +161,14 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
+  const googleLogin = async () => {
+    try {
+      window.open(`http://localhost:3001/auth/google-logins/${from.replaceAll('/', '@')}`, "_self");
+    } catch (ex) {
+      console.log(ex)
+    }
+  }
+
   // Función para validar el formulario de inicio de sesión.
   const validateLoginForm = () => {
     const errors = {};
