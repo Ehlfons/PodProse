@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { ContextoUsuarios } from "@contexts/ProveedorUsuarios.jsx";
 
-// Hook para usar el contexto de Usuarios.
-const useUsuarios = () => {
+// Hook para usar el contexto de Users.
+const useUsers = () => {
   const contexto = useContext(ContextoUsuarios);
   return contexto;
 };
 
-export default useUsuarios;
+export default useUsers;

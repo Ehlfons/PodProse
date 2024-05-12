@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { supabaseConexion } from "../config/supabase.js";
-import useUsuarios from "@components/hooks/useUsuarios.jsx";
+import { useUsers } from "@components/hooks";
 
 // Contexto para las listas.
 const ContextoPodcasts = createContext();
@@ -30,7 +30,7 @@ const ProveedorPodcasts = ({ children }) => {
   const [podcastSeleccionadoId, setPodcastSeleccionadoId] = useState(audioInicial); // Estado para guardar el ID del podcast seleccionado.
 
   // Usuario para obtener el ID del usuario autenticado.
-  const { usuario } = useUsuarios();
+  const { usuario } = useUsers();
 
   // Función para obtener el listado de Podcasts.
   const obtenerListadoPodcasts = async () => {

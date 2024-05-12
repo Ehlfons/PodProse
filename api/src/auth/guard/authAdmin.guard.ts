@@ -19,7 +19,7 @@ export class AuthAdminGuard implements CanActivate {
     }
 
     try {
-      const decodedToken = this.jwtService.verify(token);
+      const decodedToken = this.jwtService.decode(token);
       const userId = decodedToken.sub;
 
       const user = await this.prisma.user.findUnique({

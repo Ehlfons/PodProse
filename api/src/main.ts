@@ -1,13 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
-import { SwaggerModule , DocumentBuilder } from '@nestjs/swagger';
-import * as dotenv from 'dotenv'
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
 
 async function bootstrap() {
-
   //Cargar el archivo .env
-  dotenv.config(); 
+  dotenv.config();
 
   //Carga la app
   const app = await NestFactory.create(AppModule);
@@ -15,16 +14,14 @@ async function bootstrap() {
   //Crear la documentacion del swagger
 
   const config = new DocumentBuilder()
-    .setTitle(`Trackow`)
-    .setDescription(`Rutas para la api :)`)
+    .setTitle(`Podprose API`)
+    .setDescription(`Documentacion de la API de Podprose`)
     .setVersion(`1.0`)
     .build();
 
-  const document = SwaggerModule.createDocument(app,config);
-  SwaggerModule.setup('api', app , document);
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
-
-  
   // Configuración de CORS
   const corsOptions: CorsOptions = {
     origin: '*', // Cambia esto según el origen de tu frontend en producción

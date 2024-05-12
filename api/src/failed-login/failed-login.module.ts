@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { FailedLoginService } from './failed-login.service';
 import { FailedLoginController } from './failed-login.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [FailedLoginController],
-  providers: [FailedLoginService , PrismaService],
-  exports: [ FailedLoginModule , FailedLoginService]
+  providers: [FailedLoginService],
+  exports: [FailedLoginService, PrismaModule],
 })
 export class FailedLoginModule {}

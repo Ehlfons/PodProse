@@ -1,5 +1,10 @@
 import { Fragment } from "react";
 import json from "@objects/podcasts.json";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 import "./LatestSlider.css";
 
@@ -26,7 +31,7 @@ const LatestSlider = () => {
 
     // Obtiene un número aleatorio de los podcasts seleccionados
     const randomPodcasts = [];
-    
+
     while (randomPodcasts.length < numeroPodcasts) {
       const randomIndex = Math.floor(Math.random() * latestPodcasts.length);
       const randomPodcast = latestPodcasts[randomIndex];
@@ -44,32 +49,46 @@ const LatestSlider = () => {
     }));
   };
 
-  // Obtiene 3 podcasts aleatorios (5 en un futuro cuando hagamos el slider personalizado)
-  const randomPodcasts = getRandomPodcasts(json, 3);
+  const randomPodcasts = getRandomPodcasts(json, 7);
+
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index, className) {
+      return '<span class="' + className + '">' + (index + 1) + '</span>';
+    },
+  };
 
   return (
     <Fragment>
       <div className="latest-slider-wrapper">
-        {randomPodcasts.map((podcast, index) => (
-          <div key={index}>
-            <a href={podcast.link}>
-              <div className="latest-slider-fade">
-                <div className="latest-info-img">
-                  <h5>{podcast.name}</h5>
-                  <p>{podcast.category}</p>
+        <Swiper
+          pagination={pagination}
+          modules={[Pagination]}
+          slidesPerView={3}
+          spaceBetween={120}
+          className="mySwiper"
+        >
+          {randomPodcasts.map((podcast, index) => (
+            <SwiperSlide key={index}>
+              <a href={podcast.link}>
+                <div className="latest-slider-fade">
+                  <div className="latest-info-img">
+                    <h5>{podcast.name}</h5>
+                    <p>{podcast.category}</p>
+                  </div>
+                  <img
+                    className="latest-slider-img"
+                    src={podcast.image}
+                    alt={`Image ${index + 1}`}
+                    onClick={() => {
+                      window.location.href = podcast.link;
+                    }}
+                  />
                 </div>
-                <img
-                  className="latest-slider-img"
-                  src={podcast.image}
-                  alt={`Image ${index + 1}`}
-                  onClick={() => {
-                    window.location.href = podcast.link; // Redirige a la página del podcast (mediante su id). cambiar por un navigate cuando esté bien hecho y la pagina de podcast funcione.
-                  }}
-                />
-              </div>
-            </a>
-          </div>
-        ))}
+              </a>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </Fragment>
   );

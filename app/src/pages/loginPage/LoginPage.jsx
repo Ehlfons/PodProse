@@ -1,69 +1,51 @@
-import React, { Fragment, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 
-import { useUsuarios } from "@components/hooks";
+import { useUsers } from "@components/hooks";
 import { ArrowLogin, PodProseLogo, GithubLogo, XLogo, GoogleLogo } from "@components/svg";
 
 import "./LoginPage.css";
 
 const LoginPage = () => {
   const {
-    iniciarSesion,
-    actualizarDato,
-    errorUsuario,
-    actualizarErrorUsuario,
-    confirmacionInicioSesion,
-  } = useUsuarios();
-
-  const navigate = useNavigate();
-
-  const manejarInicioSesion = async (e) => {
-    e.preventDefault();
-    iniciarSesion();
-    actualizarErrorUsuario("");
-  };
-
-  // Redirigir al usuario a la página principal si se ha iniciado sesión correctamente.
-  useEffect(() => {
-    if (confirmacionInicioSesion) {
-      navigate("/");
-    }
-  }, [confirmacionInicioSesion, navigate]);
+    email,
+    updateEmail,
+    password,
+    updatePassword,
+    handleLogin,
+    googleLogin,
+  } = useUsers();
 
   return (
     <Fragment>
       <header className="login-header">
-        <Link to="/" className="login-header-back">
-          <ArrowLogin />
-          <p>Volver</p>
-        </Link>
         <Link
-          onClick={() => actualizarErrorUsuario("")}
           to="/register"
-          className="login-header-register"
+          className="login-header-back"
         >
+          <ArrowLogin />
           Crear una cuenta
         </Link>
       </header>
       <section className="login-main">
         <div className="login-main-title">
           <PodProseLogo />
-          <h1>Iniciar Sesión</h1>
+          <h1>Inicia sesión</h1>
         </div>
         <div className="login-main-form">
           <div className="login-main-inputs">
             <div className="login-main-inputs-wrapper">
               <div className="login-main-input-email">
-                <label htmlFor="email">Usuario / Correo Electrónico</label>
+                <label htmlFor="email">Correo Electrónico</label>
                 <input
                   className="login-main-common-input"
                   title="Email"
                   type="email"
                   id="email"
                   name="email"
+                  value={email}
                   onChange={(e) => {
-                    actualizarErrorUsuario("");
-                    actualizarDato(e);
+                    updateEmail(e.target.value);
                   }}
                 />
               </div>
@@ -76,9 +58,9 @@ const LoginPage = () => {
                   type="password"
                   id="password"
                   name="password"
+                  value={password}
                   onChange={(e) => {
-                    actualizarErrorUsuario("");
-                    actualizarDato(e);
+                    updatePassword(e.target.value);
                   }}
                 />
               </div>
@@ -89,20 +71,17 @@ const LoginPage = () => {
                 type="button"
                 value="Iniciar Sesión"
                 onClick={(e) => {
-                  manejarInicioSesion(e);
+                  handleLogin(e);
                 }}
               />
             </div>
-            {errorUsuario && (
-              <div className="error-usuario">{errorUsuario}</div>
-            )}
           </div>
           <div className="login-main-separator">
             <p>o</p>
           </div>
           <div className="login-main-options">
             <div className="login-main-options-wrapper">
-              <button className="login-main-option-google">
+              <button className="login-main-option-google" onClick={googleLogin}>
                 <GoogleLogo />
                 <p>Continuar con Google</p>
               </button>

@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { create } from 'domain';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+@ApiTags('FailerLogin -- Evitar ataques')
 @Injectable()
 export class FailedLoginService {
   constructor(private readonly prisma: PrismaService) {}
@@ -9,16 +11,16 @@ export class FailedLoginService {
   async recordFailedAttempt(username: string): Promise<void> {
     await this.prisma.failedLoginAttempt.create({
       data: {
-        username
-      }
+        username,
+      },
     });
   }
 
   async getFailedAttempts(username: string): Promise<number> {
     const failedAttempts = await this.prisma.failedLoginAttempt.count({
       where: {
-        username
-      }
+        username,
+      },
     });
     return failedAttempts;
   }
@@ -26,11 +28,10 @@ export class FailedLoginService {
   async clearFailedAttempts(username: string): Promise<void> {
     await this.prisma.failedLoginAttempt.deleteMany({
       where: {
-        username
-      }
+        username,
+      },
     });
   }
-
 
   async getFailedTime(username: string) {
     return await this.prisma.failedLoginAttempt.findFirst({
@@ -42,6 +43,4 @@ export class FailedLoginService {
       },
     });
   }
-
-  
 }

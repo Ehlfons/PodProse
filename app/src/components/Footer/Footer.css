@@ -119,6 +119,7 @@ footer small {
 
 .footer-terms a {
   text-decoration: none;
+  color: var(--main-text-color);
 }
 
 .footer-terms a:hover {

@@ -28,9 +28,9 @@ export class ValidateUserService {
           verificationToken: token,
         },
       });
-  
+
       const today = new Date();
-  
+
       await this.prisma.user.update({
         where: {
           id: consulta.userId,
@@ -39,17 +39,16 @@ export class ValidateUserService {
           verificateAt: today,
         },
       });
-  
+
       await this.prisma.verificationUser.delete({
         where: { userId: consulta.userId },
       });
-  
-      return "Cuenta VERIFICADA";
+
+      return 'Cuenta VERIFICADA';
     } catch (error) {
       // Maneja el error aquí si ocurre algún problema durante la verificación
-      console.error("Error al validar la cuenta:", error);
-      return "Error al validar la cuenta";
+      console.error('Error al validar la cuenta:', error);
+      return 'Error al validar la cuenta';
     }
   }
-  
 }
