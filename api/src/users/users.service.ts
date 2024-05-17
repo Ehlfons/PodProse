@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+// import { User } from './user.entity';
+import * as bcrypt from 'bcrypt';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -61,6 +65,7 @@ export class UsersService {
         console.error(`Error al eliminar la imagen ${userImgName}:`, error);
       }
     }
+    
 
     const userUpdate = await this.prisma.user.update({
       where: { id: userId },
@@ -69,5 +74,12 @@ export class UsersService {
       },
     });
     return user;
+  }
+
+  async verifyUser(id: string) {
+    return this.prisma.user.update({
+      where: { id },
+      data: { verificateAt: new Date() },
+    });
   }
 }

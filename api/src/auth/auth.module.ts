@@ -11,6 +11,8 @@ import { ValidateUserService } from 'src/validate-user/validate-user.service';
 import { ValidateUserModule } from 'src/validate-user/validate-user.module';
 import { FailedLoginService } from 'src/failed-login/failed-login.service';
 import { FailedLoginModule } from 'src/failed-login/failed-login.module';
+import { UsersModule } from '../users/users.module';
+import { EnviarCorreoService } from './enviar-correo.service';
 
 @Module({
   imports: [
@@ -30,6 +32,7 @@ import { FailedLoginModule } from 'src/failed-login/failed-login.module';
     UsersService,
     ValidateUserService,
     FailedLoginService,
+    EnviarCorreoService,
   ],
   controllers: [AuthController],
   exports: [
