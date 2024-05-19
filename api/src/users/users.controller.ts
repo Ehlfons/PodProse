@@ -1,7 +1,11 @@
-import { Controller, Get, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, ValidationPipe, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { EnviarCorreoService } from '../auth/enviar-correo.service';
 
 @ApiTags('Users')
 @Controller('users')

@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUsers } from "@components/hooks";
+import { toast } from "sonner";
 
 import { ArrowLogin, PodProseLogo } from "@components/svg";
 import "./RegisterPage.css";
@@ -21,7 +22,14 @@ const RegisterPage = () => {
   // Lógica para el evento onClick del botón de registro.
   const manejarRegistro = (e) => {
     e.preventDefault();
-    handleRegister(e);
+    const promise = () => new Promise((resolve) => setTimeout(() => {
+      handleRegister();
+      resolve({})
+    }, 2000));
+
+    toast.promise(promise, {
+      loading: 'Registrando usuario...',
+    });
   };
 
   const navigate = useNavigate();
@@ -44,7 +52,11 @@ const RegisterPage = () => {
               <div className="register-main-input-email">
                 <label htmlFor="name">Nombre</label>
                 <input
-                  className="register-main-common-input" type="text" title="name" id="name" name="name"
+                  className="register-main-common-input"
+                  type="text"
+                  title="name"
+                  id="name"
+                  name="name"
                   value={name}
                   onChange={(e) => {
                     updateName(e.target.value);
@@ -54,7 +66,11 @@ const RegisterPage = () => {
               <div className="register-main-input-email">
                 <label htmlFor="username">Usuario</label>
                 <input
-                  className="register-main-common-input" type="text" title="Username" id="username" name="username"
+                  className="register-main-common-input"
+                  type="text"
+                  title="Username"
+                  id="username"
+                  name="username"
                   value={username}
                   onChange={(e) => {
                     updateUsername(e.target.value);
@@ -65,7 +81,11 @@ const RegisterPage = () => {
               <div className="register-main-input-email">
                 <label htmlFor="email">Correo electrónico</label>
                 <input
-                  className="register-main-common-input" type="email" title="Email" id="email" name="email"
+                  className="register-main-common-input"
+                  type="email"
+                  title="Email"
+                  id="email"
+                  name="email"
                   value={email}
                   onChange={(e) => {
                     updateEmail(e.target.value);
@@ -76,7 +96,11 @@ const RegisterPage = () => {
               <div className="register-main-input-passwd">
                 <label htmlFor="password">Contraseña</label>
                 <input
-                  className="register-main-common-input" title="Contraseña" type="password" id="password" name="password"
+                  className="register-main-common-input"
+                  title="Contraseña"
+                  type="password"
+                  id="password"
+                  name="password"
                   value={password}
                   onChange={(e) => {
                     updatePassword(e.target.value);

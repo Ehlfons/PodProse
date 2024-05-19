@@ -128,9 +128,8 @@ const ProveedorUsuarios = ({ children }) => {
   };
 
   // Función para crear una cuenta de usuario.
-  const handleRegister = async (e) => {
+  const handleRegister = async () => {
     try {
-      // Se crea la cuenta en el servidor de Supabase.
       const response = await axios.post(`${apiURL}/auth/register`, {
         name,
         email,
@@ -139,28 +138,21 @@ const ProveedorUsuarios = ({ children }) => {
       });
 
       if (response.status === 201) {
-        const promise = () => new Promise((resolve) => setTimeout(() => {
-          setName(nameInitialValue);
-          setEmail(emailInitialValue);
-          setPassword(passwordInitialValue);
-          setUsername(usernameInitialValue);
-  
-          // Limpiar los errores.
-          setErrors(errorsInitialValue);
-          handleLogin(e);
-          resolve({})
-        }, 2000));
-  
-        toast.promise(promise, {
-          loading: 'Loading...',
-          success: () => {
-            return `Cuenta creada exitosamente`;
-          },
-          error: 'Error',
-        });
+        setName(nameInitialValue);
+        setEmail(emailInitialValue);
+        setPassword(passwordInitialValue);
+        setUsername(usernameInitialValue);
+
+        // Limpiar los errores.
+        setErrors(errorsInitialValue);
+
+        toast.success("verifica tu correo para activar tu cuenta");
+      } else {
+        toast.error("Error al registrar el usuario");
       }
+
     } catch (error) {
-      toast.error("Correo electrónico o contraseña incorrectos");
+      toast.error("Error al registrar el usuario");
     }
   };
 
