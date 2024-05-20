@@ -108,10 +108,7 @@ const ProveedorUsuarios = ({ children }) => {
   const handleLogout = () => {
     try {
       // Se eliminan los datos del usuario y el token del localStorage.
-      localStorage.removeItem("token");
-      localStorage.removeItem("id");
-      localStorage.removeItem("user");
-      localStorage.removeItem("companyId");
+      localStorage.clear();
 
       setToken(tokenInitialvalue);
       setUserData(userDataInitialValue);

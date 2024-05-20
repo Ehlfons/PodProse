@@ -9,8 +9,8 @@ export class EnviarCorreoService {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'trackow.contacto@gmail.com',
-        pass: 'rydc xgwb dzoe kuki',
+        user: 'podprose.info@gmail.com',
+        pass: 'huod lgcr cpix bevd',
       },
     });
   }
@@ -18,23 +18,20 @@ export class EnviarCorreoService {
   async enviarCorreo(email_destino: string, username: string, token: string) {
     const link_verificacion = `http://localhost:3000/auth/verify/${token}`;
     const mailOptions = {
-      from: 'trackow.contacto@gmail.com',
+      from: 'podprose.info@gmail.com',
       to: email_destino,
-      subject: 'Confirma tu cuenta en Trackow',
+      subject: 'Confirma tu cuenta en PodProse',
       html: `
       <html>
         <head>
           <style>
             body {
               font-family: Arial, sans-serif;
-              background-color: #f4f4f4;
             }
             .container {
               max-width: 600px;
               padding-top: 5px;
-              background-color: #ffffff;
               border-radius: 10px;
-              box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
             h1 {
               color: #333333;
