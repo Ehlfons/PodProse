@@ -7,6 +7,8 @@ import { MulterModule } from '@nestjs/platform-express';
 import { FailedLoginModule } from './failed-login/failed-login.module';
 import { BruteForceMiddleware } from './middleware/brute-force.middleware';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { JwtModule } from '@nestjs/jwt';
     PrismaModule,
     ValidateUserModule,
     FailedLoginModule,
+    UploadModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     JwtModule.register({
       secret: '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',
       signOptions: { expiresIn: '1h' },
