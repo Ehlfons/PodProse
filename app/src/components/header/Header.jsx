@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 
-import { Logo, Nav, Login } from "@components/Header";
+import { Logo, Nav, Login } from "@components/header";
 import "./Header.css";
 
 const Header = () => {
