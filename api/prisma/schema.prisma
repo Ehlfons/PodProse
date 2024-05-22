@@ -27,10 +27,10 @@ model User {
 
 model Podcast {
   id          String       @id @unique @default(uuid())
-  title       String
+  title       String       @unique
   description String
   url_img     String
-  url_audio   String
+  url_audio   String       @unique
   createdAt   DateTime     @default(now())
   ad_status   Boolean      @default(true)
   ad          Ads?         @relation(fields: [adId], references: [id])
