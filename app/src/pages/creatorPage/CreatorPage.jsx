@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import ReactAudioPlayer from "react-audio-player";
 import Podcast from "@components/podcast/Podcast.jsx";
 import { usePodcasts } from "@components/hooks";
+import { FileDisplay, FileUpload, FileList } from "@components/files";
 import "./CreatorPage.css";
 
 const CreatorPage = () => {
@@ -9,7 +10,7 @@ const CreatorPage = () => {
 
   return (
     <Fragment>
-      <div className="listado-podcasts">
+      {/* <div className="listado-podcasts">
         {listadoPodcasts.length > 0 ? (
           listadoPodcasts.map((podcast, i) => {
             return (
@@ -38,7 +39,11 @@ const CreatorPage = () => {
             autoPlay
           />
         </section>
-      )}
+      )} */}
+
+      <FileUpload />
+      {/* <FileDisplay /> */}
+      <FileList/>
     </Fragment>
   );
 };
