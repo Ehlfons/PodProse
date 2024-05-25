@@ -10,7 +10,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px 0 var(--primary-green);
   border: 2px solid var(--main-text-color);
-  cursor: url("src/assets/Play-Green-Cursor.svg") 20 20, pointer;
+  cursor: pointer;
 }
 
 .podcast img {

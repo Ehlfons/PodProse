@@ -58,18 +58,17 @@ export class UploadController {
     res.send(buffer);
   }
 
-  /* @Get()
-  async listFiles(@Res() res: Response) {
-    const data = await this.uploadService.listFiles();
-
-    res.json(data.Contents || []);
-  } */
-
   @Get()
   async listPodcasts(@Res() res: Response) {
     const data = await this.uploadService.listPodcasts();
 
     res.json(data);
+  }
+
+  @Get('user/:userId')
+  async getPodcastsByUser(@Param('userId') userId: string, @Res() res: Response) {
+    const podcasts = await this.uploadService.getPodcastsByUser(userId);
+    res.json(podcasts);
   }
 
   @Delete(':fileName')

@@ -1,6 +1,5 @@
-import { useState, useEffect, createContext } from "react";
-import { supabaseConexion } from "../config/supabase.js";
-import { useUsers } from "@components/hooks";
+import { useState, createContext } from "react";
+import axios from "axios";
 
 // Contexto para las listas.
 const ContextoPodcasts = createContext();
@@ -18,6 +17,10 @@ const ProveedorPodcasts = ({ children }) => {
   const audioInicial = null;
   const valorInicialFormulario = {};
 
+  const podcastListInitialValue = [];
+  const userPodcastsListInitialValue = [];
+  const selectedPodcastInitialValue = {};
+
   // Estados.
   const [listadoPodcasts, setListadoPodcasts] = useState(arrayInicial);
   const [podcast, setPodcast] = useState(valoresInicialesPodcast); // Estado para guardar los datos del podcast.
@@ -29,82 +32,43 @@ const ProveedorPodcasts = ({ children }) => {
   const [erroresFormulario, setErroresFormulario] = useState(valorInicialFormulario);
   const [podcastSeleccionadoId, setPodcastSeleccionadoId] = useState(audioInicial); // Estado para guardar el ID del podcast seleccionado.
 
+  const [podcastsList, setPodcastsList] = useState(podcastListInitialValue); // Estado para guardar los podcasts.
+  const [userPodcastsList, setUserPodcastsList] = useState(userPodcastsListInitialValue); // Estado para guardar los podcasts del usuario.
+  const [selectedPodcast, setSelectedPodcast] = useState(selectedPodcastInitialValue); // Estado para guardar el podcast seleccionado.
+
   // Usuario para obtener el ID del usuario autenticado.
-  const { usuario } = useUsers();
+  const apiURL = import.meta.env.VITE_API_URL;
 
-  // Función para obtener el listado de Podcasts.
-  const obtenerListadoPodcasts = async () => {
-    // Si el usuario está autenticado, se obtiene el listado de podcasts.
-    if (usuario) {
-      try {
-        const { data, error } = await supabaseConexion
-          .from("podcasts")
-          .select("*")
-          .eq("user_id", usuario.id); // Se obtienen los podcasts del usuario autenticado.
+  // Función para obtener todos los podcasts.
+  const fetchPodcasts = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/upload`);
 
-        if (error) {
-          throw error;
-        } else {
-          setListadoPodcasts(data);
-        }
-      } catch (error) {
-        setSituacion(`Error al obtener el listado de podcasts: ${error.message}`);
-      }
-    } else {
-      // Si el usuario no está autenticado, se muestra un mensaje.
-      setSituacion("El usuario no está autenticado.");
+      setPodcastsList(response.data);
+    } catch (error) {
+      console.error('Error fetching podcasts:', error);
     }
   };
 
-  // Función para obtener los datos de un registro.
-  const getPodcast = async (podcast_id) => {
+  // Función para obtener los podcasts del usuario.
+  const fetchUserPodcasts = async () => {
+    const id = localStorage.getItem('id');
     try {
-      setPodcastSeleccionadoId(podcast_id);
-      const { data, error } = await supabaseConexion
-        .from("podcasts")
-        .select("*")
-        .eq("podcast_id", podcast_id);
-
-      if (error) {
-        throw error;
-      }
-
-      setPodcast(data[0]); // Se actualiza el estado "podcast" con los datos del registro, para que el formulario se rellene con los datos del podcast. El data[0] es porque el resultado del consulta es un array con un único elemento.
+      const response = await axios.get(`${apiURL}/upload/user/${id}`);
+      
+      setUserPodcastsList(response.data);
     } catch (error) {
-      setSituacion(`Error al obtener los datos del podcast: ${error.message}`);
+      console.error('Error fetching user podcasts:', error);
     }
   };
 
-  // Función para eliminar una podcast.
-  const deletePodcast = async (podcast_id) => {
+  // Función para eliminar un podcast.
+  const handleDeletePodcast = async (podcastId) => {
     try {
-      const { error } = await supabaseConexion
-        .from("podcasts")
-        .delete()
-        .eq("podcast_id", podcast_id); // Se borra la podcast con el id indicado.
-
-      if (error) {
-        throw error;
-      }
-
-      // Si el podcast que se está reproduciendo se elimina, detenemos la reproducción.
-      if (
-        audioUrl ===
-        listadoPodcasts.find((podcast) => podcast.podcast_id === podcast_id)
-          ?.audio_url
-      ) {
-        setAudioUrl(null);
-      }
-
-      // Se crea un nuevo array sin el podcast eliminado.
-      const podcastsFiltrados = listadoPodcasts.filter(
-        (podcast) => podcast.podcast_id !== podcast_id
-      );
-
-      // Se actualiza el estado con los nuevos datos.
-      setListadoPodcasts(podcastsFiltrados);
+      await axios.delete(`http://localhost:3000/upload/podcast/${podcastId}`);
+      setUserPodcastsList(podcasts.filter((podcast) => podcast.id !== podcastId));
     } catch (error) {
-      setSituacion(`Error al eliminar el podcast: ${error.message}`);
+      console.error('Error deleting podcast:', error);
     }
   };
 
@@ -112,36 +76,6 @@ const ProveedorPodcasts = ({ children }) => {
   const cambiarDatosPodcast = (e) => {
     const { name, value } = e.target;
     setPodcast({ ...podcast, [name]: value });
-  };
-
-  // Función para actualizar un podcast.
-  const updatePodcast = async () => {
-    try {
-      const { error } = await supabaseConexion
-        .from("podcasts")
-        .update(podcast)
-        .eq("podcast_id", podcast.podcast_id);
-
-      if (error) {
-        throw error;
-      }
-
-      // Se crea un nuevo array con los cambios del formulario.
-      const podcastsCambiados = listadoPodcasts.map((podcastPrev) => {
-        return podcastPrev.id === podcast.podcast_id ? podcast : podcastPrev; // Si el id del podcast del listado es igual al id del podcast del formulario, se devuelve el podcast del formulario, si no, se devuelve el podcast del listado.
-      });
-
-      // Se actualiza el estado con los nuevos datos.
-      setListadoPodcasts(podcastsCambiados);
-
-      // Se borra el formulario tras el cambio.
-      setPodcast(valoresInicialesPodcast);
-
-      // Actualizar el listado de podcasts con los nuevos cambios para que el precio promedio del resumen se actualice.
-      obtenerListadoPodcasts();
-    } catch (error) {
-      setSituacion(`Error al actualizar el podcast: ${error.message}`);
-    }
   };
 
   // Funcion para validar el formulario
@@ -213,34 +147,33 @@ const ProveedorPodcasts = ({ children }) => {
     setAudioUrl(nuevoValor);
   };
 
-  // Efecto para obtener el listado de Podcasts.
-  useEffect(() => {
-    if (usuario.id) {
-      obtenerListadoPodcasts();
-    }
-  }, [usuario]); // Se ejecuta cada vez que cambie el usuario, para obtener los podcasts del usuario con la sesión iniciada.
+  const updateSelectedPodcast = (podcast) => setSelectedPodcast(podcast);
 
   // Datos a exportar al contexto.
   const datosAExportar = {
     listadoPodcasts,
     podcast,
-    situacion,
-    obtenerListadoPodcasts,
-    deletePodcast,
-    actualizarIdPodcastActual,
     idPodcastActual,
+    situacion,
     erroresPodcast,
-    actualizarErroresPodcast,
-    validarFormulario,
     cantidad,
-    actualizarCantidad,
     audioUrl,
-    actualizarAudioUrl,
-    updatePodcast,
-    cambiarDatosPodcast,
     erroresFormulario,
+    podcastSeleccionadoId,
+    podcastsList,
+    userPodcastsList,
+    selectedPodcast,
+    updateSelectedPodcast,
+    fetchPodcasts,
+    fetchUserPodcasts,
+    handleDeletePodcast,
+    cambiarDatosPodcast,
+    validarFormulario,
+    actualizarIdPodcastActual,
+    actualizarErroresPodcast,
     actualizarErroresFormulario,
-    getPodcast,
+    actualizarCantidad,
+    actualizarAudioUrl,
   };
 
   return (

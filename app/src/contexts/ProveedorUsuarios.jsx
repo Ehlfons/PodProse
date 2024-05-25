@@ -14,7 +14,6 @@ const ProveedorUsuarios = ({ children }) => {
 
   // Valores iniciales.
   const sesionInicial = false;
-  const usuarioInicial = {};
   const errorUsuarioInicial = "";
   const confirmacionInicioSesionInicial = false;
   const datosSesionInicial = {
@@ -27,21 +26,18 @@ const ProveedorUsuarios = ({ children }) => {
   const passwordInitialValue = "";
   const nameInitialValue = "";
   const usernameInitialValue = "";
-  const userDataInitialValue = null;
   const tokenInitialvalue = null;
   const loggedInInitialValue = false;
   const errorsInitialValue = {};
   const isLoadingInitialValue = false;
 
   // Estados del contexto.
-  const [usuario, setUsuario] = useState(usuarioInicial);
 
   const [user, setUser] = useState(userInitialValue);
   const [email, setEmail] = useState(emailInitialValue);
   const [password, setPassword] = useState(passwordInitialValue);
   const [name, setName] = useState(nameInitialValue);
   const [username, setUsername] = useState(usernameInitialValue);
-  const [userData, setUserData] = useState(userDataInitialValue);
   const [token, setToken] = useState(tokenInitialvalue);
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
   const [errors, setErrors] = useState(errorsInitialValue);
@@ -49,7 +45,6 @@ const ProveedorUsuarios = ({ children }) => {
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
-  // const userId = localStorage.getItem("id");
 
   // Funciones
 
@@ -74,7 +69,7 @@ const ProveedorUsuarios = ({ children }) => {
           localStorage.setItem("user", user.role);
 
           setToken(token);
-          setUserData(user);
+          setUser(user);
 
           setLoggedIn(true);
 
@@ -111,7 +106,7 @@ const ProveedorUsuarios = ({ children }) => {
       localStorage.clear();
 
       setToken(tokenInitialvalue);
-      setUserData(userDataInitialValue);
+      setUser(userInitialValue);
 
       setLoggedIn(loggedInInitialValue);
       toast.success("Sesión cerrada exitosamente");
@@ -153,6 +148,33 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
+  const getUser = async () => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    try {
+      const response = await axios.get(`${apiURL}/users/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.status !== 200) {
+        throw new Error('Error fetching user');
+      }
+
+      setUser(response.data);
+      console.log(response.data)
+      return response.data;
+    } catch (error) {
+      toast.error('Error al obtener el usuario');
+      throw error;
+    }
+  };
+
   // Función para validar el formulario de inicio de sesión.
   const validateLoginForm = () => {
     const errors = {};
@@ -180,32 +202,11 @@ const ProveedorUsuarios = ({ children }) => {
 
     if (user && token) {
       setLoggedIn(true);
-      setUserData(user);
+      setUser(user);
       setToken(token);
+      getUser();
     }
   };
-
-  // Función para obtener los datos del usuario.
-  const obtenerUsuario = async () => {
-    try {
-      // Se obtiene la información del usuario que tiene sesión iniciada.
-      const { data, error } = await supabaseConexion.auth.getUser();
-
-      if (error) {
-        throw error;
-      }
-      // Se actualiza el estado del usuario.
-      setUsuario(data.user);
-
-    } catch (error) {
-      setErrorUsuario("Error al obtener el usuario:" + error.message);
-    }
-  };
-
-  // Función para actualizar el error del usuario.
-  const actualizarErrorUsuario = (nuevoValor) => {
-    setErrorUsuario(nuevoValor);
-  }
 
   // Función para resetear los inputs.
   const resetInputs = () => {
@@ -217,7 +218,6 @@ const ProveedorUsuarios = ({ children }) => {
   const updateName = (value) => setName(value);
   const updateUsername = (value) => setUsername(value);
   const updateLoggedIn = (value) => setLoggedIn(value);
-  const updateUserData = (value) => setUserData(value);
   const updateToken = (value) => setToken(value);
   const updateErrors = (value) => setErrors(value);
   const updateIsLoading = (value) => setIsLoading(value);
@@ -232,7 +232,6 @@ const ProveedorUsuarios = ({ children }) => {
     name,
     username,
     user,
-    userData,
     token,
     loggedIn,
     errors,
@@ -243,7 +242,6 @@ const ProveedorUsuarios = ({ children }) => {
     updateName,
     updateUsername,
     updateLoggedIn,
-    updateUserData,
     updateToken,
     updateErrors,
     updateIsLoading,
@@ -253,7 +251,6 @@ const ProveedorUsuarios = ({ children }) => {
     handleRegister,
 
     resetInputs,
-    usuario,
   };
 
   return (

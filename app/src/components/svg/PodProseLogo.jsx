@@ -5,8 +5,6 @@ const PodProseLogo = () => {
     <Fragment>
       <svg
         className="footer-logo"
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
         viewBox="0.00 0.00 1105.00 564.00"
       >
         <g strokeWidth="2.00" fill="none" strokeLinecap="butt">
