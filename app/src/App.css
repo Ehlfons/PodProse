@@ -13,6 +13,7 @@
 
   /* Custom colors */
   --primary-green: #B0E444;
+  --primary-green-hover: #A0D444;
   --primary-blue: #3ab0ff;
   --secondary-blue: #3a8fff;
   --primary-red: #ff3a3a;
@@ -41,6 +42,8 @@ body {
   min-height: 100vh;
   color: var(--main-text-color);
 }
+
+
 
 .error-usuario {
   font-family: 'Poppins', 'DM Sans', sans-serif;

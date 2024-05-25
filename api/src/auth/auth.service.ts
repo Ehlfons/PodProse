@@ -1,30 +1,26 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-  Logger
-} from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
-import { v4 as uuidCreate } from 'uuid';
 import { EnviarCorreoService } from './enviar-correo.service';
-import { ValidateUserService } from 'src/validate-user/validate-user.service';
 import { FailedLoginService } from 'src/failed-login/failed-login.service';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
+  private readonly defaultImageUrl: string;
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
-    private readonly validate: ValidateUserService,
     private readonly failedLoginService: FailedLoginService,
     private readonly enviarCorreoService: EnviarCorreoService,
     private readonly usersService: UsersService,
-  ) {}
+  ) {
+    this.defaultImageUrl = `https://${process.env.AWS_S3_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/default.png`;
+  }
 
   async register({ password, email, name, username }: RegisterDto) {
     try {
@@ -49,18 +45,13 @@ export class AuthService {
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      function obtenerImagenAleatoria(): string {
-        const numero = Math.floor(Math.random() * 5) + 1;
-        return `default${numero}.png`;
-      }
-
       const user = await this.prisma.user.create({
         data: {
           name,
           email,
           password: hashedPassword,
           username,
-          url_img: obtenerImagenAleatoria(),
+          url_img: this.defaultImageUrl,
         },
       });
 
@@ -99,8 +90,9 @@ export class AuthService {
 
       return { access_token, user };
     } catch (error) {
-      console.error('Problemitas iniciando sesión', error);
-      throw error;
+      throw new UnauthorizedException(
+        Logger.error(`Error al procesar el inicio de sesión: ${error.message}`, error.stack, 'AuthService'),
+      );
     }
   }
 

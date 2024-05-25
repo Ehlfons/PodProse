@@ -8,7 +8,6 @@ const DeleteOrClose = () => {
         height="43"
         viewBox="0 0 43 43"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M41.5 1.5L1.5 41.5"

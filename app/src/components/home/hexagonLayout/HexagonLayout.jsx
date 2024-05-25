@@ -3,22 +3,22 @@ import { Hexagon } from "@components/home";
 
 import "./HexagonLayout.css";
 
-const HexagonLayout = ({ userData = [] }) => {
+const HexagonLayout = ({ user = [] }) => {
   // Lo defino como un array vacio para que no de error si no se le pasa nada.
   // Función para generar un src aleatorio. (se cambiará cuando tengamos los suficientes usuarios con imágenes de perfil)
   const getRandomSrc = () => {
-    // Supongamos que userData es un array de objetos de usuario, donde cada objeto tiene una propiedad 'profileImage' que contiene la URL de la imagen de perfil.
-    const randomIndex = Math.floor(Math.random() * userData.length);
-    return userData[randomIndex].profileImage;
+    // Supongamos que user es un array de objetos de usuario, donde cada objeto tiene una propiedad 'profileImage' que contiene la URL de la imagen de perfil.
+    const randomIndex = Math.floor(Math.random() * user.length);
+    return user[randomIndex].profileImage;
   };
 
   return (
     <Fragment>
       <div className="container-hexagon-layout">
         <div className="hexagonArea first">
-          {/* Verificar si hay datos en userData antes de hacer el mapeo */}
-          {userData.length ? (
-            userData.map((user, index) => (
+          {/* Verificar si hay datos en user antes de hacer el mapeo */}
+          {user.length ? (
+            user.map((user, index) => (
               <Fragment key={index}>
                 {/* Renderizar 6 hexágonos con imágenes diferentes */}
                 {[...Array(6)].map((a, i) => (
@@ -52,9 +52,9 @@ const HexagonLayout = ({ userData = [] }) => {
         </div>
         <div className="hexagonArea second">
           <div className="hexagon" id="short" />
-          {/* Verificar si hay datos en userData antes de hacer el mapeo */}
-          {userData.length > 0 ? (
-            userData.map((user, index) => (
+          {/* Verificar si hay datos en user antes de hacer el mapeo */}
+          {user.length > 0 ? (
+            user.map((user, index) => (
               <Fragment key={index}>
                 {/* Renderizar 6 hexágonos con imágenes diferentes */}
                 {[...Array(6)].map((a, i) => (
@@ -86,9 +86,9 @@ const HexagonLayout = ({ userData = [] }) => {
           )}
         </div>
         <div className="hexagonArea third">
-          {/* Verificar si hay datos en userData antes de hacer el mapeo */}
-          {userData.length > 0 ? (
-            userData.map((user, index) => (
+          {/* Verificar si hay datos en user antes de hacer el mapeo */}
+          {user.length > 0 ? (
+            user.map((user, index) => (
               <Fragment key={index}>
                 {/* Renderizar 6 hexágonos con imágenes diferentes */}
                 {[...Array(6)].map((a, i) => (

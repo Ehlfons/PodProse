@@ -94,6 +94,22 @@ export class UploadService {
     return podcasts;
   }
 
+  async getPodcastsByUser(userId: string) {
+    const userExists = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!userExists) {
+      throw new NotFoundException('User not found');
+    }
+
+    const podcasts = await this.prisma.podcast.findMany({
+      where: { userId: userId },
+    });
+
+    return podcasts;
+  }
+
   async deleteFile(fileName: string): Promise<DeleteObjectCommandOutput> {
     const bucketName = this.configService.getOrThrow('AWS_S3_BUCKET_NAME');
     const data = await this.s3Client.send(

@@ -1,36 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import {usePodcasts} from '@components/hooks';
 import axios from 'axios';
 
 const FileList = () => {
-  const [podcasts, setPodcasts] = useState([]);
+  const {podcastsList, fetchPodcasts, handleDeletePodcast} = usePodcasts();
 
   useEffect(() => {
-    const fetchPodcasts = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/upload');
-        setPodcasts(response.data);
-      } catch (error) {
-        console.error('Error fetching podcasts:', error);
-      }
-    };
-
     fetchPodcasts();
   }, []);
-
-  const handleDelete = async (podcastId) => {
-    try {
-      await axios.delete(`http://localhost:3000/upload/podcast/${podcastId}`);
-      setPodcasts(podcasts.filter((podcast) => podcast.id !== podcastId));
-    } catch (error) {
-      console.error('Error deleting podcast:', error);
-    }
-  };
 
   return (
     <div>
       <h2>Podcasts</h2>
       <ul>
-        {podcasts.map((podcast) => (
+        {podcastsList.map((podcast) => (
           <li key={podcast.id}>
             <h3>{podcast.title}</h3>
             <p>{podcast.description}</p>
@@ -41,7 +24,7 @@ const FileList = () => {
               </audio>
             )}
             {podcast.url_img && <img src={podcast.url_img} alt="Podcast cover" width="100" />}
-            <button onClick={() => handleDelete(podcast.id)}>Delete</button>
+            <button onClick={() => handleDeletePodcast(podcast.id)}>Delete</button>
           </li>
         ))}
       </ul>

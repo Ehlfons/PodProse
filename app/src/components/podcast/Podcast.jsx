@@ -7,8 +7,8 @@ import "./Podcast.css";
 
 // Estructura de cada Podcast.
 const Podcast = (props) => {
-  const { podcast_id, title, description, cover_image, upload_date } = props.datos; // Datos del podcast.
-  const { getPodcast, actualizarErroresFormulario } = usePodcasts(); // Importado desde el contexto a través del hook usePodcasts.
+  const { podcast_id, title, description, createdAt, url_img } = props.datos; // Datos del podcast.
+  const { actualizarErroresFormulario } = usePodcasts(); // Importado desde el contexto a través del hook usePodcasts.
 
   // Valor inicial del modal de confirmación.
   const valorInicialModal = false;
@@ -21,14 +21,12 @@ const Podcast = (props) => {
   // Función para abrir el modal de edición.
   const abrirModalEditar = (e) => {
     e.stopPropagation(); // Evita que se active el sonido del podcast al hacer clic en el icono.
-    getPodcast(podcast_id); // Obtener los datos del podcast al que se le hizo clic en el ícono de edición
     setMostrarModalPodcasts(true); // Mostrar el modal de edición
     
     // Limpiar todos los errores al abrir el modal.
     actualizarErroresFormulario({
       title: undefined,
       description: undefined,
-      cover_image: undefined,
       audio_url: undefined,
     });
   };
@@ -63,15 +61,14 @@ const Podcast = (props) => {
       <article
         className="podcast"
         id={podcast_id}
-        onClick={(e) => {
+        onClick={() => {
           props.onClick();
-          getPodcast(e.currentTarget.id);
         }}
       >
         <img
           src={
-            cover_image
-              ? cover_image
+            url_img
+              ? url_img
               : "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg"
           }
           alt={title}
@@ -98,7 +95,7 @@ const Podcast = (props) => {
           </h2>
           <div className="podcast-info-text">
             <p>{description ? description : "Sin descripción."}</p>
-            <p>{formatearFechaEuropea(upload_date)}</p>
+            <p>{formatearFechaEuropea(createdAt)}</p>
           </div>
         </div>
       </article>

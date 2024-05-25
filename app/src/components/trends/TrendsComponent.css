@@ -152,5 +152,5 @@
 /* effects */
 
 .trends-cards img {
-  cursor: url("src/assets/Play-Green-Cursor.svg") 20 20, pointer;
+  cursor: pointer;
 }
