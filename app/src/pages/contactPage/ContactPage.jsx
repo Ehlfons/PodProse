@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ContactPage.css";
-import "../../assets/fontawesome-6.0.0-alpha2/css/all.css";
+import "../../assets/font-awesome/6.0.0-alpha2/css/all.css";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
