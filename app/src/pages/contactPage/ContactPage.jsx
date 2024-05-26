@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ContactPage.css";
+import "../../assets/fontawesome-6.0.0-alpha2/css/all.min.css";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -117,6 +118,10 @@ const ContactPage = () => {
             alt=""
           />
           <h1 className="rankText">CEO</h1>
+          <div className="socialNetworksAdmins">
+            <i className="fa-brands fa-github"></i>
+            <i className="fa-brands fa-linkedin"></i>
+          </div>
         </div>
         <div className="secondCeo">
           <h2 className="ceosText">Sergio Sánchez</h2>
@@ -126,6 +131,10 @@ const ContactPage = () => {
             alt=""
           />
           <h1 className="rankText">CEO</h1>
+          <div className="socialNetworksAdmins">
+            <i className="fa-brands fa-github"></i>
+            <i className="fa-brands fa-linkedin"></i>
+          </div>
         </div>
       </div>
     </div>
