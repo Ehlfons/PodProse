@@ -68,6 +68,56 @@ export class UploadService {
     }
   }
 
+  // Subir una sola imagen del usuario
+  async uploadUserImage(fileName: string, file: Buffer, userId: string) {
+    const bucketName = this.configService.getOrThrow('AWS_S3_BUCKET_NAME');
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { url_img: true },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const previousImageUrl = user.url_img;
+
+    await this.s3Client.send(
+      new PutObjectCommand({
+        Bucket: bucketName,
+        Key: fileName,
+        Body: file,
+      }),
+    );
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        url_img: `https://${bucketName}.s3.amazonaws.com/${fileName}`,
+      },
+    });
+
+    // Eliminar la imagen anterior del bucket de S3 si no es "default.png" y no está en uso
+    if (previousImageUrl && !previousImageUrl.includes('default.png')) {
+      const isImageInUse = await this.prisma.podcast.findFirst({
+        where: { url_img: previousImageUrl },
+      });
+
+      if (!isImageInUse) {
+        const previousImageKey = previousImageUrl.split('/').pop();
+        await this.s3Client.send(
+          new DeleteObjectCommand({
+            Bucket: bucketName,
+            Key: previousImageKey,
+          }),
+        );
+      }
+    }
+
+    return `https://${bucketName}.s3.amazonaws.com/${fileName}`;
+  }
+
   async getFile(fileName: string): Promise<GetObjectCommandOutput> {
     const data = await this.s3Client.send(
       new GetObjectCommand({

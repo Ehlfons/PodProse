@@ -167,11 +167,40 @@ const ProveedorUsuarios = ({ children }) => {
       }
 
       setUser(response.data);
-      console.log(response.data)
       return response.data;
     } catch (error) {
       toast.error('Error al obtener el usuario');
       throw error;
+    }
+  };
+
+  const handleImageUpload = async (file) => {
+    const userId = localStorage.getItem('id');
+    if (!userId) {
+      toast.error("User ID not found");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(`${apiURL}/upload/user-image/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.status === 201) {
+        setUser({ ...user, url_img: response.data.url_img });
+
+        toast.success("Imagen de perfil actualizada");
+      } else {
+        toast.error("Error al subir la imagen");
+      }
+    } catch (error) {
+      toast.error("Error de red");
     }
   };
 
@@ -249,6 +278,8 @@ const ProveedorUsuarios = ({ children }) => {
     handleLogin,
     handleLogout,
     handleRegister,
+    handleImageUpload,
+    getUser,
 
     resetInputs,
   };
