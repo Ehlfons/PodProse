@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   UploadedFiles,
+  UploadedFile,
   UseInterceptors,
   Get,
   Param,
@@ -11,7 +12,7 @@ import {
   HttpStatus,
   NotFoundException,
 } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { Response } from 'express';
 import { Readable } from 'stream';
@@ -41,6 +42,22 @@ export class UploadController {
     return {
       statusCode: HttpStatus.OK,
       message: 'Files uploaded successfully',
+    };
+  }
+
+  // Endpoint para subir un solo archivo de imagen del usuario, para actualizar la imagen de perfil
+  @Post('user-image/:userId')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadUserImage(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('userId') userId: string,
+  ) {
+    const url_img = await this.uploadService.uploadUserImage(file.originalname, file.buffer, userId);
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'User image uploaded successfully',
+      url_img: url_img,
     };
   }
 

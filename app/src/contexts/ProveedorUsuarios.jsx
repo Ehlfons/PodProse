@@ -2,7 +2,6 @@ import React, { useState, useEffect, createContext } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 
-import { supabaseConexion } from "../config/supabase.js";
 import { useNavigate } from "react-router-dom";
 
 // Contexto para los usuarios.
@@ -13,14 +12,6 @@ const ProveedorUsuarios = ({ children }) => {
   const navigate = useNavigate();
 
   // Valores iniciales.
-  const sesionInicial = false;
-  const errorUsuarioInicial = "";
-  const confirmacionInicioSesionInicial = false;
-  const datosSesionInicial = {
-    email: "",
-    password: "",
-  };
-
   const userInitialValue = null;
   const emailInitialValue = "";
   const passwordInitialValue = "";
@@ -30,9 +21,14 @@ const ProveedorUsuarios = ({ children }) => {
   const loggedInInitialValue = false;
   const errorsInitialValue = {};
   const isLoadingInitialValue = false;
+  const editProfileFormInitialValue = {
+    name: "",
+    username: "",
+    email: "",
+  };
+  const isEditingProfileInitialValue = false;
 
   // Estados del contexto.
-
   const [user, setUser] = useState(userInitialValue);
   const [email, setEmail] = useState(emailInitialValue);
   const [password, setPassword] = useState(passwordInitialValue);
@@ -42,6 +38,8 @@ const ProveedorUsuarios = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
   const [errors, setErrors] = useState(errorsInitialValue);
   const [isLoading, setIsLoading] = useState(isLoadingInitialValue);
+  const [editProfileForm, setEditProfileForm] = useState(editProfileFormInitialValue);
+  const [isEditingProfile, setIsEditingProfile] = useState(isEditingProfileInitialValue);
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -167,13 +165,79 @@ const ProveedorUsuarios = ({ children }) => {
       }
 
       setUser(response.data);
-      console.log(response.data)
+      setEditProfileForm({
+        name: response.data.name,
+        username: response.data.username,
+        email: response.data.email,
+      });
+
       return response.data;
     } catch (error) {
       toast.error('Error al obtener el usuario');
       throw error;
     }
   };
+
+  const handleImageUpload = async (file) => {
+    const userId = localStorage.getItem('id');
+    if (!userId) {
+      toast.error("User ID not found");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(`${apiURL}/upload/user-image/${userId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.status === 201) {
+        setUser({ ...user, url_img: response.data.url_img });
+
+        toast.success("Imagen de perfil actualizada");
+      } else {
+        toast.error("Error al subir la imagen");
+      }
+    } catch (error) {
+      toast.error("Error de red");
+    }
+  };
+
+  const patchUserData = async () => {
+    const userId = localStorage.getItem('id');
+    if (!userId) {
+      toast.error("User ID not found");
+      return;
+    }
+
+    try {
+      const response = await axios.patch(`${apiURL}/users/${userId}`, {
+        name: editProfileForm.name,
+        username: editProfileForm.username,
+        email: editProfileForm.email,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.status === 200) {
+        getUser();
+        setIsEditingProfile(false);
+
+        toast.success("Datos actualizados");
+      } else {
+        toast.error("Error al actualizar los datos");
+      }
+    } catch (error) {
+      toast.error("Error de red");
+    }
+  }
 
   // Función para validar el formulario de inicio de sesión.
   const validateLoginForm = () => {
@@ -208,11 +272,6 @@ const ProveedorUsuarios = ({ children }) => {
     }
   };
 
-  // Función para resetear los inputs.
-  const resetInputs = () => {
-    setInfoSesion(datosSesionInicial);
-  }
-
   const updateEmail = (value) => setEmail(value);
   const updatePassword = (value) => setPassword(value);
   const updateName = (value) => setName(value);
@@ -221,6 +280,14 @@ const ProveedorUsuarios = ({ children }) => {
   const updateToken = (value) => setToken(value);
   const updateErrors = (value) => setErrors(value);
   const updateIsLoading = (value) => setIsLoading(value);
+  const updateIsEditingProfile = (value) => setIsEditingProfile(value);
+
+  const updateEditProfileForm = (key, value) => {
+    setEditProfileForm({
+      ...editProfileForm,
+      [key]: value,
+    });
+  };
 
   useEffect(() => {
     readCookie();
@@ -236,6 +303,8 @@ const ProveedorUsuarios = ({ children }) => {
     loggedIn,
     errors,
     isLoading,
+    editProfileForm,
+    isEditingProfile,
 
     updateEmail,
     updatePassword,
@@ -245,12 +314,15 @@ const ProveedorUsuarios = ({ children }) => {
     updateToken,
     updateErrors,
     updateIsLoading,
+    updateIsEditingProfile,
+    updateEditProfileForm,
 
     handleLogin,
     handleLogout,
     handleRegister,
-
-    resetInputs,
+    handleImageUpload,
+    patchUserData,
+    getUser,
   };
 
   return (
