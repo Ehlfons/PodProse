@@ -19,7 +19,7 @@ export class AuthService {
     private readonly enviarCorreoService: EnviarCorreoService,
     private readonly usersService: UsersService,
   ) {
-    this.defaultImageUrl = `https://${process.env.AWS_S3_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/default.png`;
+    this.defaultImageUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/default.png`;
   }
 
   async register({ password, email, name, username }: RegisterDto) {
