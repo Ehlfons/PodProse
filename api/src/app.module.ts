@@ -9,12 +9,14 @@ import { BruteForceMiddleware } from './middleware/brute-force.middleware';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { UploadModule } from './upload/upload.module';
+import { ContactModule } from './contact/contact.module';
 
 @Module({
   imports: [
     MulterModule.register({ dest: './uploads' }),
     UsersModule,
     AuthModule,
+    ContactModule,
     PrismaModule,
     ValidateUserModule,
     FailedLoginModule,
