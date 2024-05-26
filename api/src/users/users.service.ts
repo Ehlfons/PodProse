@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService
+  ) {}
 
   async findAll() {
     return this.prisma.user.findMany();
@@ -19,10 +23,20 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return this.prisma.user.update({
+    const user = await this.prisma.user.update({
       where: { id },
       data: updateUserDto,
     });
+
+    // Si el email ha cambiado, actualizar el campo verificateAt
+    if (updateUserDto.email) {
+      await this.prisma.user.update({
+        where: { id },
+        data: { verificateAt: null },
+      });
+    }
+
+    return user;
   }
 
   async remove(id: string) {
@@ -43,5 +57,9 @@ export class UsersService {
       where: { id },
       data: { verificateAt: new Date() },
     });
+  }
+
+  generateVerificationToken(userId: string) {
+    return this.jwtService.sign({ usuario_id: userId });
   }
 }

@@ -1,15 +1,30 @@
 import { Fragment, useRef, useEffect } from "react";
 
 import { useUsers } from "@components/hooks";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightToBracket, faPodcast } from "@fortawesome/free-solid-svg-icons";
+import { faRightToBracket, faPodcast, faGear, faCircleXmark, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { Loader } from "@components/loader";
 
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
-  const { user, handleLogout, updateIsLoading, handleImageUpload, isLoading } = useUsers();
+  const {
+    user,
+    isLoading,
+    editProfileForm,
+    isEditingProfile,
+    
+    updateIsLoading,
+    updateIsEditingProfile,
+    updateEditProfileForm,
+    
+    handleLogout,
+    handleImageUpload,
+    patchUserData,
+    getUser,
+  } = useUsers();
 
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
@@ -23,6 +38,24 @@ const ProfilePage = () => {
     if (file) {
       handleImageUpload(file);
     }
+  };
+
+  const handleSubmitClick = (e) => {
+    e.preventDefault();
+    if (editProfileForm.email !== user.email) {
+      toast.warning('Es necesario cerrar sesión al cambiar el email', {
+        action:
+        <button onClick={() => {
+          patchUserData();
+          setTimeout(() => {
+            handleLogout();
+          } , 1000);
+          toast.dismiss();
+        }}>
+          <FontAwesomeIcon icon={faCheckCircle} />
+        </button>,
+      });
+    };
   };
 
   useEffect(() => {
@@ -41,7 +74,36 @@ const ProfilePage = () => {
       >
         <section className="profile">
           <div className="profile-overlay">
-            <h1>{user?.username}</h1>
+            <div className="profile-name">
+              {isEditingProfile ? (
+                <input
+                  className="edited-input"
+                  type="text"
+                  value={editProfileForm.username}
+                  onChange={(e) =>
+                    updateEditProfileForm("username", e.target.value)
+                  }
+                />
+              ) : (
+                <h1>{user?.username}</h1>
+              )}
+              <i
+                onClick={() => {
+                  updateIsEditingProfile(!isEditingProfile);
+                  !isEditingProfile && getUser();
+                }}
+              >
+                {isEditingProfile ? (
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    title="Cancelar edición"
+                    className="cancel-editing"
+                  />
+                ) : (
+                  <FontAwesomeIcon icon={faGear} title="Editar perfil" />
+                )}
+              </i>
+            </div>
             <img
               src={user?.url_img}
               alt=""
@@ -54,8 +116,36 @@ const ProfilePage = () => {
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
-            <h2>{user?.name}</h2>
-            <h2>{user?.email}</h2>
+            {isEditingProfile ? (
+              <div className="name-email-inputs">
+                <input
+                  className="edited-input"
+                  type="text"
+                  value={editProfileForm.name}
+                  onChange={(e) =>
+                    updateEditProfileForm("name", e.target.value)
+                  }
+                />
+                <input
+                  className="edited-input"
+                  type="email"
+                  value={editProfileForm.email}
+                  onChange={(e) =>
+                    updateEditProfileForm("email", e.target.value)
+                  }
+                />
+              </div>
+            ) : (
+              <>
+                <h2>{user?.name}</h2>
+                <h2>{user?.email}</h2>
+              </>
+            )}
+            {isEditingProfile && (
+              <button onClick={(e)=>{handleSubmitClick(e)}}>
+                Guardar
+              </button>
+            )}
             <div className="profile-button-container">
               <button
                 className="button-with-icon"

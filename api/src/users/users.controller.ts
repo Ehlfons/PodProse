@@ -4,11 +4,15 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from './guard/user-auth.guard';
 import { Request } from 'express';
+import { EnviarCorreoService } from '../auth/enviar-correo.service';
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly enviarCorreoService: EnviarCorreoService
+  ) {}
 
   @UseGuards(AuthGuard)
   @Get()
@@ -37,7 +41,14 @@ export class UsersController {
     @Param('id') uuid: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
-    return await this.usersService.update(uuid, updateUserDto);
+    const updatedUser = await this.usersService.update(uuid, updateUserDto);
+    
+    if (updateUserDto.email) {
+      const token = this.usersService.generateVerificationToken(updatedUser.id);
+      await this.enviarCorreoService.enviarCorreo(updateUserDto.email, updatedUser.username, token);
+    }
+
+    return updatedUser;
   }
 
   @UseGuards(AuthGuard)
