@@ -19,21 +19,22 @@ The main objectives of PodProse are:
 
 ## 🔧 Technologies Used
 
-[![HTML](https://img.shields.io/badge/HTML-%23e34c26.svg?logo=html5&logoColor=white&style=for-the-badge)](https://github.com/LitoHDD/PodProse)
-[![CSS](https://img.shields.io/badge/CSS-%23563d7c.svg?logo=css3&logoColor=white&style=for-the-badge)](https://github.com/LitoHDD/PodProse)
-[![React&JavaScript](https://img.shields.io/badge/JavaScript-%23f1e05a?style=for-the-badge&logo=React&logoColor=white&label=React)](https://github.com/LitoHDD/PodProse)
-[![SupaBase](https://img.shields.io/badge/SupaBase-DB-%2337996b?style=for-the-badge&logo=supabase&logoColor=white)](https://github.com/LitoHDD/PodProse)
+![HTML](https://img.shields.io/badge/HTML-%23e34c26.svg?logo=html5&logoColor=white&style=for-the-badge)
+![CSS](https://img.shields.io/badge/CSS-%23563d7c.svg?logo=css3&logoColor=white&style=for-the-badge)
+![React&JavaScript](https://img.shields.io/badge/JavaScript-%23f1e05a?style=for-the-badge&logo=React&logoColor=white&label=React)
+![MySQL](https://img.shields.io/badge/MySQL-DB-%2300628c?style=for-the-badge&logo=MySQL&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-Node.js-%23d9224c?style=for-the-badge&logo=NestJS&logoColor=white)
 
 ## 🤝 Contributors
 
-[![GitHub contributors](https://img.shields.io/github/contributors/LitoHDD/PodProse?style=for-the-badge)](https://github.com/LitoHDD/PodProse/graphs/contributors)<br>
-[![Contributors](https://contrib.rocks/image?repo=LitoHDD/PodProse&max=12)](https://github.com/LitoHDD/PodProse/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=LitoHDD/PodProse&max=12)](https://github.com/LitoHDD/PodProse/graphs/contributors)  
+[![GitHub contributors](https://img.shields.io/github/contributors/LitoHDD/PodProse?style=for-the-badge)](https://github.com/LitoHDD/PodProse/graphs/contributors)
 
 ## 📄 License
 
 This project is under the MIT License. For more information, please refer to the LICENSE file.
 
-## 🚀 Let's Get Started!
+## 🚀 Let's Get Started
 
 To get involved with PodProse, start by exploring our content on the platform. Creators interested in contributing their podcasts can reach out via our Discord server or follow the instructions on our GitHub repository for content submission.
 
