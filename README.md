@@ -22,8 +22,8 @@ The main objectives of PodProse are:
 ![HTML](https://img.shields.io/badge/HTML-%23e34c26.svg?logo=html5&logoColor=white&style=for-the-badge)
 ![CSS](https://img.shields.io/badge/CSS-%23563d7c.svg?logo=css3&logoColor=white&style=for-the-badge)
 ![React&JavaScript](https://img.shields.io/badge/JavaScript-%23f1e05a?style=for-the-badge&logo=React&logoColor=white&label=React)
-![MySQL](https://img.shields.io/badge/MySQL-DB-%2300628c?style=for-the-badge&logo=MySQL&logoColor=white)
 ![NestJS](https://img.shields.io/badge/NestJS-Node.js-%23d9224c?style=for-the-badge&logo=NestJS&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-DB-%2300628c?style=for-the-badge&logo=MySQL&logoColor=white)
 
 ## 🤝 Contributors
 
