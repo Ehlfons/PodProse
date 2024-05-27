@@ -5,23 +5,23 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id         String       @id @unique @default(uuid())
-  name       String
-  username   String       @unique
-  email      String       @unique
-  password   String
-  role       String       @default("user")
-  url_img    String?
-  createdAt  DateTime     @default(now())
-  status     UserStatus?
-  podcasts   Podcast[]
-  Comments   Comments[]
-  valoration Valoration[]
-  suscription Suscription[]
+  id           String        @id @unique @default(uuid())
+  name         String
+  username     String        @unique
+  email        String        @unique
+  password     String
+  role         String        @default("user")
+  url_img      String?
+  createdAt    DateTime      @default(now())
+  status       UserStatus?
+  podcasts     Podcast[]
+  Comments     Comments[]
+  valoration   Valoration[]
+  suscription  Suscription[]
   verificateAt DateTime?
 }
 
@@ -69,10 +69,10 @@ model Category {
 }
 
 model Ads {
-  id        String   @id @unique @default(uuid())
+  id        String    @id @unique @default(uuid())
   title     String
   audio_url String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   podcasts  Podcast[]
 }
 
@@ -107,4 +107,10 @@ model UserStatus {
   userId String @unique
   status Int
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Newsletter {
+  id        String   @id @unique @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
 }

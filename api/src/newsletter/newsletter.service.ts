@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import { PrismaService } from '../prisma/prisma.service'; // Asegúrate de tener un servicio de Prisma configurado
 
 @Injectable()
 export class NewsletterService {
   private transporter: nodemailer.Transporter;
-  private subscribers: string[] = []; // Lista de suscriptores
 
-  constructor() {
+  constructor(private prisma: PrismaService) {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -17,7 +17,12 @@ export class NewsletterService {
   }
 
   async subscribe(email: string) {
-    this.subscribers.push(email); // Añadir email a la lista de suscriptores
+    await this.prisma.newsletter.create({
+      data: {
+        email,
+      },
+    });
+
     const mailOptions = {
       from: 'podprose.info@gmail.com',
       to: email,
@@ -35,20 +40,20 @@ export class NewsletterService {
   }
 
   async sendDailyNewsletters() {
-    console.log(this.subscribers);
-    for (const email of this.subscribers) {
+    const subscribers = await this.prisma.newsletter.findMany();
+    for (const subscriber of subscribers) {
       const mailOptions = {
         from: 'podprose.info@gmail.com',
-        to: email,
-        subject: 'Your Daily PodProse Newsletter',
-        html: '<p>Here is your daily update from PodProse!</p>',
+        to: subscriber.email,
+        subject: 'Your PodProse Newsletter',
+        html: '<p>Here is your update from PodProse!</p>',
       };
 
       try {
         await this.transporter.sendMail(mailOptions);
-        console.log('Daily newsletter sent to', email);
+        console.log('Newsletter sent to', subscriber.email);
       } catch (error) {
-        console.error('Error sending daily newsletter:', error);
+        console.error('Error sending newsletter:', error);
       }
     }
   }
