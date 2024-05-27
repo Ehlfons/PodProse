@@ -10,6 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { UploadModule } from './upload/upload.module';
 import { ContactModule } from './contact/contact.module';
+import { NewsletterModule } from './newsletter/newsletter.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ContactModule } from './contact/contact.module';
     UsersModule,
     AuthModule,
     ContactModule,
+    NewsletterModule,
     PrismaModule,
     ValidateUserModule,
     FailedLoginModule,
