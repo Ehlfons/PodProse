@@ -115,48 +115,6 @@ const ContactPage = () => {
       </div>
       <div id="contactPageContainerCeo">
         <div className="firstCeo">
-          <h2 className="ceosText">Sergio Alfonso</h2>
-          <img
-            className="ceoImageContact"
-            src="https://avatars.githubusercontent.com/u/145800843?v=4"
-            alt=""
-          />
-          <h1 className="rankText">CEO</h1>
-          <div className="socialNetworksAdmins">
-            <a
-              href="https://github.com/sergioalfonso"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i
-                className={`fa-brands fa-github fa-4x ${
-                  hoveredIcon === "github1"
-                    ? "fa-beat-fade socialNetworksAdminsEffects"
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredIcon("github1")}
-                onMouseLeave={() => setHoveredIcon(null)}
-              ></i>
-            </a>
-            <i className={"fa-thin fa-pipe fa-4x"}></i>
-            <a
-              href="https://www.linkedin.com/in/sergioalfonso"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i
-                className={`fa-brands fa-linkedin fa-4x ${
-                  hoveredIcon === "linkedin1"
-                    ? "fa-beat-fade socialNetworksAdminsEffects"
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredIcon("linkedin1")}
-                onMouseLeave={() => setHoveredIcon(null)}
-              ></i>
-            </a>
-          </div>
-        </div>
-        <div className="secondCeo">
           <h2 className="ceosText">Sergio Sánchez</h2>
           <img
             className="ceoImageContact"
@@ -166,7 +124,7 @@ const ContactPage = () => {
           <h1 className="rankText">CEO</h1>
           <div className="socialNetworksAdmins">
             <a
-              href="https://github.com/sergiosanchez"
+              href="https://github.com/LitoHDD"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -182,7 +140,7 @@ const ContactPage = () => {
             </a>
             <i className={"fa-thin fa-pipe fa-4x"}></i>
             <a
-              href="https://www.linkedin.com/in/sergiosanchez"
+              href="https://www.linkedin.com/in/litohdd/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -193,6 +151,48 @@ const ContactPage = () => {
                     : ""
                 }`}
                 onMouseEnter={() => setHoveredIcon("linkedin2")}
+                onMouseLeave={() => setHoveredIcon(null)}
+              ></i>
+            </a>
+          </div>
+        </div>
+        <div className="secondCeo">
+          <h2 className="ceosText">Sergio Alfonso</h2>
+          <img
+            className="ceoImageContact"
+            src="https://avatars.githubusercontent.com/u/145800843?v=4"
+            alt=""
+          />
+          <h1 className="rankText">CEO</h1>
+          <div className="socialNetworksAdmins">
+            <a
+              href="https://github.com/Ehlfons"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i
+                className={`fa-brands fa-github fa-4x ${
+                  hoveredIcon === "github1"
+                    ? "fa-beat-fade socialNetworksAdminsEffects"
+                    : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("github1")}
+                onMouseLeave={() => setHoveredIcon(null)}
+              ></i>
+            </a>
+            <i className={"fa-thin fa-pipe fa-4x"}></i>
+            <a
+              href="https://www.linkedin.com/in/sergio-alfonso-deltell/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i
+                className={`fa-brands fa-linkedin fa-4x ${
+                  hoveredIcon === "linkedin1"
+                    ? "fa-beat-fade socialNetworksAdminsEffects"
+                    : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("linkedin1")}
                 onMouseLeave={() => setHoveredIcon(null)}
               ></i>
             </a>
