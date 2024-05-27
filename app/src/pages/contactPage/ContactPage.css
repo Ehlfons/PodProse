@@ -115,5 +115,17 @@ form {
 .socialNetworksAdmins {
   display: flex;
   gap: 20px;
-  font-size: 50px;
+}
+
+.socialNetworksAdmins a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.socialNetworksAdminsEffects {
+  color: var(--primary-green);
+}
+
+.socialNetworksAdmins :nth-child(2) {
+  color: var(--primary-green);
 }

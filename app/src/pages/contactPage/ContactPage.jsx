@@ -12,6 +12,10 @@ const ContactPage = () => {
     message: "",
   });
 
+  const [hoveredIcon, setHoveredIcon] = useState(null);
+
+  const apiURL = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -20,7 +24,7 @@ const ContactPage = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3000/contact", formData);
+      await axios.post(`${apiURL}/contact`, formData);
       alert("Correo enviado correctamente");
       setFormData({
         fullName: "",
@@ -119,8 +123,37 @@ const ContactPage = () => {
           />
           <h1 className="rankText">CEO</h1>
           <div className="socialNetworksAdmins">
-            <i className="fa-brands fa-github"></i>
-            <i className="fa-brands fa-linkedin"></i>
+            <a
+              href="https://github.com/sergioalfonso"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i
+                className={`fa-brands fa-github fa-4x ${
+                  hoveredIcon === "github1"
+                    ? "fa-beat-fade socialNetworksAdminsEffects"
+                    : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("github1")}
+                onMouseLeave={() => setHoveredIcon(null)}
+              ></i>
+            </a>
+            <i className={"fa-thin fa-pipe fa-4x"}></i>
+            <a
+              href="https://www.linkedin.com/in/sergioalfonso"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i
+                className={`fa-brands fa-linkedin fa-4x ${
+                  hoveredIcon === "linkedin1"
+                    ? "fa-beat-fade socialNetworksAdminsEffects"
+                    : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("linkedin1")}
+                onMouseLeave={() => setHoveredIcon(null)}
+              ></i>
+            </a>
           </div>
         </div>
         <div className="secondCeo">
@@ -132,8 +165,37 @@ const ContactPage = () => {
           />
           <h1 className="rankText">CEO</h1>
           <div className="socialNetworksAdmins">
-            <i className="fa-brands fa-github"></i>
-            <i className="fa-brands fa-linkedin"></i>
+            <a
+              href="https://github.com/sergiosanchez"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i
+                className={`fa-brands fa-github fa-4x ${
+                  hoveredIcon === "github2"
+                    ? "fa-beat-fade socialNetworksAdminsEffects"
+                    : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("github2")}
+                onMouseLeave={() => setHoveredIcon(null)}
+              ></i>
+            </a>
+            <i className={"fa-thin fa-pipe fa-4x"}></i>
+            <a
+              href="https://www.linkedin.com/in/sergiosanchez"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i
+                className={`fa-brands fa-linkedin fa-4x ${
+                  hoveredIcon === "linkedin2"
+                    ? "fa-beat-fade socialNetworksAdminsEffects"
+                    : ""
+                }`}
+                onMouseEnter={() => setHoveredIcon("linkedin2")}
+                onMouseLeave={() => setHoveredIcon(null)}
+              ></i>
+            </a>
           </div>
         </div>
       </div>
