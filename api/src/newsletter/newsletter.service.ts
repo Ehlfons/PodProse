@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
-import { PrismaService } from '../prisma/prisma.service'; // Asegúrate de tener un servicio de Prisma configurado
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class NewsletterService {
@@ -18,16 +18,21 @@ export class NewsletterService {
 
   async subscribe(email: string) {
     await this.prisma.newsletter.create({
-      data: {
-        email,
-      },
+      data: { email },
     });
+
+    const templates = await this.prisma.newsletterTemplate.findMany();
+    if (templates.length === 0) {
+      throw new Error('No email templates found');
+    }
+
+    const template = templates[Math.floor(Math.random() * templates.length)];
 
     const mailOptions = {
       from: 'podprose.info@gmail.com',
       to: email,
-      subject: 'Welcome to PodProse Newsletter',
-      html: '<p>Thank you for subscribing to our newsletter!</p>',
+      subject: template.subject,
+      html: template.body,
     };
 
     try {
@@ -41,12 +46,18 @@ export class NewsletterService {
 
   async sendDailyNewsletters() {
     const subscribers = await this.prisma.newsletter.findMany();
+    const templates = await this.prisma.newsletterTemplate.findMany();
+    if (templates.length === 0) {
+      throw new Error('No email templates found');
+    }
+
     for (const subscriber of subscribers) {
+      const template = templates[Math.floor(Math.random() * templates.length)];
       const mailOptions = {
         from: 'podprose.info@gmail.com',
         to: subscriber.email,
-        subject: 'Your PodProse Newsletter',
-        html: '<p>Here is your update from PodProse!</p>',
+        subject: template.subject,
+        html: template.body,
       };
 
       try {

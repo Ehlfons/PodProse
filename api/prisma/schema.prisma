@@ -114,3 +114,11 @@ model Newsletter {
   email     String   @unique
   createdAt DateTime @default(now())
 }
+
+model NewsletterTemplate {
+  id        String   @id @unique @default(uuid())
+  subject   String
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
