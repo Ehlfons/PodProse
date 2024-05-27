@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UploadModule } from './upload/upload.module';
 import { ContactModule } from './contact/contact.module';
 import { NewsletterModule } from './newsletter/newsletter.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { NewsletterModule } from './newsletter/newsletter.module';
     UsersModule,
     AuthModule,
     ContactModule,
+    ScheduleModule.forRoot(),
     NewsletterModule,
     PrismaModule,
     ValidateUserModule,
