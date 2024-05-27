@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner"; // Importa tu librería de notificaciones
-
 import { GithubLogo, InstagramLogo, XLogo } from "@components/svg";
 import "./SpamComponent.css";
 
 const SpamComponent = () => {
   const [email, setEmail] = useState("");
+  const apiURL = import.meta.env.VITE_API_URL;
 
   const handleSubscribe = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/newsletter/subscribe",
-        { email }
-      );
-      if (response.status === 200) {
-        toast.success("Subscribed successfully");
+      const response = await axios.post(`${apiURL}/newsletter/subscribe`, {
+        email,
+      });
+      if (response.status === 201) {
+        toast.success("Te has suscrito correctamente a nuestro newsletter");
         setEmail("");
       }
     } catch (error) {
-      toast.error("Subscription failed");
+      toast.error("Este correo ya está suscrito a nuestro newsletter");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubscribe();
     }
   };
 
@@ -59,11 +64,9 @@ const SpamComponent = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Introduce tu correo electrónico"
           />
-          <button className="button-spam" onClick={handleSubscribe}>
-            Suscribirse
-          </button>
         </div>
       </div>
     </section>
