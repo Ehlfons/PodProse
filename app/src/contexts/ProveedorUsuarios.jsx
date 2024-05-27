@@ -38,8 +38,12 @@ const ProveedorUsuarios = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
   const [errors, setErrors] = useState(errorsInitialValue);
   const [isLoading, setIsLoading] = useState(isLoadingInitialValue);
-  const [editProfileForm, setEditProfileForm] = useState(editProfileFormInitialValue);
-  const [isEditingProfile, setIsEditingProfile] = useState(isEditingProfileInitialValue);
+  const [editProfileForm, setEditProfileForm] = useState(
+    editProfileFormInitialValue
+  );
+  const [isEditingProfile, setIsEditingProfile] = useState(
+    isEditingProfileInitialValue
+  );
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -92,7 +96,7 @@ const ProveedorUsuarios = ({ children }) => {
       } finally {
         setTimeout(() => {
           updateIsLoading(false);
-        } , 2000);
+        }, 2000);
       }
     }
   };
@@ -111,7 +115,6 @@ const ProveedorUsuarios = ({ children }) => {
 
       // Redirigir a la página de login.
       navigate("/");
-
     } catch (error) {
       toast.error("Error al cerrar sesión");
     }
@@ -136,32 +139,31 @@ const ProveedorUsuarios = ({ children }) => {
         // Limpiar los errores.
         setErrors(errorsInitialValue);
 
-        toast.success("verifica tu correo para activar tu cuenta");
+        toast.success("Verifica tu correo para activar tu cuenta");
       } else {
         toast.error("Error al registrar el usuario");
       }
-
     } catch (error) {
       toast.error("Error al registrar el usuario");
     }
   };
 
   const getUser = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (!token) {
-      throw new Error('No token found');
+      throw new Error("No token found");
     }
 
     try {
       const response = await axios.get(`${apiURL}/users/me`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.status !== 200) {
-        throw new Error('Error fetching user');
+        throw new Error("Error fetching user");
       }
 
       setUser(response.data);
@@ -173,13 +175,13 @@ const ProveedorUsuarios = ({ children }) => {
 
       return response.data;
     } catch (error) {
-      toast.error('Error al obtener el usuario');
+      toast.error("Error al obtener el usuario");
       throw error;
     }
   };
 
   const handleImageUpload = async (file) => {
-    const userId = localStorage.getItem('id');
+    const userId = localStorage.getItem("id");
     if (!userId) {
       toast.error("User ID not found");
       return;
@@ -189,12 +191,16 @@ const ProveedorUsuarios = ({ children }) => {
     formData.append("file", file);
 
     try {
-      const response = await axios.post(`${apiURL}/upload/user-image/${userId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.post(
+        `${apiURL}/upload/user-image/${userId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (response.status === 201) {
         setUser({ ...user, url_img: response.data.url_img });
@@ -209,22 +215,26 @@ const ProveedorUsuarios = ({ children }) => {
   };
 
   const patchUserData = async () => {
-    const userId = localStorage.getItem('id');
+    const userId = localStorage.getItem("id");
     if (!userId) {
       toast.error("User ID not found");
       return;
     }
 
     try {
-      const response = await axios.patch(`${apiURL}/users/${userId}`, {
-        name: editProfileForm.name,
-        username: editProfileForm.username,
-        email: editProfileForm.email,
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await axios.patch(
+        `${apiURL}/users/${userId}`,
+        {
+          name: editProfileForm.name,
+          username: editProfileForm.username,
+          email: editProfileForm.email,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (response.status === 200) {
         getUser();
@@ -237,7 +247,7 @@ const ProveedorUsuarios = ({ children }) => {
     } catch (error) {
       toast.error("Error de red");
     }
-  }
+  };
 
   // Función para validar el formulario de inicio de sesión.
   const validateLoginForm = () => {
