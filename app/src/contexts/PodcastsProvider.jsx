@@ -1,4 +1,5 @@
 import { useState, createContext } from "react";
+import { toast } from "sonner";
 import axios from "axios";
 
 // Contexto para las listas.
@@ -18,6 +19,10 @@ const PodcastsProvider = ({ children }) => {
   const selectedPodcastInitialValue = {};
   const audioUrlInitialValue = null;
   const visibilityInitialValue = false;
+  const audioFileInitialValue = null;
+  const imageFileInitialValue = null;
+  const titleInitialValue = "";
+  const descriptionInitialValue = "";
 
   // Estados.
   const [podcast, setPodcast] = useState(PodcastInitialValue); // Estado para guardar los datos del podcast.
@@ -27,9 +32,38 @@ const PodcastsProvider = ({ children }) => {
   const [podcastsList, setPodcastsList] = useState(podcastListInitialValue); // Estado para guardar los podcasts.
   const [userPodcastsList, setUserPodcastsList] = useState(userPodcastsListInitialValue); // Estado para guardar los podcasts del usuario.
   const [selectedPodcast, setSelectedPodcast] = useState(selectedPodcastInitialValue); // Estado para guardar el podcast seleccionado.
-
-  // Usuario para obtener el ID del usuario autenticado.
+  const [audioFile, setAudioFile] = useState(audioFileInitialValue);
+  const [imageFile, setImageFile] = useState(imageFileInitialValue);
+  const [title, setTitle] = useState(titleInitialValue);
+  const [description, setDescription] = useState(descriptionInitialValue);
+  
+  // Variables
   const apiURL = import.meta.env.VITE_API_URL;
+  const userId = localStorage.getItem("id");
+  
+  // Función para enviar los datos del formulario al servidor.
+  const postPodcast = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('files', audioFile);
+    formData.append('files', imageFile);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('userId', userId);
+
+    try {
+      await axios.post('http://localhost:3000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      toast.success('Podcast publicado');
+    } catch (error) {
+      toast.error('Error de red');
+    }
+  };
 
   // Función para obtener todos los podcasts.
   const fetchPodcasts = async () => {
@@ -38,7 +72,7 @@ const PodcastsProvider = ({ children }) => {
 
       setPodcastsList(response.data);
     } catch (error) {
-      console.error('Error fetching podcasts:', error);
+      toast.error('Error de red');
     }
   };
 
@@ -50,7 +84,7 @@ const PodcastsProvider = ({ children }) => {
       
       setUserPodcastsList(response.data);
     } catch (error) {
-      console.error('Error fetching user podcasts:', error);
+      toast.error('Error de red');
     }
   };
 
@@ -60,7 +94,7 @@ const PodcastsProvider = ({ children }) => {
       await axios.delete(`http://localhost:3000/content/podcast/${podcastId}`);
       setUserPodcastsList(podcasts.filter((podcast) => podcast.id !== podcastId));
     } catch (error) {
-      console.error('Error deleting podcast:', error);
+      toast.error('Error de red');
     }
   };
 
@@ -116,9 +150,15 @@ const PodcastsProvider = ({ children }) => {
     return { esValido, errores };
   };
 
+  const updateAudioFileChange = (e) => setAudioFile(e.target.files[0]);
+
+  const updateImageFileChange = (e) => setImageFile(e.target.files[0]);
+
   const updateAudioUrl = (url) => setAudioUrl(url);
   const updateSelectedPodcast = (podcast) => setSelectedPodcast(podcast);
   const updateVisibility = (value) => setVisibility(value);
+  const updateDescription = (description) => setDescription(description);
+  const updateTitle = (title) => setTitle(title);
 
   // Datos a exportar al contexto.
   const dataToExport = {
@@ -128,12 +168,21 @@ const PodcastsProvider = ({ children }) => {
     selectedPodcast,
     audioUrl,
     visibility,
+    audioFile,
+    imageFile,
+    title,
+    description,
 
     updateSelectedPodcast,
     updatePodcast,
     updateAudioUrl,
     updateVisibility,
-
+    updateDescription,
+    updateTitle,
+    
+    updateAudioFileChange,
+    updateImageFileChange,
+    postPodcast,
     fetchPodcasts,
     fetchUserPodcasts,
     handleDeletePodcast,

@@ -1,2 +1,2 @@
-export {default as FileUpload} from './fileUpload/FileUpload';
-export {default as FileList} from './fileList/FileList';
+export {default as PodcastUpload} from './podcastUpload/PodcastUpload';
+export {default as PodcastList} from './podcastList/PodcastList';
