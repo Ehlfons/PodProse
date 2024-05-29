@@ -9,7 +9,7 @@ import {
   CreatorPage,
   ContentManagementPage,
   ProfilePage,
-  ErrorPage
+  ErrorPage,
 } from "@pages/index";
 
 const Routes = () => {
@@ -19,14 +19,16 @@ const Routes = () => {
     <RouterRoutes>
       {/* Public Routes */}
       {loggedIn ? (
-        <Route path="/" element={<Navigate to={"/home"} />} />
+        <>
+          <Route path="/register" element={<Navigate to={"/home"} />} />
+          <Route path="/" element={<Navigate to={"/home"} />} />
+        </>
       ) : (
         <>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
         </>
       )}
-
 
       {/* User auth Routes */}
       {loggedIn && (

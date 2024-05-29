@@ -13,9 +13,11 @@ const ContentManagementPage = () => {
     updateIsLoading(true);
     fetchUserPodcasts();
     setTimeout(() => {
-      updateIsLoading(false); /* Para evitar que se vea la renderización de los podcasts */
+      updateIsLoading(
+        false
+      ); /* Para evitar que se vea la renderización de los podcasts */
     }, 1500);
-  } , []);
+  }, []);
 
   return (
     <Fragment>
