@@ -1,7 +1,12 @@
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { PodProseLogo, InstagramLogo, XLogo, GithubLogo } from "@components/svg";
+import {
+  PodProseLogo,
+  InstagramLogo,
+  XLogo,
+  GithubLogo,
+} from "@components/svg";
 import "./Footer.css";
 
 const Footer = () => {
@@ -32,7 +37,7 @@ const Footer = () => {
               Contacta con nosotros y solucionaremos tus problemas y cuestiones
               lo antes posible!
             </p>
-            <a className="footer-link" onClick={() => navigate('/contact')}>
+            <a className="footer-link" onClick={() => navigate("/contact")}>
               ¡ CONTÁCTANOS !
             </a>
           </div>
@@ -43,7 +48,7 @@ const Footer = () => {
               Suscríbete gratuitamente a nuestro Newsletter para tener toda la
               información de tus creadores favoritos.
             </p>
-            <a className="footer-link" href="/#container-spam">
+            <a className="footer-link" href="#container-spam">
               ¡ SUSCRIBETE !
             </a>
           </div>
@@ -70,7 +75,8 @@ const Footer = () => {
         <hr className="footer-separator-greenline" />
         <small>
           <p className="footer-copyright">
-            Creado por SSS<em className="middot">&middot;</em>Copyright 2024<em className="middot">&middot;</em>Todos los derechos reservados
+            Creado por SSS<em className="middot">&middot;</em>Copyright 2024
+            <em className="middot">&middot;</em>Todos los derechos reservados
           </p>
           <div className="footer-terms">
             <a href="">Política de Privacidad</a>
