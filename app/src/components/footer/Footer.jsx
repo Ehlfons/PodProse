@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   PodProseLogo,
@@ -48,9 +49,9 @@ const Footer = () => {
               Suscríbete gratuitamente a nuestro Newsletter para tener toda la
               información de tus creadores favoritos.
             </p>
-            <a className="footer-link" href="#container-spam">
-              ¡ SUSCRIBETE !
-            </a>
+            <Link className="footer-link" to="/home#container-spam">
+              ¡SUSCRÍBETE!
+            </Link>
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Redes Sociales</h4>

@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner"; // Importa tu librería de notificaciones
 import { GithubLogo, InstagramLogo, XLogo } from "@components/svg";
 import "./SpamComponent.css";
+import { useLocation } from "react-router-dom";
 
 const SpamComponent = () => {
   const [email, setEmail] = useState("");
   const apiURL = import.meta.env.VITE_API_URL;
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#container-spam") {
+      const element = document.getElementById("container-spam");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
   const handleSubscribe = async () => {
     try {
