@@ -1,18 +1,10 @@
 import { Fragment } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { PodProseLogo, InstagramLogo, XLogo, GithubLogo } from "@components/svg";
 import "./Footer.css";
 
 const Footer = () => {
-  const location = useLocation();
-  const isLoginPage = location.pathname === "/";
-  const isRegisterPage = location.pathname === "/register";
-
-  if (isLoginPage || isRegisterPage) {
-    return null;
-  }
-
   const navigate = useNavigate();
 
   return (
@@ -78,8 +70,7 @@ const Footer = () => {
         <hr className="footer-separator-greenline" />
         <small>
           <p className="footer-copyright">
-            Creado por SSS <em className="middot">&middot;</em> Copyright 2024
-            <em className="middot">&middot;</em> Todos los derechos reservados
+            Creado por SSS<em className="middot">&middot;</em>Copyright 2024<em className="middot">&middot;</em>Todos los derechos reservados
           </p>
           <div className="footer-terms">
             <a href="">Política de Privacidad</a>

@@ -1,14 +1,12 @@
 import { Fragment, useEffect } from "react";
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import Podcast from "@components/podcast/Podcast.jsx";
 import { usePodcasts, useUsers } from "@components/hooks";
+import Podcast from "@components/podcast/Podcast.jsx";
 import Loader from "@components/loader/Loader";
 
 import "./ContentManagementPage.css";
 
 const ContentManagementPage = () => {
-  const { audioUrl, actualizarAudioUrl, fetchUserPodcasts, userPodcastsList, updateSelectedPodcast, selectedPodcast } = usePodcasts();
+  const { updateAudioUrl, fetchUserPodcasts, userPodcastsList, updateSelectedPodcast, updateVisibility } = usePodcasts();
   const { isLoading, updateIsLoading } = useUsers();
 
   useEffect(() => {
@@ -29,8 +27,9 @@ const ContentManagementPage = () => {
                 key={i}
                 datos={podcast}
                 onClick={() => {
-                  actualizarAudioUrl(podcast.url_audio);
+                  updateAudioUrl(podcast.url_audio);
                   updateSelectedPodcast(podcast);
+                  updateVisibility(true);
                 }}
               />
             );
@@ -41,27 +40,6 @@ const ContentManagementPage = () => {
           </div>
         )}
       </div>
-
-      {audioUrl && (
-        <section className="">
-          <AudioPlayer
-            className="custom-audio-player"
-            src={audioUrl}
-            controls
-            autoPlay
-            showSkipControls
-            showJumpControls
-            showDownloadProgress
-            showFilledProgress
-            showFilledVolume
-            volumeJumpStep
-            progressJumpStep
-            defaultCurrentTime
-            defaultDuration
-            header={`Now playing: ${selectedPodcast.title}`}
-          />
-        </section>
-      )}
 
       {isLoading && <Loader />}
     </Fragment>

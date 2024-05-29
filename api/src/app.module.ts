@@ -12,6 +12,7 @@ import { UploadModule } from './upload/upload.module';
 import { ContactModule } from './contact/contact.module';
 import { NewsletterModule } from './newsletter/newsletter.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ContentModule } from './content/content.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ValidateUserModule,
     FailedLoginModule,
     UploadModule,
+    ContentModule,
     ConfigModule.forRoot({ isGlobal: true }),
     JwtModule.register({
       secret: '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',

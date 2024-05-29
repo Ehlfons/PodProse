@@ -1,2 +1,3 @@
-export {default as ProveedorUsuarios} from "./ProveedorUsuarios.jsx";
-export {default as ProveedorPodcasts} from "./ProveedorPodcasts.jsx";
+export {default as UsersProvider} from "./UsersProvider.jsx";
+export {default as PodcastsProvider} from "./PodcastsProvider.jsx";
+export {default as InfoProvider} from "./InfoProvider.jsx";

@@ -17,7 +17,7 @@
   padding: 25px 40px;
   color: var(--primary-dark-bg-color);
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 var(--primary-green);
+  box-shadow: 0 0 10px 0 var(--accent-color);
   border: 2px solid var(--main-text-color);
 }
 

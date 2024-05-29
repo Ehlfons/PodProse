@@ -54,7 +54,7 @@
 .social-media-logos-spam .container-x-logo-spam:hover svg,
 .social-media-logos-spam .container-github-logo-spam:hover svg {
   transition-delay: 0.175s;
-  fill: var(--primary-green);
+  fill: var(--accent-color);
 }
 
 .container-x-logo-spam {
@@ -63,7 +63,7 @@
 }
 
 .spam-logo-greenLine {
-  background-color: var(--primary-green);
+  background-color: var(--accent-color);
   
   height: 5px;
   width: 130px;
@@ -108,7 +108,7 @@
   padding: 0 30px;
   
   box-sizing: border-box;
-  border: 2px solid var(--primary-green);
+  border: 2px solid var(--accent-color);
   border-radius: 10px;
 
   text-align: center;

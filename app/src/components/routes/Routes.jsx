@@ -9,10 +9,11 @@ import {
   CreatorPage,
   ContentManagementPage,
   ProfilePage,
+  ErrorPage
 } from "@pages/index";
 
 const Routes = () => {
-  const { loggedIn, user } = useUsers();
+  const { loggedIn } = useUsers();
 
   return (
     <RouterRoutes>
@@ -20,13 +21,15 @@ const Routes = () => {
       {loggedIn ? (
         <Route path="/" element={<Navigate to={"/home"} />} />
       ) : (
-        <Route path="/" element={<LoginPage />} />
+        <>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </>
       )}
 
-      <Route path="/register" element={<RegisterPage />} />
 
       {/* User auth Routes */}
-      {loggedIn && user ? (
+      {loggedIn && (
         <>
           <Route path="/home" element={<MainPage />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -34,7 +37,10 @@ const Routes = () => {
           <Route path="/my-content" element={<ContentManagementPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </>
-      ) : null}
+      )}
+
+      {/* Error Route */}
+      <Route path="*" element={<ErrorPage />} />
     </RouterRoutes>
   );
 };

@@ -9,3 +9,4 @@ export { default as PodProseLogo } from "./PodProseLogo.jsx";
 export { default as XLogo } from "./XLogo.jsx";
 export { default as DeleteOrClose } from "./DeleteOrClose.jsx";
 export { default as PlusIcon } from "./PlusIcon.jsx";
+export { default as LinkedinLogo } from "./LinkedinLogo.jsx";
