@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from "react";
 import { usePodcasts, useUsers } from "@components/hooks";
 import Loader from "@components/loader/Loader";
-import { PodcastUpload, PodcastList } from "@components/files";
+import { PodcastUpload, PodcastList } from "@components/uploadPodcasts";
 
 import "./ContentManagementPage.css";
 
