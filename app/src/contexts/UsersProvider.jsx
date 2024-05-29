@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import { toast } from "sonner";
 import axios from "axios";
-
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 // Contexto para los usuarios.
@@ -10,6 +10,7 @@ const UsersContext = createContext();
 const UsersProvider = ({ children }) => {
   // Hook para redirigir a otras páginas.
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Valores iniciales.
   const userInitialValue = null;
@@ -39,9 +40,15 @@ const UsersProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
   const [errors, setErrors] = useState(errorsInitialValue);
   const [isLoading, setIsLoading] = useState(isLoadingInitialValue);
-  const [editProfileForm, setEditProfileForm] = useState(editProfileFormInitialValue);
-  const [isEditingProfile, setIsEditingProfile] = useState(isEditingProfileInitialValue);
-  const [loadingLoggedIn, setLoadingLoggedIn] = useState(loadingLoggedInInitialValue);
+  const [editProfileForm, setEditProfileForm] = useState(
+    editProfileFormInitialValue
+  );
+  const [isEditingProfile, setIsEditingProfile] = useState(
+    isEditingProfileInitialValue
+  );
+  const [loadingLoggedIn, setLoadingLoggedIn] = useState(
+    loadingLoggedInInitialValue
+  );
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -276,7 +283,7 @@ const UsersProvider = ({ children }) => {
       setToken(token);
       await getUser();
       setLoggedIn(true);
-    } 
+    }
     setLoadingLoggedIn(false);
   };
 
@@ -306,10 +313,11 @@ const UsersProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!loggedIn && !loadingLoggedIn) {
+    const isRegisterPage = location.pathname === "/register";
+    if (!loggedIn && !loadingLoggedIn && !isRegisterPage) {
       navigate("/");
     }
-  }, [loggedIn, navigate, loadingLoggedIn]);
+  }, [loggedIn, navigate, loadingLoggedIn, location.pathname]);
 
   const dataToExport = {
     email,
