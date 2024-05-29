@@ -2,25 +2,29 @@ import { Fragment } from "react";
 import { Toaster } from "sonner";
 import { BrowserRouter } from "react-router-dom";
 import { Header } from "@components/header";
-import Footer from "@components/footer/Footer";
+import { UsersProvider, PodcastsProvider, InfoProvider } from "@contexts/index";
+import { CustomAudioPlayer } from "@components/audioPlayer";
+import { FooterWrapper } from "@components/footer";
 import Routes from "@components/routes/Routes";
-import { ProveedorUsuarios, ProveedorPodcasts } from "@contexts/index";
 import "./App.css";
 
 function App() {
   return (
     <Fragment>
       <BrowserRouter>
-        <ProveedorUsuarios>
-          <ProveedorPodcasts>
-            <Header />
-            <main>
-              <Routes />
-              <Toaster richColors />
-            </main>
-            <Footer />
-          </ProveedorPodcasts>
-        </ProveedorUsuarios>
+        <UsersProvider>
+          <PodcastsProvider>
+            <InfoProvider>
+              <Header />
+              <main>
+                <Routes />
+                <Toaster richColors />
+                <CustomAudioPlayer />
+              </main>
+              <FooterWrapper />
+            </InfoProvider>
+          </PodcastsProvider>
+        </UsersProvider>
       </BrowserRouter>
     </Fragment>
   );

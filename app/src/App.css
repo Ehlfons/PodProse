@@ -12,13 +12,15 @@
   --trends-secondary-dark-color: #D9DADE;
 
   /* Custom colors */
-  --primary-green: #B0E444;
-  --primary-green-hover: #A0D444;
+  --accent-color: #B0E444;
+  --accent-color-hover: #A0D444;
   --primary-blue: #3ab0ff;
   --secondary-blue: #3a8fff;
   --primary-red: #ff3a3a;
   --primary-grey: #dddddd;
-  --secondary-grey: #bbbbbb;
+  --secondary-grey: #b3b3b3;
+  --disabled-color: #d9d9d9;
+  --disabled-color2: #868686;
 
   /* Measures */
   --default-space: 35px 55px;
@@ -42,8 +44,6 @@ body {
   min-height: 100vh;
   color: var(--main-text-color);
 }
-
-
 
 .error-usuario {
   font-family: 'Poppins', 'DM Sans', sans-serif;

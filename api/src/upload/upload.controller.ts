@@ -4,18 +4,12 @@ import {
   UploadedFiles,
   UploadedFile,
   UseInterceptors,
-  Get,
   Param,
-  Res,
-  Delete,
   Body,
   HttpStatus,
-  NotFoundException,
 } from '@nestjs/common';
 import { FilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
-import { Response } from 'express';
-import { Readable } from 'stream';
 
 @Controller('upload')
 export class UploadController {
@@ -59,52 +53,5 @@ export class UploadController {
       message: 'User image uploaded successfully',
       url_img: url_img,
     };
-  }
-
-  @Get(':fileName')
-  async getFile(@Param('fileName') fileName: string, @Res() res: Response) {
-    const data = await this.uploadService.getFile(fileName);
-
-    // Convert the stream to a buffer
-    const buffer = await this.uploadService.streamToBuffer(data.Body as Readable);
-
-    // Set the appropriate content type (optional)
-    res.setHeader('Content-Type', data.ContentType);
-    
-    // Send the buffer as response
-    res.send(buffer);
-  }
-
-  @Get()
-  async listPodcasts(@Res() res: Response) {
-    const data = await this.uploadService.listPodcasts();
-
-    res.json(data);
-  }
-
-  @Get('user/:userId')
-  async getPodcastsByUser(@Param('userId') userId: string, @Res() res: Response) {
-    const podcasts = await this.uploadService.getPodcastsByUser(userId);
-    res.json(podcasts);
-  }
-
-  @Delete(':fileName')
-  async deleteFile(@Param('fileName') fileName: string, @Res() res: Response) {
-    await this.uploadService.deleteFile(fileName);
-
-    res.status(204).send();
-  }
-
-  @Delete('podcast/:id')
-  async deletePodcast(@Param('id') id: string) {
-    try {
-      await this.uploadService.deletePodcast(id);
-      return { message: 'Podcast deleted successfully' };
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw new NotFoundException('Podcast not found');
-      }
-      throw error;
-    }
   }
 }

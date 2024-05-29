@@ -11,7 +11,7 @@ import { EnviarCorreoService } from '../auth/enviar-correo.service';
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly enviarCorreoService: EnviarCorreoService
+    private readonly enviarCorreoService: EnviarCorreoService,
   ) {}
 
   @UseGuards(AuthGuard)
@@ -41,9 +41,14 @@ export class UsersController {
     @Param('id') uuid: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {
+    // Obtén el usuario actual de la base de datos
+    const currentUser = await this.usersService.findOne(uuid);
+
+    // Actualiza el usuario
     const updatedUser = await this.usersService.update(uuid, updateUserDto);
-    
-    if (updateUserDto.email) {
+
+    // Verifica si el correo ha cambiado
+    if (updateUserDto.email && updateUserDto.email !== currentUser.email) {
       const token = this.usersService.generateVerificationToken(updatedUser.id);
       await this.enviarCorreoService.enviarCorreo(updateUserDto.email, updatedUser.username, token);
     }

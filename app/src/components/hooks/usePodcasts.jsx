@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { ContextoPodcasts } from "@contexts/ProveedorPodcasts.jsx";
+import { PodcastsContext } from "@contexts/PodcastsProvider.jsx";
 
 // Hook para usar el contexto de Podcasts.
 const usePodcasts = () => {
-  const contexto = useContext(ContextoPodcasts);
-  return contexto;
+  const context = useContext(PodcastsContext);
+  return context;
 };
 
 export default usePodcasts;

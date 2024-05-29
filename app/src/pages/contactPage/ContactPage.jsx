@@ -1,116 +1,86 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { GithubLogo, LinkedinLogo } from "@components/svg";
+import { useInfo } from "@components/hooks";
 import "./ContactPage.css";
-import "../../assets/font-awesome/6.0.0-alpha2/css/all.css";
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-
-  const [hoveredIcon, setHoveredIcon] = useState(null);
-
-  const apiURL = import.meta.env.VITE_API_URL;
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await axios.post(`${apiURL}/contact`, formData);
-      alert("Correo enviado correctamente");
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error al enviar el correo electrónico");
-    }
-  };
+  const { emailFormData, handleChangeEmailFormData, handleSubmitContactEmail } = useInfo();
 
   return (
     <div id="contactPageContainer">
       <div id="contactPageForm">
         <h1 className="contactText">Contacto</h1>
         <p className="secondary">Envíanos un mensaje</p>
-        <form onSubmit={handleSubmit}>
+        <hr className="grey-separator"/>
+        <form>
           <div className="formRow">
             <div className="formGroup">
-              <label htmlFor="fullName">Nombre Completo:</label>
+              <label className="form-label-required" htmlFor="fullName">Nombre Completo:</label>
               <input
                 className="formTextSpaces"
                 type="text"
                 id="fullName"
                 name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
+                value={emailFormData.fullName}
+                onChange={handleChangeEmailFormData}
                 required
               />
             </div>
             <div className="formGroup">
-              <label htmlFor="email">Email:</label>
+              <label className="form-label-required" htmlFor="email">Email:</label>
               <input
                 className="formTextSpaces"
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={emailFormData.email}
+                onChange={handleChangeEmailFormData}
                 required
               />
             </div>
           </div>
           <div className="formRow">
             <div className="formGroup">
-              <label htmlFor="phone">Teléfono:</label>
+              <label className="form-label-required" htmlFor="phone">Teléfono:</label>
               <input
                 className="formTextSpaces"
                 type="tel"
                 id="phone"
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
+                value={emailFormData.phone}
+                onChange={handleChangeEmailFormData}
                 required
               />
             </div>
             <div className="formGroup">
-              <label htmlFor="subject">Asunto:</label>
+              <label className="form-label-required" htmlFor="subject">Asunto:</label>
               <input
                 className="formTextSpaces"
                 type="text"
                 id="subject"
                 name="subject"
-                value={formData.subject}
-                onChange={handleChange}
+                value={emailFormData.subject}
+                onChange={handleChangeEmailFormData}
                 required
               />
             </div>
           </div>
           <div>
             <div className="formGroup" id="formGroupLast">
-              <label htmlFor="message">Mensaje:</label>
+              <label className="form-label-required" htmlFor="message">Mensaje:</label>
               <textarea
                 className="formTextSpaces"
                 id="message"
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
+                value={emailFormData.message}
+                onChange={handleChangeEmailFormData}
                 required
               ></textarea>
             </div>
           </div>
-          <input type="submit" id="sendFormButton" value="Enviar" />
+          <div className="form-sendbtn-container">
+            <p>obligatorio</p>
+            <button onClick={handleSubmitContactEmail} id="sendFormButton">Enviar</button>
+          </div>
         </form>
       </div>
       <div id="contactPageContainerCeo">
@@ -128,31 +98,15 @@ const ContactPage = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i
-                className={`fa-brands fa-github fa-4x ${
-                  hoveredIcon === "github2"
-                    ? "fa-beat-fade socialNetworksAdminsEffects"
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredIcon("github2")}
-                onMouseLeave={() => setHoveredIcon(null)}
-              ></i>
+              <GithubLogo />
             </a>
-            <i className={"fa-thin fa-pipe fa-4x"}></i>
+            <div className="vertical-line"/>
             <a
               href="https://www.linkedin.com/in/litohdd/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i
-                className={`fa-brands fa-linkedin fa-4x ${
-                  hoveredIcon === "linkedin2"
-                    ? "fa-beat-fade socialNetworksAdminsEffects"
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredIcon("linkedin2")}
-                onMouseLeave={() => setHoveredIcon(null)}
-              ></i>
+              <LinkedinLogo />
             </a>
           </div>
         </div>
@@ -170,31 +124,15 @@ const ContactPage = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i
-                className={`fa-brands fa-github fa-4x ${
-                  hoveredIcon === "github1"
-                    ? "fa-beat-fade socialNetworksAdminsEffects"
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredIcon("github1")}
-                onMouseLeave={() => setHoveredIcon(null)}
-              ></i>
+              <GithubLogo />
             </a>
-            <i className={"fa-thin fa-pipe fa-4x"}></i>
+            <div className="vertical-line"/>
             <a
               href="https://www.linkedin.com/in/sergio-alfonso-deltell/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i
-                className={`fa-brands fa-linkedin fa-4x ${
-                  hoveredIcon === "linkedin1"
-                    ? "fa-beat-fade socialNetworksAdminsEffects"
-                    : ""
-                }`}
-                onMouseEnter={() => setHoveredIcon("linkedin1")}
-                onMouseLeave={() => setHoveredIcon(null)}
-              ></i>
+              <LinkedinLogo />
             </a>
           </div>
         </div>

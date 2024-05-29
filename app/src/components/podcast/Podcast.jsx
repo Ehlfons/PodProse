@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 
-import {DeleteModal, PodcastsModal} from "@components/modals";
+import {DeleteModal} from "@components/modals";
 import { usePodcasts } from "@components/hooks";
 import { EditIcon, DeleteOrClose } from "@components/svg";
 import "./Podcast.css";
@@ -99,12 +99,6 @@ const Podcast = (props) => {
           </div>
         </div>
       </article>
-
-      <PodcastsModal
-        mostrarPodcasts={mostrarModalPodcasts} // Se le pasa el estado del modal, si es true se muestra, si es false se oculta.
-        manejarCerradoPodcasts={cerrarModalPodcasts} // Se le pasa la función para cerrar el modal.
-        idPodcast={podcast_id} // Se le pasa el ID del podcast que se va a añadir a la lista.
-      />
 
       <DeleteModal
         mostrar={mostrarModal} // Se le pasa el estado del modal, si es true se muestra, si es false se oculta.

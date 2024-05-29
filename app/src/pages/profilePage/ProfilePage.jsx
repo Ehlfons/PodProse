@@ -49,13 +49,15 @@ const ProfilePage = () => {
           patchUserData();
           setTimeout(() => {
             handleLogout();
-          } , 1000);
+          } , 2000);
           toast.dismiss();
         }}>
           <FontAwesomeIcon icon={faCheckCircle} />
         </button>,
       });
-    };
+    } else {
+      patchUserData();
+    }
   };
 
   useEffect(() => {
