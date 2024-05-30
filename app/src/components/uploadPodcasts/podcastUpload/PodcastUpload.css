@@ -1,0 +1,126 @@
+.upload-podcast-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.section-title i {
+  font-size: 40px;
+}
+
+.section-title h1 {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.upload-podcast-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-input-label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.required-input-label::after {
+  content: ' *';
+  color: var(--accent-color);
+}
+
+.form-input-podcasts {
+  color: var(--main-text-color);
+  background-color: transparent;
+
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 0 20px;
+
+  border: 1px solid var(--main-text-color-60);
+  border-radius: 10px;
+
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.examinar-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 120px;
+  height: 48px;
+  
+  border: none;
+  border-right: 1px solid var(--main-text-color-60);
+  border-radius: 10px 0 0 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--main-text-color);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.examinar-btn:hover {
+  background-color: var(--main-text-color-25);
+}
+
+.file-upload.form-input-podcasts {
+  padding-left: 0;
+}
+
+textarea.form-input-podcasts {
+  resize: none;
+  box-sizing: border-box;
+  padding-block: 15px;
+}
+
+.form-input-podcasts:focus {
+  outline: none;
+  border: 1px solid var(--main-text-color);
+}
+
+.file-upload {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.podcast-preview.podcast {
+  margin-top: 5px;
+}
+
+.send-podcast {
+  width: 100%;
+  border-radius: 28px;
+  background-color: var(--main-text-color-25);
+  border: none;
+  color: var(--main-text-color);
+  font-size: 22px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  padding: 14px 20px;
+  margin: 10px auto 0;
+}
+
+.send-podcast:hover {
+  background-color: var(--main-text-color);
+  color: var(--primary-dark-bg-color);
+}

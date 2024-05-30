@@ -10,11 +10,13 @@ const MainPage = () => {
   const { isLoading } = useUsers();
   return (
     <Fragment>
-      <HomeComponent />
-      <LatestComponent />
-      <SpamComponent />
-      <TrendsComponent />
-      {isLoading && <Loader />}
+      <main>
+        <HomeComponent />
+        <LatestComponent />
+        <SpamComponent />
+        <TrendsComponent />
+        {isLoading && <Loader />}
+      </main>
     </Fragment>
   );
 };
