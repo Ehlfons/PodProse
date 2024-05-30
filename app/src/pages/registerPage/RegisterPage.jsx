@@ -35,105 +35,107 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   return (
     <Fragment>
-      <header className="register-header">
-        <Link to="/" className="register-header-back">
-          <ArrowLogin />
-          Iniciar sesión
-        </Link>
-      </header>
-      <section className="register-main">
-        <div className="register-main-title">
-          <PodProseLogo />
-          <h1>Crea una cuenta</h1>
-        </div>
-        <div className="register-main-form">
-          <div className="register-main-inputs">
-            <div className="register-main-inputs-wrapper">
-              <div className="register-main-input-email">
-                <label htmlFor="name">Nombre</label>
+      <main>
+        <header className="register-header">
+          <Link to="/" className="register-header-back">
+            <ArrowLogin />
+            Iniciar sesión
+          </Link>
+        </header>
+        <section className="register-main">
+          <div className="register-main-title">
+            <PodProseLogo />
+            <h1>Crea una cuenta</h1>
+          </div>
+          <div className="register-main-form">
+            <div className="register-main-inputs">
+              <div className="register-main-inputs-wrapper">
+                <div className="register-main-input-email">
+                  <label htmlFor="name">Nombre</label>
+                  <input
+                    className="register-main-common-input"
+                    type="text"
+                    title="name"
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={(e) => {
+                      updateName(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="register-main-input-email">
+                  <label htmlFor="username">Usuario</label>
+                  <input
+                    className="register-main-common-input"
+                    type="text"
+                    title="Username"
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(e) => {
+                      updateUsername(e.target.value);
+                    }}
+                  />
+                </div>
+  
+                <div className="register-main-input-email">
+                  <label htmlFor="email">Correo electrónico</label>
+                  <input
+                    className="register-main-common-input"
+                    type="email"
+                    title="Email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => {
+                      updateEmail(e.target.value);
+                    }}
+                  />
+                </div>
+  
+                <div className="register-main-input-passwd">
+                  <label htmlFor="password">Contraseña</label>
+                  <input
+                    className="register-main-common-input"
+                    title="Contraseña"
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => {
+                      updatePassword(e.target.value);
+                    }}
+                  />
+                </div>
+  
                 <input
-                  className="register-main-common-input"
-                  type="text"
-                  title="name"
-                  id="name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => {
-                    updateName(e.target.value);
+                  className="register-main-input-register"
+                  title="Registrarse"
+                  type="button"
+                  value="Registrarse"
+                  onClick={(e) => {
+                    manejarRegistro(e);
                   }}
                 />
               </div>
-              <div className="register-main-input-email">
-                <label htmlFor="username">Usuario</label>
-                <input
-                  className="register-main-common-input"
-                  type="text"
-                  title="Username"
-                  id="username"
-                  name="username"
-                  value={username}
-                  onChange={(e) => {
-                    updateUsername(e.target.value);
-                  }}
-                />
-              </div>
-
-              <div className="register-main-input-email">
-                <label htmlFor="email">Correo electrónico</label>
-                <input
-                  className="register-main-common-input"
-                  type="email"
-                  title="Email"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => {
-                    updateEmail(e.target.value);
-                  }}
-                />
-              </div>
-
-              <div className="register-main-input-passwd">
-                <label htmlFor="password">Contraseña</label>
-                <input
-                  className="register-main-common-input"
-                  title="Contraseña"
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => {
-                    updatePassword(e.target.value);
-                  }}
-                />
-              </div>
-
-              <input
-                className="register-main-input-register"
-                title="Registrarse"
-                type="button"
-                value="Registrarse"
-                onClick={(e) => {
-                  manejarRegistro(e);
-                }}
-              />
             </div>
           </div>
-        </div>
-        <div className="register-main-footer">
-          <a
-            className="register-main-footer-passwd"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            ¿Ya estás registrado?
-          </a>
-          <p className="register-main-footer-terms">
-            Registro Seguro con 2FA sujeto a los Términos y Privacidad de Google
-          </p>
-        </div>
-      </section>
+          <div className="register-main-footer">
+            <a
+              className="register-main-footer-passwd"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              ¿Ya estás registrado?
+            </a>
+            <p className="register-main-footer-terms">
+              Registro Seguro con 2FA sujeto a los Términos y Privacidad de Google
+            </p>
+          </div>
+        </section>
+      </main>
     </Fragment>
   );
 };

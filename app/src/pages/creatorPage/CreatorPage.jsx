@@ -5,8 +5,10 @@ import "./CreatorPage.css";
 const CreatorPage = () => {
   return (
     <Fragment>
-      {/* <FileUpload />
-      <FileList/> */}
+      {/* <main>
+        <FileUpload />
+        <FileList/>
+      </main> */}
     </Fragment>
   );
 };

@@ -21,10 +21,12 @@ const ContentManagementPage = () => {
 
   return (
     <Fragment>
-      <PodcastUpload />
-      <PodcastList />
-
-      {isLoading && <Loader />}
+      <main>
+        <PodcastUpload />
+        <PodcastList />
+  
+        {isLoading && <Loader />}
+      </main>
     </Fragment>
   );
 };

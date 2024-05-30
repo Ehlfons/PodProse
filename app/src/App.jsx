@@ -16,11 +16,9 @@ function App() {
           <PodcastsProvider>
             <InfoProvider>
               <Header />
-              <main>
                 <Routes />
                 <Toaster richColors />
                 <CustomAudioPlayer />
-              </main>
               <FooterWrapper />
             </InfoProvider>
           </PodcastsProvider>
