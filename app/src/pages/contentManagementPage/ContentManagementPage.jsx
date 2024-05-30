@@ -21,11 +21,12 @@ const ContentManagementPage = () => {
 
   return (
     <Fragment>
-      <main>
+      <main id="cmp-main">
         <PodcastUpload />
+        <div className="vertical-line-content"/>
         <PodcastList />
   
-        {isLoading && <Loader />}
+        {/* {isLoading && <Loader />} */}
       </main>
     </Fragment>
   );

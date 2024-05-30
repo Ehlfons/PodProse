@@ -23,6 +23,7 @@ const PodcastsProvider = ({ children }) => {
   const imageFileInitialValue = null;
   const titleInitialValue = "";
   const descriptionInitialValue = "";
+  const imagePreviewInitialValue = null;
 
   // Estados.
   const [podcast, setPodcast] = useState(PodcastInitialValue); // Estado para guardar los datos del podcast.
@@ -36,6 +37,7 @@ const PodcastsProvider = ({ children }) => {
   const [imageFile, setImageFile] = useState(imageFileInitialValue);
   const [title, setTitle] = useState(titleInitialValue);
   const [description, setDescription] = useState(descriptionInitialValue);
+  const [imagePreview, setImagePreview] = useState(imagePreviewInitialValue);
   
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -104,6 +106,15 @@ const PodcastsProvider = ({ children }) => {
     setPodcast({ ...podcast, [name]: value });
   };
 
+  // Función para formatear la fecha en formato europeo. (mover a una biblioteca cuando tengamos más funciones de uso general como esta)
+  const formatDate = (date) => {
+    const formatedDate = new Date(date);
+    const dia = String(formatedDate.getDate()).padStart(2, "0");
+    const mes = String(formatedDate.getMonth() + 1).padStart(2, "0");
+    const anio = formatedDate.getFullYear();
+    return `${dia}-${mes}-${anio}`;
+  };
+
   // Funcion para validar el formulario
   const validateForm = (podcast) => {
     const errores = {}; // Objeto para almacenar los errores.
@@ -151,7 +162,14 @@ const PodcastsProvider = ({ children }) => {
   };
 
   const updateAudioFileChange = (e) => setAudioFile(e.target.files[0]);
-  const updateImageFileChange = (e) => setImageFile(e.target.files[0]);
+  const updateImageFileChange = (e) => {
+    const file = e.target.files[0];
+  if (file) {
+    const imageUrl = URL.createObjectURL(file);
+    setImageFile(file);
+    setImagePreview(imageUrl);
+  }
+  };
 
   const updateAudioUrl = (url) => setAudioUrl(url);
   const updateSelectedPodcast = (podcast) => setSelectedPodcast(podcast);
@@ -171,6 +189,7 @@ const PodcastsProvider = ({ children }) => {
     imageFile,
     title,
     description,
+    imagePreview,
 
     updateSelectedPodcast,
     updatePodcast,
@@ -186,6 +205,7 @@ const PodcastsProvider = ({ children }) => {
     fetchUserPodcasts,
     handleDeletePodcast,
     validateForm,
+    formatDate,
   };
 
   return (

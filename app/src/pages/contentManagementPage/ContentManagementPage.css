@@ -1,0 +1,19 @@
+#cmp-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 55px;
+  margin: 55px;
+  height: 75vh;
+}
+
+#cmp-main section {
+  width: 50%;
+}
+
+.vertical-line-content {
+  height: 100%;
+  width: 2px;
+  background-color: var(--main-text-color-60);
+  border-radius: 50%;
+}
