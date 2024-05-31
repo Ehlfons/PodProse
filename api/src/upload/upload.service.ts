@@ -1,19 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import {
-  PutObjectCommand,
-  GetObjectCommand,
-  ListObjectsV2Command,
-  DeleteObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3';
+import { PutObjectCommand, DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
-import {
-  GetObjectCommandOutput,
-  ListObjectsV2CommandOutput,
-  DeleteObjectCommandOutput,
-} from '@aws-sdk/client-s3';
-import { Readable } from 'stream';
 
 @Injectable()
 export class UploadService {
@@ -50,7 +38,7 @@ export class UploadService {
         data: {
           title,
           description,
-          url_audio: `https://${bucketName}.s3.amazonaws.com/${fileName}`,
+          url_audio: `https://${bucketName}.s3.amazonaws.com/audio/${fileName}`,
           url_img: '',
           user: {
             connect: { id: userId },
@@ -62,7 +50,7 @@ export class UploadService {
       await this.prisma.podcast.update({
         where: { title },
         data: {
-          url_img: `https://${bucketName}.s3.amazonaws.com/${fileName}`,
+          url_img: `https://${bucketName}.s3.amazonaws.com/img/${fileName}`,
         },
       });
     }
@@ -94,7 +82,7 @@ export class UploadService {
     await this.prisma.user.update({
       where: { id: userId },
       data: {
-        url_img: `https://${bucketName}.s3.amazonaws.com/${fileName}`,
+        url_img: `https://${bucketName}.s3.amazonaws.com/img/${fileName}`,
       },
     });
 
@@ -115,6 +103,6 @@ export class UploadService {
       }
     }
 
-    return `https://${bucketName}.s3.amazonaws.com/${fileName}`;
+    return `https://${bucketName}.s3.amazonaws.com/img/${fileName}`;
   }
 }
