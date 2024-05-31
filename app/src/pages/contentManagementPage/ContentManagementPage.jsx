@@ -26,7 +26,7 @@ const ContentManagementPage = () => {
         <div className="vertical-line-content"/>
         <PodcastList />
   
-        {/* {isLoading && <Loader />} */}
+        {isLoading && <Loader />}
       </main>
     </Fragment>
   );

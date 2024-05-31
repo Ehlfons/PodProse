@@ -84,7 +84,7 @@ export class ContentService {
 
     // Borra la entrada de la base de datos
     await this.prisma.podcast.delete({
-      where: { url_audio: `https://${bucketName}.s3.amazonaws.com/${fileName}` },
+      where: { url_audio: `https://${bucketName}.s3.amazonaws.com/audio/${fileName}` },
     });
 
     return data;
@@ -122,6 +122,7 @@ export class ContentService {
     });
   }
 
+  // Convierte un stream de Node.js a un Buffer
   async streamToBuffer(stream: Readable): Promise<Buffer> {
     return new Promise<Buffer>((resolve, reject) => {
       const chunks: any[] = [];
