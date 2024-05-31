@@ -16,10 +16,12 @@ export class UploadService {
 
   async upload(fileName: string, file: Buffer, type: 'audio' | 'image', userId: string, title: string, description: string) {
     const bucketName = this.configService.getOrThrow('AWS_S3_BUCKET_NAME');
+    const fileKey2 = type === 'audio' ? `audio/${fileName}` : `img/${fileName}`;
+
     await this.s3Client.send(
       new PutObjectCommand({
         Bucket: bucketName,
-        Key: fileName,
+        Key: fileKey2,
         Body: file,
       }),
     );
@@ -38,7 +40,7 @@ export class UploadService {
         data: {
           title,
           description,
-          url_audio: `https://${bucketName}.s3.amazonaws.com/audio/${fileName}`,
+          url_audio: `https://${bucketName}.s3.amazonaws.com/${fileKey2}`,
           url_img: '',
           user: {
             connect: { id: userId },
@@ -50,7 +52,7 @@ export class UploadService {
       await this.prisma.podcast.update({
         where: { title },
         data: {
-          url_img: `https://${bucketName}.s3.amazonaws.com/img/${fileName}`,
+          url_img: `https://${bucketName}.s3.amazonaws.com/${fileKey2}`,
         },
       });
     }
@@ -70,11 +72,12 @@ export class UploadService {
     }
 
     const previousImageUrl = user.url_img;
+    const fileKey = `img/${fileName}`;
 
     await this.s3Client.send(
       new PutObjectCommand({
         Bucket: bucketName,
-        Key: fileName,
+        Key: fileKey,
         Body: file,
       }),
     );
@@ -82,7 +85,7 @@ export class UploadService {
     await this.prisma.user.update({
       where: { id: userId },
       data: {
-        url_img: `https://${bucketName}.s3.amazonaws.com/img/${fileName}`,
+        url_img: `https://${bucketName}.s3.amazonaws.com/${fileKey}`,
       },
     });
 
@@ -97,12 +100,12 @@ export class UploadService {
         await this.s3Client.send(
           new DeleteObjectCommand({
             Bucket: bucketName,
-            Key: previousImageKey,
+            Key: `img/${previousImageKey}`,
           }),
         );
       }
     }
 
-    return `https://${bucketName}.s3.amazonaws.com/img/${fileName}`;
+    return `https://${bucketName}.s3.amazonaws.com/${fileKey}`;
   }
 }
