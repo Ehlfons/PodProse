@@ -126,3 +126,23 @@ textarea.form-input-podcasts {
   background-color: var(--main-text-color);
   color: var(--primary-dark-bg-color);
 }
+
+.send-podcast-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.send-podcast-container svg {
+  font-size: 40px;
+  color: var(--main-text-color-25);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.send-podcast-container svg:hover {
+  color: var(--main-text-color)
+}

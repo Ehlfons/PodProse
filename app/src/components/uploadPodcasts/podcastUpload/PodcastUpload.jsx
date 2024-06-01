@@ -1,7 +1,7 @@
 import { Fragment, useRef } from "react";
 import { usePodcasts } from "@components/hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRotateLeft, faCloudArrowUp, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import "./PodcastUpload.css";
 
 const PodcastUpload = () => {
@@ -21,6 +21,7 @@ const PodcastUpload = () => {
     podcastImageEdit,
     podcastAudioEdit,
     handleEditPodcast,
+    resetEditing,
   } = usePodcasts();
 
   // Crear referencias para los inputs de archivo
@@ -41,12 +42,12 @@ const PodcastUpload = () => {
     <Fragment>
       <section className="upload-podcast-section">
         <div className="section-title">
-          <i><FontAwesomeIcon icon={faCloudArrowUp} /></i>
-          <h1>Subir Podcast</h1>
+          <i><FontAwesomeIcon icon={isEditing ? faPenToSquare : faCloudArrowUp} /></i>
+          <h1>{isEditing ? "Editar Podcast" : "Subir Podcast"}</h1>
         </div>
         <form className="upload-podcast-form">
           <div className="input-label">
-            <label className="form-input-label required-input-label" htmlFor="title">Título:</label>
+            <label className="form-input-label required-input-label" htmlFor="title">Título</label>
             <input
               className="form-input-podcasts"
               type="text"
@@ -68,7 +69,7 @@ const PodcastUpload = () => {
               style={{ display: "none" }}
               required
             />
-            <label className="form-input-label required-input-label" htmlFor="title">Imagen de portada:</label>
+            <label className="form-input-label required-input-label" htmlFor="title">Imagen de portada</label>
             <div className="file-upload form-input-podcasts">
               <button className="examinar-btn" type="button" onClick={handleImageUploadClick}>
                 Examinar
@@ -76,7 +77,7 @@ const PodcastUpload = () => {
               {imageFile ? <span>{imageFile.name}</span> : <span>{isEditing ? podcastImageEdit : "No se ha seleccionado ningún archivo."}</span>}
             </div>
           </div>
-
+''
           <div className="input-label">
             <input
               type="file"
@@ -96,7 +97,7 @@ const PodcastUpload = () => {
           </div>
 
           <div className="input-label">
-            <label className="form-input-label required-input-label" htmlFor="title">Descripción:</label>
+            <label className="form-input-label required-input-label" htmlFor="title">Descripción</label>
             <textarea
               className="form-input-podcasts"
               placeholder="Dale a tu público una pequeña descripción de tu podcast..."
@@ -108,7 +109,7 @@ const PodcastUpload = () => {
           </div>
 
           <div className="input-label">
-            <label className="form-input-label" htmlFor="title">Previsualización:</label>
+            <label className="form-input-label" htmlFor="title">Previsualización</label>
             <div className="podcast-preview podcast">
               {imageFile ? <img className="object-cover" src={imagePreview} alt="Vista previa de la portada" /> : isEditing ? <img className="object-cover" src={imagePreview} alt="Vista previa de la portada" /> : <img className="object-cover" src="https://podprose-uploader.s3.amazonaws.com/80-ph.png" alt="Vista previa de la portada" />}
               <div className="podcast-info">
@@ -125,11 +126,14 @@ const PodcastUpload = () => {
 
           <div className="form-sendbtn-container">
             <p>obligatorio</p>
-            <button className="send-podcast" onClick={(e)=>{
-              isEditing ? handleEditPodcast(e) : postPodcast(e);
-            }}>
-              {isEditing ? "Guardar" : "Publicar"}
-            </button>
+            <div className="send-podcast-container">
+              {isEditing && <i onClick={()=>{resetEditing()}}><FontAwesomeIcon icon={faArrowRotateLeft} /></i>}
+              <button className="send-podcast" onClick={(e)=>{
+                isEditing ? handleEditPodcast(e) : postPodcast(e);
+              }}>
+                {isEditing ? "Guardar" : "Publicar"}
+              </button>
+            </div>
           </div>
         </form>
       </section>

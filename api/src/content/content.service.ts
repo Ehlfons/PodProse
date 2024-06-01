@@ -243,16 +243,22 @@ export class ContentService {
       }
     }
 
-    // Eliminar la imagen anterior si existe y no está en uso por otros podcasts
+    // Eliminar la imagen anterior si existe y no está en uso por otros podcasts o usuarios
     if (imageFile && oldImageUrl) {
-      const isImageUsed = await this.prisma.podcast.findFirst({
+      const isImageUsedByPodcast = await this.prisma.podcast.findFirst({
         where: {
           url_img: oldImageUrl,
-          id: { not: podcastId }, // Asegurarse de no contar el podcast actual
+          id: { not: podcastId },
         },
       });
 
-      if (!isImageUsed) {
+      const isImageUsedByUser = await this.prisma.user.findFirst({
+        where: {
+          url_img: oldImageUrl,
+        },
+      });
+
+      if (!isImageUsedByPodcast && !isImageUsedByUser) {
         const oldImageKey = oldImageUrl.split('/').pop();
         await this.s3Client.send(
           new DeleteObjectCommand({
