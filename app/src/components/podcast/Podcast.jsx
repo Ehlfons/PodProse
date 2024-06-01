@@ -2,18 +2,25 @@ import { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {usePodcasts} from "@components/hooks";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import {EditOrDelete} from "@components/modals";
+import { toast } from "sonner";
 import "./Podcast.css";
 
 // Estructura de cada Podcast.
 const Podcast = (props) => {
-  const { podcast_id, title, description, createdAt, url_img } = props.datos; // Datos del podcast.
-  const { formatDate } = usePodcasts();
+  const { id, title, description, createdAt, url_img } = props.datos; // Datos del podcast.
+  const { formatDate, updateModalVisibility, modalVisibility, updateEditingPodcastId, editingPodcastId } = usePodcasts();
+
+  const handleModalVisibility = () => {
+    updateModalVisibility(!modalVisibility);
+    updateEditingPodcastId(null);
+  };
 
   return (
     <Fragment>
       <article
         className="podcast"
-        id={podcast_id}
+        id={id}
         onClick={() => {
           props.onClick();
         }}
@@ -36,15 +43,29 @@ const Podcast = (props) => {
             <p>{formatDate(createdAt)}</p>
           </div>
           <div className="podcast-icons">
-            <div alt="edit" onClick={(e) => {
-              e.stopPropagation();
-              
-            }}>
+            <div
+              alt="config"
+              onClick={(e) => {
+                e.stopPropagation();
+
+                if (editingPodcastId === null || editingPodcastId === id) {
+                    updateEditingPodcastId(id);
+                    updateModalVisibility(true);
+                } else {
+                  toast.info("No puedes gestionar dos podcasts al mismo tiempo");
+                }
+            }}
+            >
               <FontAwesomeIcon icon={faGear} />
             </div>
           </div>
         </div>
       </article>
+
+      <EditOrDelete
+        show={modalVisibility}
+        handleCloseModal={handleModalVisibility}
+      />
     </Fragment>
   );
 };

@@ -2,7 +2,6 @@ import { Fragment, useRef } from "react";
 import { usePodcasts } from "@components/hooks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
-import Podcast from "@components/podcast/Podcast";
 import "./PodcastUpload.css";
 
 const PodcastUpload = () => {
@@ -18,6 +17,10 @@ const PodcastUpload = () => {
     postPodcast,
     formatDate,
     imagePreview,
+    isEditing,
+    podcastImageEdit,
+    podcastAudioEdit,
+    handleEditPodcast,
   } = usePodcasts();
 
   // Crear referencias para los inputs de archivo
@@ -33,8 +36,6 @@ const PodcastUpload = () => {
   };
 
   const today = new Date();
-
-  console.log(imageFile)
 
   return (
     <Fragment>
@@ -72,7 +73,7 @@ const PodcastUpload = () => {
               <button className="examinar-btn" type="button" onClick={handleImageUploadClick}>
                 Examinar
               </button>
-              {imageFile && <span>{imageFile.name ? imageFile.name : "No se ha seleccionado ningún archivo."}</span>}
+              {imageFile ? <span>{imageFile.name}</span> : <span>{isEditing ? podcastImageEdit : "No se ha seleccionado ningún archivo."}</span>}
             </div>
           </div>
 
@@ -90,7 +91,7 @@ const PodcastUpload = () => {
               <button className="examinar-btn" type="button" onClick={handleAudioUploadClick}>
                 Examinar
               </button>
-              {audioFile && <span>{audioFile.name ? audioFile.name : "No se ha seleccionado ningún archivo."}</span>}
+              {audioFile ? <span>{audioFile.name}</span> : <span>{isEditing ? podcastAudioEdit : "No se ha seleccionado ningún archivo."}</span>}
             </div>
           </div>
 
@@ -109,7 +110,7 @@ const PodcastUpload = () => {
           <div className="input-label">
             <label className="form-input-label" htmlFor="title">Previsualización:</label>
             <div className="podcast-preview podcast">
-              {imageFile ? <img className="object-cover" src={imagePreview} alt="Vista previa de la portada" /> : <img className="object-cover" src="https://via.placeholder.com/80" alt="Vista previa de la portada" />}
+              {imageFile ? <img className="object-cover" src={imagePreview} alt="Vista previa de la portada" /> : isEditing ? <img className="object-cover" src={imagePreview} alt="Vista previa de la portada" /> : <img className="object-cover" src="https://podprose-uploader.s3.amazonaws.com/80-ph.png" alt="Vista previa de la portada" />}
               <div className="podcast-info">
                 <div className="podcast-title-description">
                   <h2 className="podcast-title">{title ? title : "#1 - Título del podcast"}</h2>
@@ -124,8 +125,12 @@ const PodcastUpload = () => {
 
           <div className="form-sendbtn-container">
             <p>obligatorio</p>
-            <button className="send-podcast" onClick={postPodcast}>Publicar</button>
-            </div>
+            <button className="send-podcast" onClick={(e)=>{
+              isEditing ? handleEditPodcast(e) : postPodcast(e);
+            }}>
+              {isEditing ? "Guardar" : "Publicar"}
+            </button>
+          </div>
         </form>
       </section>
     </Fragment>

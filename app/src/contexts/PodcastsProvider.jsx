@@ -24,6 +24,12 @@ const PodcastsProvider = ({ children }) => {
   const titleInitialValue = "";
   const descriptionInitialValue = "";
   const imagePreviewInitialValue = null;
+  const modalVisibilityInitialValue = false;
+  const isEditingInitialValue = false;
+  const podcastImageEditInitialValue = null;
+  const podcastAudioEditInitialValue = null;
+  const editingPodcastIdInitialValue = null;
+  const podcastSelectedByIdInitialValue = null;
 
   // Estados.
   const [podcast, setPodcast] = useState(PodcastInitialValue); // Estado para guardar los datos del podcast.
@@ -38,6 +44,12 @@ const PodcastsProvider = ({ children }) => {
   const [title, setTitle] = useState(titleInitialValue);
   const [description, setDescription] = useState(descriptionInitialValue);
   const [imagePreview, setImagePreview] = useState(imagePreviewInitialValue);
+  const [modalVisibility, setModalVisibility] = useState(modalVisibilityInitialValue);
+  const [isEditing, setIsEditing] = useState(isEditingInitialValue);
+  const [podcastImageEdit, setPodcastImageEdit] = useState(podcastImageEditInitialValue);
+  const [podcastAudioEdit, setPodcastAudioEdit] = useState(podcastAudioEditInitialValue);
+  const [editingPodcastId, setEditingPodcastId] = useState(editingPodcastIdInitialValue);
+  const [podcastSelectedById, setPodcastSelectedById] = useState(podcastSelectedByIdInitialValue)
   
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -47,6 +59,20 @@ const PodcastsProvider = ({ children }) => {
   const postPodcast = async (e) => {
     e.preventDefault();
 
+    if (!audioFile) {
+      toast.warning('El archivo de audio es obligatorio');
+      return;
+    } else if (!imageFile) {
+      toast.warning('La imagen del podcast es obligatoria');
+      return;
+    } else if (!title) {
+      toast.warning('El título del podcast es obligatorio');
+      return;
+    } else if (!description) {
+      toast.warning('La descripción del podcast es obligatoria');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('files', audioFile);
     formData.append('files', imageFile);
@@ -55,15 +81,20 @@ const PodcastsProvider = ({ children }) => {
     formData.append('userId', userId);
 
     try {
-      await axios.post('http://localhost:3000/upload', formData, {
+      const response = await axios.post('http://localhost:3000/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      toast.success('Podcast publicado');
+      if (response.status === 201) {
+        toast.success('Podcast publicado');
+        fetchUserPodcasts();
+        clearForm();
+        setEditingPodcastId(null);
+      }
     } catch (error) {
-      toast.error('Error de red');
+      toast.error('Error al publicar el podcast');
     }
   };
 
@@ -90,20 +121,87 @@ const PodcastsProvider = ({ children }) => {
     }
   };
 
-  // Función para eliminar un podcast.
-  const handleDeletePodcast = async (podcastId) => {
+  // Funcion para rellenar el formulario de edición con los datos del podcast seleccionado.
+  const getPodcastById = async (podcastId) => {
     try {
-      await axios.delete(`http://localhost:3000/content/podcast/${podcastId}`);
-      setUserPodcastsList(podcasts.filter((podcast) => podcast.id !== podcastId));
+      const response = await axios.get(`http://localhost:3000/content/podcast/${podcastId}`);
+
+      setPodcastSelectedById(response.data);
+
+      updateTitle(response.data.title);
+      updateDescription(response.data.description);
+      updatePodcastImageEdit(response.data.url_img.substring(response.data.url_img.lastIndexOf('/') + 1));
+      updatePodcastAudioEdit(response.data.url_audio.substring(response.data.url_audio.lastIndexOf('/') + 1));
+      updateImagePreview(response.data.url_img);
+      updateEditingPodcastId(response.data.id);
+      updateModalVisibility(false);
+      updateIsEditing(true);
+
     } catch (error) {
       toast.error('Error de red');
     }
   };
 
-  // Función para actualizar los datos del formulario al estado podcast.
-  const updatePodcast = (e) => {
-    const { name, value } = e.target;
-    setPodcast({ ...podcast, [name]: value });
+
+  // Función para eliminar un podcast.
+  const handleDeletePodcast = async (podcastId) => {
+    try {
+      await axios.get(`http://localhost:3000/content/podcast/${podcastId}`);
+
+      try {
+        const response = await axios.delete(`http://localhost:3000/content/podcast/${podcastId}`);
+
+        if (response.status === 200) {
+          toast.success("Podcast eliminado");
+          fetchUserPodcasts();
+          updateModalVisibility(false);
+          clearForm();
+          updateIsEditing(false);
+        }
+      } catch (error) {
+        toast.error("Error de red");
+      }
+    } catch (error) {
+      toast.error("Error de red");
+    }
+  };
+
+  // Función para actualizar el podcast.
+  const handleEditPodcast = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('files', audioFile && audioFile);
+    formData.append('files', imageFile && imageFile);
+    formData.append('title', title && title);
+    formData.append('description', description && description);
+    formData.append('userId', userId);
+
+    axios.patch(`http://localhost:3000/content/podcast/${editingPodcastId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success('Podcast actualizado');
+          fetchUserPodcasts();
+          updateModalVisibility(false);
+          clearForm();
+          updateIsEditing(false);
+        }
+      })
+      .catch((error) => {
+        toast.error('Error al actualizar el podcast');
+      });
+  };
+
+  const clearForm = () => {
+    setAudioFile(audioFileInitialValue);
+    setImageFile(imageFileInitialValue);
+    setTitle(titleInitialValue);
+    setDescription(descriptionInitialValue);
+    setImagePreview(imagePreviewInitialValue);
   };
 
   // Función para formatear la fecha en formato europeo. (mover a una biblioteca cuando tengamos más funciones de uso general como esta)
@@ -121,16 +219,19 @@ const PodcastsProvider = ({ children }) => {
 
     // Validar el título del podcast.
     if (!podcast.title || podcast.title.trim() === "") {
-      errores.title = "El título es obligatorio.";
+      errores.title = "El título es obligatorio";
+    }
+
+    // Validar el título del podcast.
+    if (!podcast.title || podcast.title.length > 64) { 
+      errores.title = "El título no puede superar los 64 caracteres.";
     }
 
     // Validar la descripción del podcast si está presente.
     if (podcast.description && podcast.description.length > 240) {
       errores.description =
-        "La descripción no puede superar los 240 caracteres.";
+        "La descripción no puede superar los 100 caracteres.";
     }
-
-    /* Estas validaciones son para URL VÁLIDAS, las que tenemos por el momento son de supabase y no permiten guardar los cambios, en un futuro activarlas ya que serán archivo en vez de urls */
 
     // Validar la URL del imagen del podcast si está presente.
     /* if (podcast.cover_image && podcast.cover_image.trim() !== "") {
@@ -176,6 +277,12 @@ const PodcastsProvider = ({ children }) => {
   const updateVisibility = (value) => setVisibility(value);
   const updateDescription = (description) => setDescription(description);
   const updateTitle = (title) => setTitle(title);
+  const updateModalVisibility = (value) => setModalVisibility(value);
+  const updateIsEditing = (value) => setIsEditing(value);
+  const updatePodcastImageEdit = (value) => setPodcastImageEdit(value);
+  const updatePodcastAudioEdit = (value) => setPodcastAudioEdit(value);
+  const updateImagePreview = (value) => setImagePreview(value);
+  const updateEditingPodcastId = (value) => setEditingPodcastId(value);
 
   // Datos a exportar al contexto.
   const dataToExport = {
@@ -190,13 +297,24 @@ const PodcastsProvider = ({ children }) => {
     title,
     description,
     imagePreview,
+    modalVisibility,
+    isEditing,
+    podcastImageEdit,
+    podcastAudioEdit,
+    editingPodcastId,
+    podcastSelectedById,
 
     updateSelectedPodcast,
-    updatePodcast,
     updateAudioUrl,
     updateVisibility,
     updateDescription,
     updateTitle,
+    updateModalVisibility,
+    updateIsEditing,
+    updatePodcastImageEdit,
+    updatePodcastAudioEdit,
+    updateImagePreview,
+    updateEditingPodcastId,
     
     updateAudioFileChange,
     updateImageFileChange,
@@ -204,8 +322,11 @@ const PodcastsProvider = ({ children }) => {
     fetchPodcasts,
     fetchUserPodcasts,
     handleDeletePodcast,
+    handleEditPodcast,
     validateForm,
     formatDate,
+    clearForm,
+    getPodcastById,
   };
 
   return (

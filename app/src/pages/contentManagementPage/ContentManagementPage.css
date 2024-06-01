@@ -42,4 +42,19 @@
 }
 
 @media (max-width: 655px) {
+  h2.podcast-title {
+    font-size: 16px
+  }
+  .podcast-title-description p, .podcast-info-text p {
+    font-size: 12px;
+  }
+  .section-title h1, .section-title i {
+    font-size: 30px;
+  }
+  .section-title h1 {
+    letter-spacing: 1px;
+  }
+  #cmp-main .error-message {
+    font-size: 16px;
+  }
 }

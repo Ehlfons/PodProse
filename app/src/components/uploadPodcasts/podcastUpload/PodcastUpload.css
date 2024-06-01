@@ -105,6 +105,7 @@ textarea.form-input-podcasts {
 
 .podcast-preview.podcast {
   margin-top: 5px;
+  cursor: default;
 }
 
 .send-podcast {
