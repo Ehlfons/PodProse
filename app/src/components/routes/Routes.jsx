@@ -10,6 +10,8 @@ import {
   ContentManagementPage,
   ProfilePage,
   ErrorPage,
+  ResetPasswordPage, // Importar nueva página
+  VerifyEmailPage, // Importar la página de verificación de correo electrónico
 } from "@pages/index";
 
 const Routes = () => {
@@ -27,6 +29,13 @@ const Routes = () => {
         <>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />{" "}
+          {/* Nueva ruta */}
+          <Route
+            path="/auth/verify/:token"
+            element={<VerifyEmailPage />}
+          />{" "}
+          {/* Ruta de verificación */}
         </>
       )}
 

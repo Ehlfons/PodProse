@@ -314,7 +314,15 @@ const UsersProvider = ({ children }) => {
 
   useEffect(() => {
     const isRegisterPage = location.pathname === "/register";
-    if (!loggedIn && !loadingLoggedIn && !isRegisterPage) {
+    const isVerificationEmailPage = location.pathname === "/auth/verify/:token";
+    const isResetPage = location.pathname === "/reset-password";
+    if (
+      !loggedIn &&
+      !loadingLoggedIn &&
+      !isRegisterPage &&
+      !isResetPage &&
+      !isVerificationEmailPage
+    ) {
       navigate("/");
     }
   }, [loggedIn, navigate, loadingLoggedIn, location.pathname]);

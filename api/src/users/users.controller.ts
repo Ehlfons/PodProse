@@ -1,4 +1,14 @@
-import { Controller, Get, Body, Patch, Param, Delete, ValidationPipe, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ValidationPipe,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -50,7 +60,12 @@ export class UsersController {
     // Verifica si el correo ha cambiado
     if (updateUserDto.email && updateUserDto.email !== currentUser.email) {
       const token = this.usersService.generateVerificationToken(updatedUser.id);
-      await this.enviarCorreoService.enviarCorreo(updateUserDto.email, updatedUser.username, token);
+      await this.enviarCorreoService.enviarCorreo(
+        updateUserDto.email,
+        updatedUser.username,
+        token,
+        'verify', // Añadir el cuarto argumento
+      );
     }
 
     return updatedUser;
