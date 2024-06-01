@@ -15,6 +15,7 @@ import { UploadService } from './upload.service';
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
+  // Endpoint para subir podcast
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
   async uploadFiles(

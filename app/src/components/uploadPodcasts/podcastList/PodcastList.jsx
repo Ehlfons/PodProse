@@ -1,7 +1,9 @@
+import { Fragment } from "react";
 import { usePodcasts } from "@components/hooks";
 import Podcast from "@components/podcast/Podcast.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPodcast } from "@fortawesome/free-solid-svg-icons";
+import { EditOrDelete } from "@components/modals";
 
 import "./PodcastList.css";
 
@@ -23,15 +25,18 @@ const PodcastList = () => {
         {userPodcastsList.length > 0 ? (
           userPodcastsList.map((podcast, i) => {
             return (
-              <Podcast
-                key={i}
-                datos={podcast}
-                onClick={() => {
-                  updateAudioUrl(podcast.url_audio);
-                  updateSelectedPodcast(podcast);
-                  updateVisibility(true);
-                }}
-              />
+              <Fragment key={podcast.id}>
+                <Podcast
+                  key={i}
+                  datos={podcast}
+                  onClick={() => {
+                    updateAudioUrl(podcast.url_audio);
+                    updateSelectedPodcast(podcast);
+                    updateVisibility(true);
+                  }}
+                />
+
+              </Fragment>
             );
           })
         ) : (
