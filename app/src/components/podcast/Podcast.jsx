@@ -2,19 +2,13 @@ import { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {usePodcasts} from "@components/hooks";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
-import {EditOrDelete} from "@components/modals";
 import { toast } from "sonner";
 import "./Podcast.css";
 
 // Estructura de cada Podcast.
 const Podcast = (props) => {
   const { id, title, description, createdAt, url_img } = props.datos; // Datos del podcast.
-  const { formatDate, updateModalVisibility, modalVisibility, updateEditingPodcastId, editingPodcastId } = usePodcasts();
-
-  const handleModalVisibility = () => {
-    updateModalVisibility(!modalVisibility);
-    updateEditingPodcastId(null);
-  };
+  const { formatDate, updateModalVisibility, updateEditingPodcastId, editingPodcastId } = usePodcasts();
 
   return (
     <Fragment>
@@ -61,11 +55,6 @@ const Podcast = (props) => {
           </div>
         </div>
       </article>
-
-      <EditOrDelete
-        show={modalVisibility}
-        handleCloseModal={handleModalVisibility}
-      />
     </Fragment>
   );
 };

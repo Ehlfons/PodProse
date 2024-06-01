@@ -39,17 +39,19 @@ const PodcastsProvider = ({ children }) => {
   const [podcastsList, setPodcastsList] = useState(podcastListInitialValue); // Estado para guardar los podcasts.
   const [userPodcastsList, setUserPodcastsList] = useState(userPodcastsListInitialValue); // Estado para guardar los podcasts del usuario.
   const [selectedPodcast, setSelectedPodcast] = useState(selectedPodcastInitialValue); // Estado para guardar el podcast seleccionado.
+  
   const [audioFile, setAudioFile] = useState(audioFileInitialValue);
   const [imageFile, setImageFile] = useState(imageFileInitialValue);
   const [title, setTitle] = useState(titleInitialValue);
   const [description, setDescription] = useState(descriptionInitialValue);
   const [imagePreview, setImagePreview] = useState(imagePreviewInitialValue);
+
   const [modalVisibility, setModalVisibility] = useState(modalVisibilityInitialValue);
   const [isEditing, setIsEditing] = useState(isEditingInitialValue);
   const [podcastImageEdit, setPodcastImageEdit] = useState(podcastImageEditInitialValue);
   const [podcastAudioEdit, setPodcastAudioEdit] = useState(podcastAudioEditInitialValue);
   const [editingPodcastId, setEditingPodcastId] = useState(editingPodcastIdInitialValue);
-  const [podcastSelectedById, setPodcastSelectedById] = useState(podcastSelectedByIdInitialValue)
+  const [podcastSelectedById, setPodcastSelectedById] = useState(podcastSelectedByIdInitialValue);
   
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -142,7 +144,6 @@ const PodcastsProvider = ({ children }) => {
     }
   };
 
-
   // Función para eliminar un podcast.
   const handleDeletePodcast = async (podcastId) => {
     try {
@@ -164,6 +165,13 @@ const PodcastsProvider = ({ children }) => {
     } catch (error) {
       toast.error("Error de red");
     }
+  };
+
+  const resetEditing = () => {
+    setEditingPodcastId(null);
+    setModalVisibility(false);
+    setIsEditing(false);
+    clearForm();
   };
 
   // Función para actualizar el podcast.
@@ -327,6 +335,7 @@ const PodcastsProvider = ({ children }) => {
     formatDate,
     clearForm,
     getPodcastById,
+    resetEditing,
   };
 
   return (
