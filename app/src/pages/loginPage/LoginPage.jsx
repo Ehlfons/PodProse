@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUsers } from "@components/hooks";
 import {
@@ -8,8 +8,9 @@ import {
   XLogo,
   GoogleLogo,
 } from "@components/svg";
-import "./LoginPage.css";
+import { toast } from "sonner";
 import axios from "axios";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const {
@@ -24,6 +25,13 @@ const LoginPage = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [recoveryEmail, setRecoveryEmail] = useState("");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("emailVerified")) {
+      toast.success("Correo verificado correctamente");
+      localStorage.removeItem("emailVerified");
+    }
+  }, []);
 
   const handleForgotPassword = async () => {
     try {
