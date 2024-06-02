@@ -77,7 +77,7 @@ const PodcastUpload = () => {
               {imageFile ? <span>{imageFile.name}</span> : <span>{isEditing ? podcastImageEdit : "No se ha seleccionado ningún archivo."}</span>}
             </div>
           </div>
-''
+          
           <div className="input-label">
             <input
               type="file"

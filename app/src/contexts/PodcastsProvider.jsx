@@ -270,6 +270,26 @@ const PodcastsProvider = ({ children }) => {
     return { esValido, errores };
   };
 
+  const clearAllPodcasts = () => {
+    setPodcastsList(podcastListInitialValue);
+    setUserPodcastsList(userPodcastsListInitialValue);
+    setSelectedPodcast(selectedPodcastInitialValue);
+    setPodcast(PodcastInitialValue);
+    setAudioUrl(audioUrlInitialValue);
+    setVisibility(visibilityInitialValue);
+    setAudioFile(audioFileInitialValue);
+    setImageFile(imageFileInitialValue);
+    setTitle(titleInitialValue);
+    setDescription(descriptionInitialValue);
+    setImagePreview(imagePreviewInitialValue);
+    setModalVisibility(modalVisibilityInitialValue);
+    setIsEditing(isEditingInitialValue);
+    setPodcastImageEdit(podcastImageEditInitialValue);
+    setPodcastAudioEdit(podcastAudioEditInitialValue);
+    setEditingPodcastId(editingPodcastIdInitialValue);
+    setPodcastSelectedById(podcastSelectedByIdInitialValue);
+  };
+
   const updateAudioFileChange = (e) => setAudioFile(e.target.files[0]);
   const updateImageFileChange = (e) => {
     const file = e.target.files[0];
@@ -336,6 +356,7 @@ const PodcastsProvider = ({ children }) => {
     clearForm,
     getPodcastById,
     resetEditing,
+    clearAllPodcasts,
   };
 
   return (

@@ -43,6 +43,10 @@ const InfoProvider = ({ children }) => {
     }
   };
 
+  const clearAllInfo = () => {
+    setEmailFormData(emailFormDataInitialValue);
+  };
+
   const handleChangeEmailFormData = (e) => {
     setEmailFormData({ ...emailFormData, [e.target.name]: e.target.value });
   };
@@ -52,6 +56,7 @@ const InfoProvider = ({ children }) => {
     emailFormData,
     handleChangeEmailFormData,
     handleSubmitContactEmail,
+    clearAllInfo,
   };
 
   return (
