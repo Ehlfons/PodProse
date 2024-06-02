@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUsers } from "@components/hooks";
 import {
@@ -9,22 +9,23 @@ import {
   GoogleLogo,
 } from "@components/svg";
 import { toast } from "sonner";
-import axios from "axios";
 import "./LoginPage.css";
 
 const LoginPage = () => {
   const {
+    message,
     email,
     updateEmail,
     password,
     updatePassword,
     handleLogin,
     googleLogin,
+    handleForgotPassword,
+    showForgotPassword,
+    setShowForgotPassword,
+    recoveryEmail,
+    setRecoveryEmail,
   } = useUsers();
-
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [recoveryEmail, setRecoveryEmail] = useState("");
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("emailVerified")) {
@@ -36,25 +37,6 @@ const LoginPage = () => {
       localStorage.removeItem("passwordReset");
     }
   }, []);
-
-  const handleForgotPassword = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/forgot-password",
-        { email: recoveryEmail }
-      );
-      setMessage(response.data.message);
-    } catch (error) {
-      if (error.response) {
-        setMessage(
-          error.response.data.message ||
-            "Error al enviar el correo de recuperación"
-        );
-      } else {
-        setMessage("Error al enviar el correo de recuperación");
-      }
-    }
-  };
 
   return (
     <Fragment>

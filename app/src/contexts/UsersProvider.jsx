@@ -49,6 +49,9 @@ const UsersProvider = ({ children }) => {
   const [loadingLoggedIn, setLoadingLoggedIn] = useState(
     loadingLoggedInInitialValue
   );
+  const [message, setMessage] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [recoveryEmail, setRecoveryEmail] = useState("");
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -287,6 +290,25 @@ const UsersProvider = ({ children }) => {
     setLoadingLoggedIn(false);
   };
 
+  const handleForgotPassword = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/auth/forgot-password",
+        { email: recoveryEmail }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        setMessage(
+          error.response.data.message ||
+            "Error al enviar el correo de recuperación"
+        );
+      } else {
+        setMessage("Error al enviar el correo de recuperación");
+      }
+    }
+  };
+
   const updateEmail = (value) => setEmail(value);
   const updatePassword = (value) => setPassword(value);
   const updateName = (value) => setName(value);
@@ -342,7 +364,12 @@ const UsersProvider = ({ children }) => {
     editProfileForm,
     isEditingProfile,
     loadingLoggedIn,
+    message,
+    showForgotPassword,
+    recoveryEmail,
 
+    setShowForgotPassword,
+    setRecoveryEmail,
     updateEmail,
     updatePassword,
     updateName,
@@ -358,6 +385,7 @@ const UsersProvider = ({ children }) => {
     handleLogout,
     handleRegister,
     handleImageUpload,
+    handleForgotPassword,
     patchUserData,
     getUser,
   };
