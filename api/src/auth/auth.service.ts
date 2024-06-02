@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, UnauthorizedException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  UnauthorizedException,
+  Logger,
+} from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -7,6 +12,7 @@ import * as bcrypt from 'bcryptjs';
 import { EnviarCorreoService } from './enviar-correo.service';
 import { FailedLoginService } from 'src/failed-login/failed-login.service';
 import { UsersService } from 'src/users/users.service';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -55,13 +61,28 @@ export class AuthService {
         },
       });
 
-      const token = this.jwtService.sign({ usuario_id: user.id });
-      await this.enviarCorreoService.enviarCorreo(email, username, token);
+      const token = this.jwtService.sign(
+        { usuario_id: user.id },
+        { secret: process.env.API_KEY },
+      );
+      await this.enviarCorreoService.enviarCorreo(
+        email,
+        username,
+        token,
+        'verify',
+      );
 
-      return { message: 'Usuario creado correctamente. Por favor, verifica tu correo electrónico.' };
+      return {
+        message:
+          'Usuario creado correctamente. Por favor, verifica tu correo electrónico.',
+      };
     } catch (error) {
       throw new BadRequestException(
-        Logger.error(`Error al procesar el registro: ${error.message}`, error.stack, 'AuthService'),
+        Logger.error(
+          `Error al procesar el registro: ${error.message}`,
+          error.stack,
+          'AuthService',
+        ),
       );
     }
   }
@@ -76,11 +97,15 @@ export class AuthService {
       }
 
       if (!user.verificateAt) {
-        throw new UnauthorizedException('Por favor verifica tu correo electrónico antes de iniciar sesión.');
+        throw new UnauthorizedException(
+          'Por favor verifica tu correo electrónico antes de iniciar sesión.',
+        );
       }
 
       const payload = { email: user.email, sub: user.id };
-      const access_token = this.jwtService.sign(payload);
+      const access_token = this.jwtService.sign(payload, {
+        secret: process.env.API_KEY,
+      });
 
       if (!access_token) {
         throw new UnauthorizedException('Error al generar el token de acceso');
@@ -91,7 +116,11 @@ export class AuthService {
       return { access_token, user };
     } catch (error) {
       throw new UnauthorizedException(
-        Logger.error(`Error al procesar el inicio de sesión: ${error.message}`, error.stack, 'AuthService'),
+        Logger.error(
+          `Error al procesar el inicio de sesión: ${error.message}`,
+          error.stack,
+          'AuthService',
+        ),
       );
     }
   }
@@ -104,5 +133,47 @@ export class AuthService {
 
   async verifyUser(userId: string) {
     return this.usersService.verifyUser(userId);
+  }
+
+  async forgotPassword(email: string) {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      throw new BadRequestException(
+        'No existe un usuario con ese correo electrónico',
+      );
+    }
+
+    const token = this.jwtService.sign(
+      { usuario_id: user.id },
+      { secret: process.env.API_KEY },
+    );
+    await this.enviarCorreoService.enviarCorreo(
+      email,
+      user.username,
+      token,
+      'reset',
+    );
+
+    return { message: 'Correo de recuperación enviado correctamente' };
+  }
+
+  async resetPassword({ token, newPassword }: ResetPasswordDto) {
+    try {
+      const payload = this.jwtService.verify(token, {
+        secret: process.env.API_KEY,
+      });
+      const userId = payload.usuario_id;
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: { password: hashedPassword },
+      });
+
+      return { message: 'Restableciendo contraseña' };
+    } catch (error) {
+      throw new UnauthorizedException('Token inválido o expirado');
+    }
   }
 }

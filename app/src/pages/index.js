@@ -6,3 +6,5 @@ export { default as RegisterPage } from "./registerPage/RegisterPage";
 export { default as ContentManagementPage } from "./contentManagementPage/ContentManagementPage";
 export { default as ProfilePage } from "./profilePage/ProfilePage";
 export { default as ErrorPage } from "./errorPage/ErrorPage";
+export { default as ResetPasswordPage } from "./resetPasswordPage/ResetPasswordPage";
+export { default as VerifyEmailPage } from "./verifyEmailPage/VerifyEmailPage";

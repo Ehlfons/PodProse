@@ -19,20 +19,25 @@ const RegisterPage = () => {
     handleRegister,
   } = useUsers();
 
+  const navigate = useNavigate();
+
   // Lógica para el evento onClick del botón de registro.
   const manejarRegistro = (e) => {
     e.preventDefault();
-    const promise = () => new Promise((resolve) => setTimeout(() => {
-      handleRegister();
-      resolve({})
-    }, 2000));
+    const promise = () =>
+      new Promise((resolve) =>
+        setTimeout(() => {
+          handleRegister();
+          resolve({});
+          navigate("/");
+        }, 2000)
+      );
 
     toast.promise(promise, {
-      loading: 'Registrando usuario...',
+      loading: "Registrando usuario...",
     });
   };
 
-  const navigate = useNavigate();
   return (
     <Fragment>
       <main>
@@ -78,7 +83,7 @@ const RegisterPage = () => {
                     }}
                   />
                 </div>
-  
+
                 <div className="register-main-input-email">
                   <label htmlFor="email">Correo electrónico</label>
                   <input
@@ -93,7 +98,7 @@ const RegisterPage = () => {
                     }}
                   />
                 </div>
-  
+
                 <div className="register-main-input-passwd">
                   <label htmlFor="password">Contraseña</label>
                   <input
@@ -108,7 +113,7 @@ const RegisterPage = () => {
                     }}
                   />
                 </div>
-  
+
                 <input
                   className="register-main-input-register"
                   title="Registrarse"
@@ -131,7 +136,8 @@ const RegisterPage = () => {
               ¿Ya estás registrado?
             </a>
             <p className="register-main-footer-terms">
-              Registro Seguro con 2FA sujeto a los Términos y Privacidad de Google
+              Registro Seguro con 2FA sujeto a los Términos y Privacidad de
+              Google
             </p>
           </div>
         </section>
