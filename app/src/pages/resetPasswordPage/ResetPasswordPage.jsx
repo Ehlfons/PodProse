@@ -16,11 +16,11 @@ const ResetPasswordPage = () => {
         "http://localhost:3000/auth/reset-password",
         { token, newPassword }
       );
-      toast.success("Contraseña restablecida correctamente");
       setMessage(response.data.message);
+      localStorage.setItem("passwordReset", "true"); // Guardar en localStorage
       setTimeout(() => {
-        navigate("/");
-      }, 3000);
+        navigate("/login"); // Redirigir al login después de unos segundos
+      }, 2000); // Espera 2 segundos antes de redirigir
     } catch (error) {
       toast.error("Error al restablecer la contraseña");
       setMessage(

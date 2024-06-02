@@ -171,7 +171,7 @@ export class AuthService {
         data: { password: hashedPassword },
       });
 
-      return { message: 'Contraseña actualizada correctamente' };
+      return { message: 'Restableciendo contraseña' };
     } catch (error) {
       throw new UnauthorizedException('Token inválido o expirado');
     }

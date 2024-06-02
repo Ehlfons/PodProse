@@ -9,17 +9,17 @@ const VerifyEmailPage = () => {
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-    console.log("VerifyEmailPage mounted");
     let isMounted = true;
 
     const verifyEmail = async () => {
       try {
-        console.log("Verifying email with token:", token);
         await axios.get(`http://localhost:3000/auth/verify/${token}`);
         if (isMounted && !isVerified) {
-          toast.success("Correo verificado correctamente");
+          localStorage.setItem("emailVerified", "true"); // Guardar en localStorage
           setIsVerified(true);
-          navigate("/");
+          setTimeout(() => {
+            navigate("/"); // Redirigir al login después de unos segundos
+          }, 2000); // Espera 2 segundos antes de redirigir
         }
       } catch (error) {
         if (isMounted && !isVerified) {
@@ -33,7 +33,6 @@ const VerifyEmailPage = () => {
     verifyEmail();
 
     return () => {
-      console.log("VerifyEmailPage unmounted");
       isMounted = false;
     };
   }, [token, navigate, isVerified]);

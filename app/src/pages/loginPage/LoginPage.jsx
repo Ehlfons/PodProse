@@ -31,6 +31,10 @@ const LoginPage = () => {
       toast.success("Correo verificado correctamente");
       localStorage.removeItem("emailVerified");
     }
+    if (localStorage.getItem("passwordReset")) {
+      toast.success("Contraseña restablecida correctamente");
+      localStorage.removeItem("passwordReset");
+    }
   }, []);
 
   const handleForgotPassword = async () => {
