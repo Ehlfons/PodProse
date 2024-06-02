@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 
@@ -30,6 +30,7 @@ const PodcastsProvider = ({ children }) => {
   const podcastAudioEditInitialValue = null;
   const editingPodcastIdInitialValue = null;
   const podcastSelectedByIdInitialValue = null;
+  const latestPodcastsListInitialValue = [];
 
   // Estados.
   const [podcast, setPodcast] = useState(PodcastInitialValue); // Estado para guardar los datos del podcast.
@@ -52,6 +53,7 @@ const PodcastsProvider = ({ children }) => {
   const [podcastAudioEdit, setPodcastAudioEdit] = useState(podcastAudioEditInitialValue);
   const [editingPodcastId, setEditingPodcastId] = useState(editingPodcastIdInitialValue);
   const [podcastSelectedById, setPodcastSelectedById] = useState(podcastSelectedByIdInitialValue);
+  const [latestPodcastsList, setLatestPodcastsList] = useState(latestPodcastsListInitialValue);
   
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -118,6 +120,17 @@ const PodcastsProvider = ({ children }) => {
       const response = await axios.get(`${apiURL}/content/user/${id}`);
       
       setUserPodcastsList(response.data);
+    } catch (error) {
+      toast.error('Error de red');
+    }
+  };
+
+  const getLatestsPodcasts = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/content/r-latests`);
+
+      console.log(response.data)
+      setLatestPodcastsList(response.data);
     } catch (error) {
       toast.error('Error de red');
     }
@@ -357,6 +370,7 @@ const PodcastsProvider = ({ children }) => {
     getPodcastById,
     resetEditing,
     clearAllPodcasts,
+    getLatestsPodcasts,
   };
 
   return (

@@ -14,7 +14,7 @@ const Hexagon = ({ src, title }) => {
         <img src={src} alt={title} />
         {isHovered && (
           <div className="hexagon-title-overlay">
-            {title}
+            <p>{title}</p>
           </div>
         )}
       </div>
