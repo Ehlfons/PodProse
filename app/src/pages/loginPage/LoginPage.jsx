@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUsers } from "@components/hooks";
+import { toast } from "sonner";
 import {
   ArrowLogin,
   PodProseLogo,
@@ -8,7 +9,6 @@ import {
   XLogo,
   GoogleLogo,
 } from "@components/svg";
-import { toast } from "sonner";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -24,7 +24,7 @@ const LoginPage = () => {
     showForgotPassword,
     updateShowForgotPassword,
     recoveryEmail,
-    setRecoveryEmail,
+    updateRecoveryEmail,
   } = useUsers();
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const LoginPage = () => {
                       id="recoveryEmail"
                       name="recoveryEmail"
                       value={recoveryEmail}
-                      onChange={(e) => setRecoveryEmail(e.target.value)}
+                      onChange={(e) => updateRecoveryEmail(e.target.value)}
                     />
                   </div>
                   <input
