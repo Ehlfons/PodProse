@@ -314,8 +314,10 @@ const UsersProvider = ({ children }) => {
 
   useEffect(() => {
     const isRegisterPage = location.pathname === "/register";
-    const isVerificationEmailPage = location.pathname === "/auth/verify/:token";
+    const isVerificationEmailPage =
+      location.pathname.startsWith("/auth/verify/");
     const isResetPage = location.pathname === "/reset-password";
+
     if (
       !loggedIn &&
       !loadingLoggedIn &&
