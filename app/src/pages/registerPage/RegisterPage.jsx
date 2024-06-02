@@ -21,15 +21,35 @@ const RegisterPage = () => {
 
   const navigate = useNavigate();
 
+  // Función de validación
+  const isValidForm = () => {
+    if (!name || !username || !email || !password) {
+      toast.error("Todos los campos son obligatorios.");
+      return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      toast.error("Por favor, introduce un correo electrónico válido.");
+      return false;
+    }
+
+    return true;
+  };
+
   // Lógica para el evento onClick del botón de registro.
   const manejarRegistro = (e) => {
     e.preventDefault();
+    if (!isValidForm()) {
+      return;
+    }
+
     const promise = () =>
       new Promise((resolve) =>
         setTimeout(() => {
           handleRegister();
           resolve({});
-          navigate("/login");
+          navigate("/");
         }, 2000)
       );
 
@@ -130,7 +150,7 @@ const RegisterPage = () => {
             <a
               className="register-main-footer-passwd"
               onClick={() => {
-                navigate("/login");
+                navigate("/");
               }}
             >
               ¿Ya estás registrado?
