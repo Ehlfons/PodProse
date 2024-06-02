@@ -1,34 +1,57 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Hexagon } from "@components/home";
+import {usePodcasts} from "@components/hooks";
 
 import "./HexagonLayout.css";
 
-const HexagonLayout = ({ user = [] }) => {
-  // Lo defino como un array vacio para que no de error si no se le pasa nada.
-  // Función para generar un src aleatorio. (se cambiará cuando tengamos los suficientes usuarios con imágenes de perfil)
-  const getRandomSrc = () => {
-    // Supongamos que user es un array de objetos de usuario, donde cada objeto tiene una propiedad 'profileImage' que contiene la URL de la imagen de perfil.
-    const randomIndex = Math.floor(Math.random() * user.length);
-    return user[randomIndex].profileImage;
+const HexagonLayout = () => {
+  const {podcastsList, fetchPodcasts} = usePodcasts();
+
+  const [randomPodcastsPerRow, setRandomPodcastsPerRow] = useState({
+    first: [],
+    second: [],
+    third: [],
+  });
+  const [numberOfPodcasts, setNumberOfPodcasts] = useState(6);
+
+  // Función para seleccionar aleatoriamente un conjunto de podcasts sin repetirse
+  const selectRandomPodcasts = (usedIndexes) => {
+    const availablePodcasts = podcastsList.filter((_, index) => !usedIndexes.has(index));
+    const shuffled = availablePodcasts.sort(() => 0.5 - Math.random());
+    const selectedPodcasts = shuffled.slice(0, numberOfPodcasts);
+    selectedPodcasts.forEach(podcast => usedIndexes.add(podcastsList.indexOf(podcast)));
+    return selectedPodcasts;
   };
+
+  useEffect(() => {
+    fetchPodcasts();
+  }, []);
+
+  useEffect(() => {
+    if (podcastsList.length) {
+      const usedIndexes = new Set();
+      setRandomPodcastsPerRow({
+        first: selectRandomPodcasts(usedIndexes),
+        second: selectRandomPodcasts(usedIndexes),
+        third: selectRandomPodcasts(usedIndexes),
+      });
+    }
+  }, [podcastsList]);
 
   return (
     <Fragment>
       <div className="container-hexagon-layout">
         <div className="hexagonArea first">
-          {/* Verificar si hay datos en user antes de hacer el mapeo */}
-          {user.length ? (
-            user.map((user, index) => (
-              <Fragment key={index}>
-                {/* Renderizar 6 hexágonos con imágenes diferentes */}
-                {[...Array(6)].map((a, i) => (
-                  <Hexagon key={i} src={getRandomSrc()} />
-                ))}
-              </Fragment>
-            ))
-          ) : (
-            /* Código provisional hasta que tengamos los usuarios con imagen */
+          {randomPodcastsPerRow.first.length ? (
             <Fragment>
+              {randomPodcastsPerRow.first.map((podcast) => (
+                <Fragment>
+                  <Hexagon key={podcast.id} src={podcast.url_img} title={podcast.title}/>
+                </Fragment>
+              ))}
+            </Fragment>
+          ) : (
+            <Fragment> {/* Podcasts falsos por si falla */}
               <div className="hexagon">
                 <img src="src/assets/Test/trend14.jpg" alt="" />
               </div>
@@ -52,18 +75,14 @@ const HexagonLayout = ({ user = [] }) => {
         </div>
         <div className="hexagonArea second">
           <div className="hexagon" id="short" />
-          {/* Verificar si hay datos en user antes de hacer el mapeo */}
-          {user.length > 0 ? (
-            user.map((user, index) => (
-              <Fragment key={index}>
-                {/* Renderizar 6 hexágonos con imágenes diferentes */}
-                {[...Array(6)].map((a, i) => (
-                  <Hexagon key={i} src={getRandomSrc()} />
-                ))}
-              </Fragment>
-            ))
-          ) : (
+          {randomPodcastsPerRow.second.length ? (
             <Fragment>
+              {randomPodcastsPerRow.second.map((podcast, index) => (
+                <Hexagon key={index} src={podcast.url_img} title={podcast.title} />
+              ))}
+            </Fragment>
+          ) : (
+            <Fragment> {/* Podcasts falsos por si falla */}
               <div className="hexagon">
                 <img src="src/assets/Test/trend13.jpg" alt="" />
               </div>
@@ -86,18 +105,14 @@ const HexagonLayout = ({ user = [] }) => {
           )}
         </div>
         <div className="hexagonArea third">
-          {/* Verificar si hay datos en user antes de hacer el mapeo */}
-          {user.length > 0 ? (
-            user.map((user, index) => (
-              <Fragment key={index}>
-                {/* Renderizar 6 hexágonos con imágenes diferentes */}
-                {[...Array(6)].map((a, i) => (
-                  <Hexagon key={i} src={getRandomSrc()} />
-                ))}
-              </Fragment>
-            ))
-          ) : (
+          {randomPodcastsPerRow.third.length ? (
             <Fragment>
+              {randomPodcastsPerRow.third.map((podcast, index) => (
+                <Hexagon key={index} src={podcast.url_img} title={podcast.title} />
+              ))}
+            </Fragment>
+          ) : (
+            <Fragment> {/* Podcasts falsos por si falla */}
               <div className="hexagon">
                 <img src="src/assets/Test/trend12.jpg" alt="" />
               </div>

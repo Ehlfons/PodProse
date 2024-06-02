@@ -23,15 +23,16 @@ export class UploadController {
     @Body('userId') userId: string,
     @Body('title') title: string,
     @Body('description') description: string,
+    @Body('categoryId') categoryId: string,
   ) {
     const audioFile = files.find(file => file.mimetype.startsWith('audio/'));
     const imageFile = files.find(file => file.mimetype.startsWith('image/'));
 
     if (audioFile) {
-      await this.uploadService.upload(audioFile.originalname, audioFile.buffer, 'audio', userId, title, description);
+      await this.uploadService.upload(audioFile.originalname, audioFile.buffer, 'audio', userId, title, description, categoryId);
     }
     if (imageFile) {
-      await this.uploadService.upload(imageFile.originalname, imageFile.buffer, 'image', userId, title, description);
+      await this.uploadService.upload(imageFile.originalname, imageFile.buffer, 'image', userId, title, description, categoryId);
     }
 
     return {

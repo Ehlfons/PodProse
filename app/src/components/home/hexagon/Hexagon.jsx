@@ -1,11 +1,22 @@
-import { Fragment } from "react";
+import { useState, Fragment } from "react";
 import "./Hexagon.css";
 
-const Hexagon = () => {
+const Hexagon = ({ src, title }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Fragment>
-      <div className="hexagon">
-        <img src="" alt="" />
+      <div 
+        className="hexagon" 
+        onMouseEnter={() => setIsHovered(true)} 
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <img src={src} alt={title} />
+        {isHovered && (
+          <div className="hexagon-title-overlay">
+            {title}
+          </div>
+        )}
       </div>
     </Fragment>
   );

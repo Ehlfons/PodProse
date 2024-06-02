@@ -13,27 +13,28 @@ const Header = () => {
   const [iconActive, setIconActive] = useState(false);
   const [transitionEnabled, setTransitionEnabled] = useState(false);
   
+  useEffect(() => {
+    if (!isLoginPage && !isRegisterPage) {
+      const handleResize = () => {
+        if (window.innerWidth <= 813 && window.innerWidth > 800) {
+          setVisibilityMenu(false);
+          setIconActive(false);
+          setTransitionEnabled(false);
+        }
+      };
+
+      handleResize();
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, [isLoginPage, isRegisterPage]);
   if (isLoginPage || isRegisterPage) {
     return null;
   }
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 813 && window.innerWidth > 800) {
-        setVisibilityMenu(false);
-        setIconActive(false);
-        setTransitionEnabled(false);
-      }
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   const toggleMenu = () => {
     setTransitionEnabled(true);

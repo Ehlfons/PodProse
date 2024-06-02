@@ -20,15 +20,53 @@ async function main() {
     },
   });
 
-  // Crear 99 podcasts asociados a este usuario
+  // Definir las categorías
+  const categoriesData: Prisma.CategoryCreateManyInput[] = [
+    { name: "Tecnología" },
+    { name: "Ciencia" },
+    { name: "Historia" },
+    { name: "Noticias y Actualidad" },
+    { name: "Cultura y Sociedad" },
+    { name: "Salud y Bienestar" },
+    { name: "Educación" },
+    { name: "Negocios y Finanzas" },
+    { name: "Entretenimiento y Comedia" },
+    { name: "Deportes" },
+    { name: "Cine y Televisión" },
+    { name: "Literatura y Libros" },
+    { name: "Música" },
+    { name: "Viajes y Aventura" },
+    { name: "Espiritualidad y Religión" },
+    { name: "Autoayuda y Desarrollo Personal" },
+    { name: "Crimen y Misterio" },
+    { name: "Política" },
+    { name: "Arte y Diseño" },
+    { name: "Gastronomía y Cocina" },
+  ];
+
+  // Crear las categorías
+  const categories = await prisma.category.createMany({
+    data: categoriesData,
+  });
+
+  console.log('Categorías creadas exitosamente');
+
+  // Obtener todas las categorías
+  const allCategories = await prisma.category.findMany();
+
+  // Crear 99 podcasts asociados a este usuario con categorías aleatorias
   const podcastsData: Prisma.PodcastCreateManyInput[] = [];
   for (let i = 1; i <= 99; i++) {
+    // Seleccionar una categoría aleatoria
+    const randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)];
+
     podcastsData.push({
       title: `#${i} - Podcast`,
       description: `Description for Podcast ${i}`,
       url_img: `https://podprose-uploader.s3.amazonaws.com/img/${i}.png`,
       url_audio: `https://podprose-uploader.s3.amazonaws.com/audio/${i}.mp3`,
       userId: user.id,
+      categoryId: randomCategory.id, // Asignar categoría aleatoria
     });
   }
 
