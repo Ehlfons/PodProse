@@ -11,7 +11,7 @@ const Login = () => {
 
   return (
     <Fragment>
-      <div className="login-button">
+      <div className="login-button icon-hide-small">
         <div>
           <Link onClick={() => updateIsLoading(true)} to="/my-content">
             <PlusIcon />

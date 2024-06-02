@@ -1,8 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { usePodcasts, useInfo } from "@components/hooks";
 import { toast } from "sonner";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 // Contexto para los usuarios.
 const UsersContext = createContext();
@@ -10,7 +10,6 @@ const UsersContext = createContext();
 const UsersProvider = ({ children }) => {
   // Hook para redirigir a otras páginas.
   const navigate = useNavigate();
-  const location = useLocation();
 
   // Valores iniciales.
   const userInitialValue = null;
@@ -28,7 +27,6 @@ const UsersProvider = ({ children }) => {
     email: "",
   };
   const isEditingProfileInitialValue = false;
-  const loadingLoggedInInitialValue = true;
 
   // Estados del contexto.
   const [user, setUser] = useState(userInitialValue);
@@ -40,18 +38,13 @@ const UsersProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
   const [errors, setErrors] = useState(errorsInitialValue);
   const [isLoading, setIsLoading] = useState(isLoadingInitialValue);
-  const [editProfileForm, setEditProfileForm] = useState(
-    editProfileFormInitialValue
-  );
-  const [isEditingProfile, setIsEditingProfile] = useState(
-    isEditingProfileInitialValue
-  );
-  const [loadingLoggedIn, setLoadingLoggedIn] = useState(
-    loadingLoggedInInitialValue
-  );
+  const [editProfileForm, setEditProfileForm] = useState(editProfileFormInitialValue);
+  const [isEditingProfile, setIsEditingProfile] = useState(isEditingProfileInitialValue);
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
+  const { clearAllPodcasts } = usePodcasts();
+  const { clearAllInfo } = useInfo();
 
   // Función para iniciar sesión.
   const handleLogin = async (e) => {
@@ -110,15 +103,14 @@ const UsersProvider = ({ children }) => {
     try {
       // Se eliminan los datos del usuario y el token del localStorage.
       localStorage.clear();
-
-      setToken(tokenInitialvalue);
-      setUser(userInitialValue);
-
-      setLoggedIn(loggedInInitialValue);
       toast.success("Sesión cerrada exitosamente");
 
+      clearAllUsers(); // Limpiar todos los estados de usuarios.
+      clearAllPodcasts(); // Limpiar todos los estados de podcasts.
+      clearAllInfo(); // Limpiar todos los estados de info.
+
       // Redirigir a la página de login.
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       toast.error("Error al cerrar sesión");
     }
@@ -274,6 +266,20 @@ const UsersProvider = ({ children }) => {
     return Object.keys(errors).length === 0;
   };
 
+  const clearAllUsers = () => {
+    setEmail(emailInitialValue);
+    setPassword(passwordInitialValue);
+    setName(nameInitialValue);
+    setUsername(usernameInitialValue);
+    setToken(tokenInitialvalue);
+    setUser(userInitialValue);
+    setLoggedIn(loggedInInitialValue);
+    setErrors(errorsInitialValue);
+    setIsLoading(isLoadingInitialValue);
+    setEditProfileForm(editProfileFormInitialValue);
+    setIsEditingProfile(isEditingProfileInitialValue);
+  };
+
   const readCookie = async () => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
@@ -281,10 +287,9 @@ const UsersProvider = ({ children }) => {
     if (user && token) {
       setUser(user);
       setToken(token);
-      await getUser();
       setLoggedIn(true);
+      await getUser();
     }
-    setLoadingLoggedIn(false);
   };
 
   const updateEmail = (value) => setEmail(value);
@@ -305,19 +310,8 @@ const UsersProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const fetchCheckLoggedInData = async () => {
-      await readCookie();
-    };
-
-    fetchCheckLoggedInData();
+    readCookie();
   }, []);
-
-  useEffect(() => {
-    const isRegisterPage = location.pathname === "/register";
-    if (!loggedIn && !loadingLoggedIn && !isRegisterPage) {
-      navigate("/");
-    }
-  }, [loggedIn, navigate, loadingLoggedIn, location.pathname]);
 
   const dataToExport = {
     email,
@@ -331,7 +325,6 @@ const UsersProvider = ({ children }) => {
     isLoading,
     editProfileForm,
     isEditingProfile,
-    loadingLoggedIn,
 
     updateEmail,
     updatePassword,
