@@ -29,7 +29,7 @@ const RegisterPage = () => {
         setTimeout(() => {
           handleRegister();
           resolve({});
-          navigate("/");
+          navigate("/login");
         }, 2000)
       );
 
@@ -130,7 +130,7 @@ const RegisterPage = () => {
             <a
               className="register-main-footer-passwd"
               onClick={() => {
-                navigate("/");
+                navigate("/login");
               }}
             >
               ¿Ya estás registrado?

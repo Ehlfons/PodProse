@@ -22,7 +22,7 @@ const LoginPage = () => {
     googleLogin,
     handleForgotPassword,
     showForgotPassword,
-    setShowForgotPassword,
+    updateShowForgotPassword,
     recoveryEmail,
     setRecoveryEmail,
   } = useUsers();
@@ -140,7 +140,7 @@ const LoginPage = () => {
             {showForgotPassword ? (
               <p
                 className="login-main-footer-passwd"
-                onClick={() => setShowForgotPassword(false)}
+                onClick={() => updateShowForgotPassword(false)}
                 style={{ cursor: "pointer" }}
               >
                 Volver al inicio de sesión
@@ -148,7 +148,7 @@ const LoginPage = () => {
             ) : (
               <p
                 className="login-main-footer-passwd"
-                onClick={() => setShowForgotPassword(true)}
+                onClick={() => updateShowForgotPassword(true)}
                 style={{ cursor: "pointer" }}
               >
                 ¿Olvidaste tu contraseña?
