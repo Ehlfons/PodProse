@@ -45,8 +45,8 @@ const HexagonLayout = () => {
           {randomPodcastsPerRow.first.length ? (
             <Fragment>
               {randomPodcastsPerRow.first.map((podcast) => (
-                <Fragment>
-                  <Hexagon key={podcast.id} src={podcast.url_img} title={podcast.title}/>
+                <Fragment key={podcast.id}>
+                  <Hexagon src={podcast.url_img} title={podcast.title}/>
                 </Fragment>
               ))}
             </Fragment>
