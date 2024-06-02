@@ -17,6 +17,8 @@
 .container-hexagon-layout .hexagonArea .hexagon img {
   width: 100%;
   height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .container-hexagon-layout .hexagonArea .hexagon:hover {
@@ -25,7 +27,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-.container-hexagon-layout .hexagonArea .hexagon:hover::before {
+/* .container-hexagon-layout .hexagonArea .hexagon:hover::before {
   content: "username profile";
   position: absolute;
   width: 100%;
@@ -42,4 +44,24 @@
   text-align: center;
 
   box-sizing: border-box;
+} */
+
+.hexagon-title-overlay {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.5);
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-text-color);
+  font-size: 0.8em;
+  font-weight: 600;
+  text-align: center;
+
+  box-sizing: border-box;
+  pointer-events: none; /* Para que el overlay no interfiera con los eventos del mouse */
 }

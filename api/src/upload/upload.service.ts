@@ -14,7 +14,7 @@ export class UploadService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async upload(fileName: string, file: Buffer, type: 'audio' | 'image', userId: string, title: string, description: string) {
+  async upload(fileName: string, file: Buffer, type: 'audio' | 'image', userId: string, title: string, description: string, categoryId: string) {
     const bucketName = this.configService.getOrThrow('AWS_S3_BUCKET_NAME');
     const fileKey2 = type === 'audio' ? `audio/${fileName}` : `img/${fileName}`;
 
@@ -34,6 +34,14 @@ export class UploadService {
       throw new NotFoundException('User not found');
     }
 
+    const categoryExists = await this.prisma.category.findUnique({
+      where: { id: categoryId },
+    });
+
+    if (!categoryExists) {
+      throw new NotFoundException('Category not found');
+    }
+
     if (type === 'audio') {
       // Guarda el podcast en la base de datos
       await this.prisma.podcast.create({
@@ -44,6 +52,9 @@ export class UploadService {
           url_img: '',
           user: {
             connect: { id: userId },
+          },
+          category: {
+            connect: { id: categoryId },
           },
         },
       });

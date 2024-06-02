@@ -13,6 +13,7 @@ import { ContactModule } from './contact/contact.module';
 import { NewsletterModule } from './newsletter/newsletter.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ContentModule } from './content/content.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -27,11 +28,13 @@ import { ContentModule } from './content/content.module';
     FailedLoginModule,
     UploadModule,
     ContentModule,
+    CategoriesModule,
     ConfigModule.forRoot({ isGlobal: true }),
     JwtModule.register({
       secret: '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',
       signOptions: { expiresIn: '1h' },
     }),
+    CategoriesModule,
   ],
 })
 export class AppModule implements NestModule {
