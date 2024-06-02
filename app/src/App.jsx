@@ -12,17 +12,17 @@ function App() {
   return (
     <Fragment>
       <BrowserRouter>
-        <UsersProvider>
-          <PodcastsProvider>
-            <InfoProvider>
+        <PodcastsProvider>
+          <InfoProvider>
+            <UsersProvider>
               <Header />
                 <Routes />
                 <Toaster richColors />
                 <CustomAudioPlayer />
               <FooterWrapper />
-            </InfoProvider>
-          </PodcastsProvider>
-        </UsersProvider>
+            </UsersProvider>
+          </InfoProvider>
+        </PodcastsProvider>
       </BrowserRouter>
     </Fragment>
   );

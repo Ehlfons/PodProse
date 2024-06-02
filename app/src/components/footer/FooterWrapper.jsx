@@ -3,7 +3,7 @@ import Footer from "./Footer";
 
 const FooterWrapper = () => {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/";
+  const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/register";
 
   if (isLoginPage || isRegisterPage) {

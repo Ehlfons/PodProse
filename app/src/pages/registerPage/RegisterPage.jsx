@@ -42,7 +42,7 @@ const RegisterPage = () => {
     <Fragment>
       <main>
         <header className="register-header">
-          <Link to="/" className="register-header-back">
+          <Link to="/login" className="register-header-back">
             <ArrowLogin />
             Iniciar sesión
           </Link>
