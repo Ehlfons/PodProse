@@ -46,3 +46,7 @@
   box-sizing: border-box;
   pointer-events: none; /* Para que el overlay no interfiera con los eventos del mouse */
 }
+
+.hexagon-title-overlay p {
+  margin-inline: 5px;
+}

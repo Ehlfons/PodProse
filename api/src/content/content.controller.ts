@@ -25,7 +25,6 @@ class ContentController {
   @Get()
   async listPodcasts(@Res() res: Response) {
     const data = await this.contentService.listPodcasts();
-
     res.json(data);
   }
 

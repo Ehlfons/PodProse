@@ -38,8 +38,32 @@ export class ContentService {
   }
 
   async listPodcasts() {
-    const podcasts = await this.prisma.podcast.findMany();
-    return podcasts;
+    const podcasts = await this.prisma.podcast.findMany({
+      include: {
+        user: {
+          select: {
+            username: true,
+          },
+        },
+        category: {
+          select: {
+            id: true,
+            name: true,
+          }
+        },
+      },
+    });
+
+    // Mapear el resultado para incluir el nombre de usuario y la categoría
+    const podcastsWithUsernameAndCategory = podcasts.map((podcast) => ({
+      ...podcast,
+      username: podcast.user.username,
+      category: podcast.category.name,
+      categoryId: podcast.category.id,
+      user: undefined, // Eliminar el objeto user para que no se duplique
+    }));
+
+    return podcastsWithUsernameAndCategory;
   }
 
   async getPodcastsByUser(userId: string) {
@@ -59,17 +83,25 @@ export class ContentService {
             username: true,
           },
         },
+        category: {
+          select: {
+            id: true,
+            name: true,
+          }
+        },
       },
     });
 
     // Mapear el resultado para incluir el nombre de usuario
-    const podcastsWithUsername = podcasts.map((podcast) => ({
+    const podcastsWithUsernameAndCategory = podcasts.map((podcast) => ({
       ...podcast,
       username: podcast.user.username,
+      category: podcast.category.name,
+      categoryId: podcast.category.id,
       user: undefined, // Eliminar el objeto user para que no se duplique
     }));
 
-    return podcastsWithUsername;
+    return podcastsWithUsernameAndCategory;
   }
 
   async getPodcastById(id: string) {
