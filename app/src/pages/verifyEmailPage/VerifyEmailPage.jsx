@@ -18,7 +18,7 @@ const VerifyEmailPage = () => {
           localStorage.setItem("emailVerified", "true"); // Guardar en localStorage
           setIsVerified(true);
           setTimeout(() => {
-            navigate("/"); // Redirigir al login después de unos segundos
+            navigate("/login"); // Redirigir al login después de unos segundos
           }, 2000); // Espera 2 segundos antes de redirigir
         }
       } catch (error) {

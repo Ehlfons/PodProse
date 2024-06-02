@@ -32,6 +32,7 @@ const Header = () => {
       };
     }
   }, [isLoginPage, isRegisterPage]);
+  
   if (isLoginPage || isRegisterPage) {
     return null;
   }
