@@ -38,8 +38,12 @@ const UsersProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(loggedInInitialValue);
   const [errors, setErrors] = useState(errorsInitialValue);
   const [isLoading, setIsLoading] = useState(isLoadingInitialValue);
-  const [editProfileForm, setEditProfileForm] = useState(editProfileFormInitialValue);
-  const [isEditingProfile, setIsEditingProfile] = useState(isEditingProfileInitialValue);
+  const [editProfileForm, setEditProfileForm] = useState(
+    editProfileFormInitialValue
+  );
+  const [isEditingProfile, setIsEditingProfile] = useState(
+    isEditingProfileInitialValue
+  );
   const [message, setMessage] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [recoveryEmail, setRecoveryEmail] = useState("");
@@ -304,9 +308,9 @@ const UsersProvider = ({ children }) => {
 
   const handleForgotPassword = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/auth/forgot-password",
-        { email: recoveryEmail }
-      );
+      const response = await axios.post(`${apiURL}/auth/forgot-password`, {
+        email: recoveryEmail,
+      });
 
       setMessage(response.data.message);
     } catch (error) {
@@ -319,6 +323,41 @@ const UsersProvider = ({ children }) => {
         setMessage("Error al enviar el correo de recuperación");
       }
     }
+  };
+
+  const isValidForm = () => {
+    if (!name || !username || !email || !password) {
+      toast.error("Todos los campos son obligatorios.");
+      return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      toast.error("Por favor, introduce un correo electrónico válido.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const manejarRegistro = (e) => {
+    e.preventDefault();
+    if (!isValidForm()) {
+      return;
+    }
+
+    const promise = () =>
+      new Promise((resolve) =>
+        setTimeout(() => {
+          handleRegister();
+          resolve({});
+          navigate("/");
+        }, 2000)
+      );
+
+    toast.promise(promise, {
+      loading: "Registrando usuario...",
+    });
   };
 
   const updateEmail = (value) => setEmail(value);
@@ -365,6 +404,8 @@ const UsersProvider = ({ children }) => {
     updateIsLoading,
     updateIsEditingProfile,
     updateEditProfileForm,
+    isValidForm,
+    manejarRegistro,
 
     handleLogin,
     handleLogout,

@@ -16,48 +16,9 @@ const RegisterPage = () => {
     updateEmail,
     password,
     updatePassword,
-    handleRegister,
     updateShowForgotPassword,
+    manejarRegistro,
   } = useUsers();
-
-  const navigate = useNavigate();
-
-  // Función de validación
-  const isValidForm = () => {
-    if (!name || !username || !email || !password) {
-      toast.error("Todos los campos son obligatorios.");
-      return false;
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      toast.error("Por favor, introduce un correo electrónico válido.");
-      return false;
-    }
-
-    return true;
-  };
-
-  // Lógica para el evento onClick del botón de registro.
-  const manejarRegistro = (e) => {
-    e.preventDefault();
-    if (!isValidForm()) {
-      return;
-    }
-
-    const promise = () =>
-      new Promise((resolve) =>
-        setTimeout(() => {
-          handleRegister();
-          resolve({});
-          navigate("/");
-        }, 2000)
-      );
-
-    toast.promise(promise, {
-      loading: "Registrando usuario...",
-    });
-  };
 
   return (
     <Fragment>
