@@ -241,11 +241,11 @@
   font-size: 14px;
   color: var(--main-text-color);
   cursor: pointer;
-  text-decoration: none; /* Asegúrate de que el texto no esté subrayado por defecto */
+  text-decoration: none;
 }
 
 .register-main-footer-passwd:hover {
-  text-decoration: underline; /* Subraya solo al pasar el cursor */
+  text-decoration: underline;
 }
 
 .register-main-footer-terms {
