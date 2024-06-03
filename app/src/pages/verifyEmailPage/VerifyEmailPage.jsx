@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
-import "./VerifyEmailPage.css"; // Importar el archivo CSS
+import "./VerifyEmailPage.css";
 
 const VerifyEmailPage = () => {
   const { token } = useParams();
@@ -40,8 +40,8 @@ const VerifyEmailPage = () => {
 
   return (
     <div className="verify-email-container">
-      <h1>Verificando tu correo electrónico...</h1>
       <div className="spinner"></div>
+      <h1>Verificando tu correo electrónico...</h1>
     </div>
   );
 };
