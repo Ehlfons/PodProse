@@ -40,6 +40,7 @@ const PodcastList = () => {
                   <Podcast
                     key={i}
                     datos={podcast}
+                    editbtn={true}
                     onClick={() => {
                       updateAudioUrl(podcast.url_audio);
                       updateSelectedPodcast(podcast);

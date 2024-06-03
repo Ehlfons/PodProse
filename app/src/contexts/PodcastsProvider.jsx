@@ -30,7 +30,6 @@ const PodcastsProvider = ({ children }) => {
   const podcastAudioEditInitialValue = null;
   const editingPodcastIdInitialValue = null;
   const podcastSelectedByIdInitialValue = null;
-  // const latestPodcastsListInitialValue = [];
   const trendContentPodcastsInitialValue = [];
   const podcastCategoriesInitialValue = null;
   const selectedPodcastCategoryInitialValue = null;
