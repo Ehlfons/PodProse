@@ -16,6 +16,29 @@ export class NewsletterService {
     });
   }
 
+  private replacePlaceholders(template: string, data: any): string {
+    return template.replace(/{{(\w+(\.\w+)*)}}/g, (match, p1) => {
+      const keys = p1.split('.');
+      let value = data;
+      for (const key of keys) {
+        value = value[key];
+        if (value === undefined) {
+          return match; // Deja el marcador de posición si no se encuentra el valor
+        }
+      }
+      return value;
+    });
+  }
+
+  private async getRandomPodcasts(limit: number): Promise<any[]> {
+    const count = await this.prisma.podcast.count();
+    const skip = Math.floor(Math.random() * (count - limit + 1));
+    return this.prisma.podcast.findMany({
+      take: limit,
+      skip: skip,
+    });
+  }
+
   async subscribe(email: string) {
     await this.prisma.newsletter.create({
       data: { email },
@@ -28,11 +51,27 @@ export class NewsletterService {
 
     const template = templates[Math.floor(Math.random() * templates.length)];
 
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const podcasts = await this.getRandomPodcasts(3);
+
+    const data = {
+      user: {
+        name: user.name,
+      },
+      podcast1: podcasts[0],
+      podcast2: podcasts[1],
+      podcast3: podcasts[2],
+    };
+
     const mailOptions = {
       from: 'podprose.info@gmail.com',
       to: email,
-      subject: template.subject,
-      html: template.body,
+      subject: this.replacePlaceholders(template.subject, data),
+      html: this.replacePlaceholders(template.body, data),
     };
 
     try {
@@ -53,11 +92,30 @@ export class NewsletterService {
 
     for (const subscriber of subscribers) {
       const template = templates[Math.floor(Math.random() * templates.length)];
+      const user = await this.prisma.user.findUnique({
+        where: { email: subscriber.email },
+      });
+      if (!user) {
+        console.error(`User not found for email ${subscriber.email}`);
+        continue;
+      }
+
+      const podcasts = await this.getRandomPodcasts(3);
+
+      const data = {
+        user: {
+          name: user.name,
+        },
+        podcast1: podcasts[0],
+        podcast2: podcasts[1],
+        podcast3: podcasts[2],
+      };
+
       const mailOptions = {
         from: 'podprose.info@gmail.com',
         to: subscriber.email,
-        subject: template.subject,
-        html: template.body,
+        subject: this.replacePlaceholders(template.subject, data),
+        html: this.replacePlaceholders(template.body, data),
       };
 
       try {
