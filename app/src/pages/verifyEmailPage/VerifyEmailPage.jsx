@@ -1,42 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "sonner";
+import React, { useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { useUsers } from "@components/hooks";
 import "./VerifyEmailPage.css";
 
 const VerifyEmailPage = () => {
   const { token } = useParams();
-  const navigate = useNavigate();
-  const [isVerified, setIsVerified] = useState(false);
+  const { verifyEmail } = useUsers();
 
   useEffect(() => {
-    let isMounted = true;
-
-    const verifyEmail = async () => {
-      try {
-        await axios.get(`http://localhost:3000/auth/verify/${token}`);
-        if (isMounted && !isVerified) {
-          localStorage.setItem("emailVerified", "true");
-          setIsVerified(true);
-          setTimeout(() => {
-            navigate("/login");
-          }, 2000);
-        }
-      } catch (error) {
-        if (isMounted && !isVerified) {
-          toast.error("Error al verificar el correo electrónico");
-          setIsVerified(true);
-        }
-        console.error("Error al verificar el correo electrónico:", error);
-      }
-    };
-
-    verifyEmail();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [token, navigate, isVerified]);
+    if (token) {
+      verifyEmail(token);
+    }
+  }, [token, verifyEmail]);
 
   return (
     <div className="verify-email-container">

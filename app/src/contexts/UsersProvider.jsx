@@ -53,6 +53,20 @@ const UsersProvider = ({ children }) => {
   const { clearAllPodcasts } = usePodcasts();
   const { clearAllInfo } = useInfo();
 
+  // Función para verificar el correo electrónico
+  const verifyEmail = async (token) => {
+    try {
+      await axios.get(`${apiURL}/auth/verify/${token}`);
+      localStorage.setItem("emailVerified", "true");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error("Error al verificar el correo electrónico");
+      console.error("Error al verificar el correo electrónico:", error);
+    }
+  };
+
   // Función para iniciar sesión.
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -414,6 +428,7 @@ const UsersProvider = ({ children }) => {
     handleForgotPassword,
     patchUserData,
     getUser,
+    verifyEmail,
   };
 
   return (
