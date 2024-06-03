@@ -18,14 +18,6 @@ export class UploadService {
     const bucketName = this.configService.getOrThrow('AWS_S3_BUCKET_NAME');
     const fileKey2 = type === 'audio' ? `audio/${fileName}` : `img/${fileName}`;
 
-    await this.s3Client.send(
-      new PutObjectCommand({
-        Bucket: bucketName,
-        Key: fileKey2,
-        Body: file,
-      }),
-    );
-
     const userExists = await this.prisma.user.findUnique({
       where: { id: userId },
     });
@@ -41,6 +33,14 @@ export class UploadService {
     if (!categoryExists) {
       throw new NotFoundException('Category not found');
     }
+
+    await this.s3Client.send(
+      new PutObjectCommand({
+        Bucket: bucketName,
+        Key: fileKey2,
+        Body: file,
+      }),
+    );
 
     if (type === 'audio') {
       // Guarda el podcast en la base de datos

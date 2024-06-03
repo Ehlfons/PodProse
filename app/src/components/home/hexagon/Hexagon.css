@@ -1,4 +1,4 @@
-.container-hexagon-layout .hexagonArea .hexagon {
+ .container-hexagon-layout .hexagonArea .hexagon {
   position: relative;
   width: 159px; /* 130 */
   height: 185px; /* 150 */
@@ -49,4 +49,59 @@
 
 .hexagon-title-overlay p {
   margin-inline: 5px;
+}
+
+@media (max-width: 1835px) {
+  .hexagon.hex-6 {
+    display: none !important;
+  }
+
+  .home-container {
+    justify-content: center;
+  }
+}
+
+
+@media (max-width: 1667px) {
+  .hexagon.hex-5 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1525px) {
+  .hexagon.hex-4 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1332px) {
+  .hexagon.hex-3 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1183px) {
+  .maintext-component {
+    display: none;
+  }
+
+  .hexagon.hex-3, .hexagon.hex-4 {
+    display: block !important;
+  }
+}
+
+@media (max-width: 870px) {
+  .hexagon.hex-4 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 669px) {
+  .hexagon.hex-3 {
+    display: none !important;
+  }
+
+  .hexagonArea.first .hexagon.hex-1, .hexagonArea.third .hexagon.hex-2, #short {
+    display: none !important;
+  }
 }

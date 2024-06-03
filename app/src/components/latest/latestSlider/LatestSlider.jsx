@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { usePodcasts } from "@components/hooks";
+import { Loader } from "@components/loader";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -10,14 +11,41 @@ import "./LatestSlider.css";
 
 const LatestSlider = () => {
   const { podcastsList } = usePodcasts();
+  const { updateAudioUrl, updateSelectedPodcast, updateVisibility } = usePodcasts();
+
   const [randomPodcasts, setRandomPodcasts] = useState([]);
+  const [slidesPerViewNumber, setSlidesPerViewNumber] = useState(3);
 
   useEffect(() => {
     if (podcastsList.length > 0) {
       setRandomPodcasts(getRandomPodcasts(podcastsList, 7));
     }
   }, [podcastsList]);
-
+  
+  const handleResize = () => {
+    if (window.innerWidth <= 805) {
+      setSlidesPerViewNumber(1);
+    } else if (window.innerWidth <= 1254) {
+      setSlidesPerViewNumber(2);
+    } else {  
+      setSlidesPerViewNumber(3);
+    }
+  };
+  
+  useEffect(() => {
+    
+    // Llama la función al montar el componente para ajustar el estado inicial
+    handleResize();
+    
+    // Añade un listener para el evento resize
+    window.addEventListener('resize', handleResize);
+    
+    // Limpia el listener al desmontar el componente
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   /**
    * Obtiene un número aleatorio de podcasts del estado.
    * @param {Array} podcasts - El array de podcasts.
@@ -35,7 +63,7 @@ const LatestSlider = () => {
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
 
-    // Selecciona los 12 podcasts más recientes
+    // Selecciona los 20 podcasts más recientes
     const latestPodcasts = sortedPodcasts.slice(0, 20);
 
     // Obtiene un número aleatorio de los podcasts seleccionados
@@ -50,13 +78,7 @@ const LatestSlider = () => {
       }
     }
 
-    // Devuelve un array de objetos con la imagen, nombre, categoría y enlace correspondiente.
-    return randomPodcasts.map((podcast) => ({
-      image: podcast.url_img,
-      name: podcast.title,
-      category: podcast.category ? podcast.category : "Sin categoría",
-      link: `creador/${podcast.id}`, // La URL es pagina creador/id del podcast
-    }));
+    return randomPodcasts;
   };
 
   const pagination = {
@@ -66,6 +88,12 @@ const LatestSlider = () => {
     },
   };
 
+  const handlePodcastClick = (podcast) => {
+    updateAudioUrl(podcast.url_audio);
+    updateSelectedPodcast(podcast);
+    updateVisibility(true);
+  }
+
   return (
     <Fragment>
       <div className="latest-slider-wrapper">
@@ -73,21 +101,21 @@ const LatestSlider = () => {
           <Swiper
             pagination={pagination}
             modules={[Pagination]}
-            slidesPerView={3}
+            slidesPerView={slidesPerViewNumber}
             spaceBetween={120}
             className="mySwiper"
           >
             {randomPodcasts.map((podcast, index) => (
               <SwiperSlide key={index}>
-                <a href={podcast.link}>
+                <a onClick={() => handlePodcastClick(podcast)}>
                   <div className="latest-slider-fade">
                     <div className="latest-info-img">
-                      <h5>{podcast.name}</h5>
+                      <h5>{podcast.title}</h5>
                       <p>{podcast.category}</p>
                     </div>
                     <img
                       className="latest-slider-img"
-                      src={podcast.image}
+                      src={podcast.url_img}
                       alt={`Image ${index + 1}`}
                     />
                   </div>
@@ -96,7 +124,7 @@ const LatestSlider = () => {
             ))}
           </Swiper>
         ) : (
-          <p>Loading...</p>
+          <Loader />
         )}
       </div>
     </Fragment>

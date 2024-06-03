@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-const TrendsCard = ({ category }) => {
+const TrendsCard = ({ category, isLast }) => {
   const { name, podcastCount } = category.category;
   const podcasts = category.podcasts;
 
@@ -37,7 +37,7 @@ const TrendsCard = ({ category }) => {
           ))}
         </div>
       </div>
-      <hr className="trends-card-separator" />
+      {!isLast && <hr className="trends-card-separator" />}
     </Fragment>
   );
 };

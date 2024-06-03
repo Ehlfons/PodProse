@@ -6,7 +6,7 @@ import {
   RegisterPage,
   MainPage,
   ContactPage,
-  CreatorPage,
+  ExplorePage,
   ContentManagementPage,
   ProfilePage,
   ErrorPage,
@@ -41,7 +41,7 @@ const Routes = () => {
         <>
           <Route path="/home" element={<MainPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/creator" element={<CreatorPage />} />
+          <Route path="/explore" element={<ExplorePage />} />
           <Route path="/my-content" element={<ContentManagementPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </>

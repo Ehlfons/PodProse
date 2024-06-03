@@ -22,6 +22,9 @@ const PodcastUpload = () => {
     podcastAudioEdit,
     handleEditPodcast,
     resetEditing,
+    podcastCategories,
+    updateSelectedPodcastCategory,
+    selectedPodcastCategory
   } = usePodcasts();
 
   // Crear referencias para los inputs de archivo
@@ -46,18 +49,30 @@ const PodcastUpload = () => {
           <h1>{isEditing ? "Editar Podcast" : "Subir Podcast"}</h1>
         </div>
         <form className="upload-podcast-form">
-          <div className="input-label">
-            <label className="form-input-label required-input-label" htmlFor="title">Título</label>
-            <input
-              className="form-input-podcasts"
-              type="text"
-              placeholder="Título del podcast..."
-              name="title"
-              value={title}
-              maxLength={64}
-              onChange={(e) => updateTitle(e.target.value)}
-              required
-            />
+          <div className="double-input-container">
+            <div className="input-label">
+              <label className="form-input-label required-input-label" htmlFor="title">Título</label>
+              <input
+                className="form-input-podcasts"
+                type="text"
+                placeholder="Título del podcast..."
+                name="title"
+                value={title}
+                maxLength={64}
+                onChange={(e) => updateTitle(e.target.value)}
+                required
+              />
+            </div>
+            <div className="select-container-pu">
+              <div className="input-label">
+                <select value={selectedPodcastCategory} className="form-input-podcasts" required onChange={(e) => updateSelectedPodcastCategory(e.target.value)}>
+                  <option value="" disabled selected >Categoría</option>
+                  {podcastCategories && podcastCategories.map((category) => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
           
           <div className="input-label">
