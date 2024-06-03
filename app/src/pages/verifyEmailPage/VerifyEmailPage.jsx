@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import Loader from "../../components/loader/Loader";
+import "./VerifyEmailPage.css";
 
 const VerifyEmailPage = () => {
   const { token } = useParams();
@@ -15,11 +17,11 @@ const VerifyEmailPage = () => {
       try {
         await axios.get(`http://localhost:3000/auth/verify/${token}`);
         if (isMounted && !isVerified) {
-          localStorage.setItem("emailVerified", "true"); // Guardar en localStorage
+          localStorage.setItem("emailVerified", "true");
           setIsVerified(true);
           setTimeout(() => {
-            navigate("/login"); // Redirigir al login después de unos segundos
-          }, 2000); // Espera 2 segundos antes de redirigir
+            navigate("/login");
+          }, 2000);
         }
       } catch (error) {
         if (isMounted && !isVerified) {
@@ -38,8 +40,9 @@ const VerifyEmailPage = () => {
   }, [token, navigate, isVerified]);
 
   return (
-    <div>
+    <div className="verify-email-container">
       <h1>Verificando tu correo electrónico...</h1>
+      <Loader />
     </div>
   );
 };

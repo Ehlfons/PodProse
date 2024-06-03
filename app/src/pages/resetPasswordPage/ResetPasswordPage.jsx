@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
-import {useUsers} from "@components/hooks";
+import { useUsers } from "@components/hooks";
 import Loader from "@components/loader/Loader";
 
 const ResetPasswordPage = () => {
@@ -12,7 +12,7 @@ const ResetPasswordPage = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const {isLoading, updateIsLoading} = useUsers();
+  const { isLoading, updateIsLoading } = useUsers();
 
   const handleResetPassword = async () => {
     try {

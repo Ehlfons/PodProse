@@ -1,0 +1,27 @@
+/* VerifyEmailPage.css */
+.verify-email-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 350px;
+  background-color: #111111;
+}
+
+.verify-email-container h1 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 2rem;
+  z-index: 1;
+}
+
+.modal-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.banter-loader {
+  width: 72px;
+  height: 72px;
+}
