@@ -7,8 +7,13 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Get()
-  async getCategories(): Promise<Category[]> {
+  async getAllCategories(): Promise<Category[]> {
     return this.categoriesService.getCategories();
+  }
+
+  @Get('random')
+  async getRandomCategories2() {
+    return this.categoriesService.getRandomCategoriesWithPodcasts();
   }
 
   @Get(':id')

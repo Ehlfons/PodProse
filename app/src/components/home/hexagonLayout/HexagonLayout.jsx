@@ -5,7 +5,7 @@ import {usePodcasts} from "@components/hooks";
 import "./HexagonLayout.css";
 
 const HexagonLayout = () => {
-  const {podcastsList, fetchPodcasts} = usePodcasts();
+  const {podcastsList} = usePodcasts();
 
   const [randomPodcastsPerRow, setRandomPodcastsPerRow] = useState({
     first: [],
@@ -22,10 +22,6 @@ const HexagonLayout = () => {
     selectedPodcasts.forEach(podcast => usedIndexes.add(podcastsList.indexOf(podcast)));
     return selectedPodcasts;
   };
-
-  useEffect(() => {
-    fetchPodcasts();
-  }, []);
 
   useEffect(() => {
     if (podcastsList.length) {
