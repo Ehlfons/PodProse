@@ -16,11 +16,11 @@ const VerifyEmailPage = () => {
       try {
         await axios.get(`http://localhost:3000/auth/verify/${token}`);
         if (isMounted && !isVerified) {
-          localStorage.setItem("emailVerified", "true"); // Guardar en localStorage
+          localStorage.setItem("emailVerified", "true");
           setIsVerified(true);
-          /* setTimeout(() => {
-            navigate("/login"); // Redirigir al login después de unos segundos
-          }, 2000); // Espera 2 segundos antes de redirigir */
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
         }
       } catch (error) {
         if (isMounted && !isVerified) {

@@ -5,27 +5,41 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #111111;
+  background: #111111;
   text-align: center;
 }
 
 .verify-email-container h1 {
-  font-size: 2rem;
-  color: white;
-  margin-bottom: 1rem;
+  font-family: "Poppins", "DM Sans", sans-serif;
+  font-size: 35.9px;
+  color: #ffffff;
+  margin-bottom: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .spinner {
   border: 25px solid #363638;
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: 100px;
   border-left-color: #b0e444;
-  animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px #111111, 0 0 20px #111111, 0 0 30px #111111,
+      0 0 40px #111111, 0 0 50px #111111, 0 0 60px #111111, 0 0 70px #111111;
+  }
+  100% {
+    box-shadow: 0 0 5px #b0e444, 0 0 10px #b0e444, 0 0 15px #b0e444,
+      0 0 20px #b0e444, 0 0 25px #b0e444, 0 0 30px #b0e444, 0 0 35px #b0e444;
   }
 }
