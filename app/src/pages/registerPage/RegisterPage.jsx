@@ -17,6 +17,7 @@ const RegisterPage = () => {
     password,
     updatePassword,
     handleRegister,
+    updateShowForgotPassword,
   } = useUsers();
 
   const navigate = useNavigate();
@@ -62,7 +63,11 @@ const RegisterPage = () => {
     <Fragment>
       <main>
         <header className="register-header">
-          <Link to="/login" className="register-header-back">
+          <Link
+            to="/login"
+            className="register-header-back"
+            onClick={() => updateShowForgotPassword(false)}
+          >
             <ArrowLogin />
             Iniciar sesión
           </Link>
@@ -147,14 +152,13 @@ const RegisterPage = () => {
             </div>
           </div>
           <div className="register-main-footer">
-            <a
+            <Link
+              to="/login"
               className="register-main-footer-passwd"
-              onClick={() => {
-                navigate("/");
-              }}
+              onClick={() => updateShowForgotPassword(false)}
             >
               ¿Ya estás registrado?
-            </a>
+            </Link>
             <p className="register-main-footer-terms">
               Registro Seguro con 2FA sujeto a los Términos y Privacidad de
               Google
