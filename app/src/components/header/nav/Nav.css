@@ -28,7 +28,7 @@ div.nav ul li a {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 8700;
     background-color: var(--primary-dark-bg-color);
     transform: translateY(-100%);
   }

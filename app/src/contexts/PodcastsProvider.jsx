@@ -30,8 +30,10 @@ const PodcastsProvider = ({ children }) => {
   const podcastAudioEditInitialValue = null;
   const editingPodcastIdInitialValue = null;
   const podcastSelectedByIdInitialValue = null;
-  const latestPodcastsListInitialValue = [];
+  // const latestPodcastsListInitialValue = [];
   const trendContentPodcastsInitialValue = [];
+  const podcastCategoriesInitialValue = null;
+  const selectedPodcastCategoryInitialValue = null;
 
   // Estados.
   const [podcast, setPodcast] = useState(PodcastInitialValue); // Estado para guardar los datos del podcast.
@@ -55,6 +57,8 @@ const PodcastsProvider = ({ children }) => {
   const [editingPodcastId, setEditingPodcastId] = useState(editingPodcastIdInitialValue);
   const [podcastSelectedById, setPodcastSelectedById] = useState(podcastSelectedByIdInitialValue);
   const [trendContentPodcasts, setTrendContentPodcasts] = useState(trendContentPodcastsInitialValue);  
+  const [podcastCategories, setPodcastCategories] = useState(podcastCategoriesInitialValue);
+  const [selectedPodcastCategory, setSelectedPodcastCategory] = useState(selectedPodcastCategoryInitialValue);
   
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -83,6 +87,7 @@ const PodcastsProvider = ({ children }) => {
     formData.append('files', imageFile);
     formData.append('title', title);
     formData.append('description', description);
+    formData.append('categoryId', selectedPodcastCategory);
     formData.append('userId', userId);
 
     try {
@@ -139,6 +144,7 @@ const PodcastsProvider = ({ children }) => {
       updatePodcastAudioEdit(response.data.url_audio.substring(response.data.url_audio.lastIndexOf('/') + 1));
       updateImagePreview(response.data.url_img);
       updateEditingPodcastId(response.data.id);
+      setSelectedPodcastCategory(response.data.categoryId);
       updateModalVisibility(false);
       updateIsEditing(true);
 
@@ -185,6 +191,7 @@ const PodcastsProvider = ({ children }) => {
     setModalVisibility(false);
     setIsEditing(false);
     clearForm();
+    setSelectedPodcastCategory("");
   };
 
   // Función para actualizar el podcast.
@@ -196,6 +203,7 @@ const PodcastsProvider = ({ children }) => {
     formData.append('files', imageFile && imageFile);
     formData.append('title', title && title);
     formData.append('description', description && description);
+    formData.append('categoryId', selectedPodcastCategory && selectedPodcastCategory);
     formData.append('userId', userId);
 
     axios.patch(`http://localhost:3000/content/podcast/${editingPodcastId}`, formData, {
@@ -217,12 +225,23 @@ const PodcastsProvider = ({ children }) => {
       });
   };
 
+  const getPodcastsCategories = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/categories`);
+
+      setPodcastCategories(response.data);
+    } catch (error) {
+      toast.error('Error de red');
+    }
+  };
+
   const clearForm = () => {
     setAudioFile(audioFileInitialValue);
     setImageFile(imageFileInitialValue);
     setTitle(titleInitialValue);
     setDescription(descriptionInitialValue);
     setImagePreview(imagePreviewInitialValue);
+    setSelectedPodcastCategory(selectedPodcastCategoryInitialValue);
   };
 
   // Función para formatear la fecha en formato europeo. (mover a una biblioteca cuando tengamos más funciones de uso general como esta)
@@ -301,6 +320,9 @@ const PodcastsProvider = ({ children }) => {
     setPodcastAudioEdit(podcastAudioEditInitialValue);
     setEditingPodcastId(editingPodcastIdInitialValue);
     setPodcastSelectedById(podcastSelectedByIdInitialValue);
+    setTrendContentPodcasts(trendContentPodcastsInitialValue);
+    setPodcastCategories(podcastCategoriesInitialValue);
+    setSelectedPodcastCategory(selectedPodcastCategoryInitialValue);
   };
 
   const updateAudioFileChange = (e) => setAudioFile(e.target.files[0]);
@@ -324,6 +346,7 @@ const PodcastsProvider = ({ children }) => {
   const updatePodcastAudioEdit = (value) => setPodcastAudioEdit(value);
   const updateImagePreview = (value) => setImagePreview(value);
   const updateEditingPodcastId = (value) => setEditingPodcastId(value);
+  const updateSelectedPodcastCategory = (value) => setSelectedPodcastCategory(value);
 
   // Datos a exportar al contexto.
   const dataToExport = {
@@ -345,6 +368,8 @@ const PodcastsProvider = ({ children }) => {
     editingPodcastId,
     podcastSelectedById,
     trendContentPodcasts,
+    podcastCategories,
+    selectedPodcastCategory,
 
     updateSelectedPodcast,
     updateAudioUrl,
@@ -357,6 +382,7 @@ const PodcastsProvider = ({ children }) => {
     updatePodcastAudioEdit,
     updateImagePreview,
     updateEditingPodcastId,
+    updateSelectedPodcastCategory,
     
     updateAudioFileChange,
     updateImageFileChange,
@@ -372,6 +398,7 @@ const PodcastsProvider = ({ children }) => {
     resetEditing,
     clearAllPodcasts,
     getTrendsPodcasts,
+    getPodcastsCategories,
   };
 
   return (

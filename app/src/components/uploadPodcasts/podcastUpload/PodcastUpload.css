@@ -5,6 +5,17 @@
   padding-left: 10px;
 }
 
+.upload-podcast-section h2.podcast-title {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word; /* Sólo WebKit */
+
+  -ms-hyphens: auto; /* Guiones para separar en sílabas */
+  -moz-hyphens: auto; /*  depende de lang en <html> */
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
 .section-title {
   display: flex;
   flex-direction: row;
@@ -145,4 +156,42 @@ textarea.form-input-podcasts {
 
 .send-podcast-container svg:hover {
   color: var(--main-text-color)
+}
+
+.double-input-container {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: end;
+  width: 100%;
+}
+
+.double-input-container .input-label:nth-of-type(1) {
+  width: 100%;
+}
+
+.double-input-container select {
+  background-color: var(--primary-dark-bg-color);
+}
+
+option {
+  color: var(--main-text-color);
+  background-color: var(--primary-dark-bg-color);
+}
+
+@media (max-width: 813px) {
+  .double-input-container {
+    flex-direction: column;
+  }
+  .double-input-container select, .double-input-container .input-label:nth-of-type(2), .select-container-pu {
+    width: 100%;
+  }
+
+  h2.podcast-title {
+    max-width: 550px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+  }
 }
