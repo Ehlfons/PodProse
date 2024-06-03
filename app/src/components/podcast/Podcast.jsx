@@ -7,7 +7,8 @@ import "./Podcast.css";
 
 // Estructura de cada Podcast.
 const Podcast = (props) => {
-  const { id, title, description, createdAt, url_img } = props.datos; // Datos del podcast.
+  const { id, title, description, createdAt, url_img, username } = props.datos; // Datos del podcast.
+  const { editbtn } = props; // Botón de editar.
   const { formatDate, updateModalVisibility, updateEditingPodcastId, editingPodcastId } = usePodcasts();
 
   return (
@@ -33,10 +34,11 @@ const Podcast = (props) => {
             <h2 className="podcast-title">{title}</h2>
             <p>{description ? description : "Sin descripción."}</p>
           </div>
-          <div className="podcast-info-text">
+          <div className={editbtn ? "podcast-info-text" : "podcast-info-text explore-style"}>
+            {editbtn ? null : <p>{username}</p>}
             <p>{formatDate(createdAt)}</p>
           </div>
-          <div className="podcast-icons">
+          {editbtn && <div className="podcast-icons">
             <div
               alt="config"
               onClick={(e) => {
@@ -52,7 +54,7 @@ const Podcast = (props) => {
             >
               <FontAwesomeIcon icon={faGear} />
             </div>
-          </div>
+          </div>}
         </div>
       </article>
     </Fragment>

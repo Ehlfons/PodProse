@@ -111,7 +111,9 @@
 }
 
 .message {
-  margin-top: 20px;
+  margin-top: 8px;
+  font-size: 12px;
+  text-align: center;
 }
 
 .login-main-common-input {

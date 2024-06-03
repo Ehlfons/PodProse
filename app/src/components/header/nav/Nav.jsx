@@ -19,7 +19,7 @@ const Nav = ({show, updateShow, updateIcon, transitionEnabled}) => {
               <Link to="/home">Inicio</Link>
             </li>
             <li onClick={handleClick}>
-              <Link to="/home">Explorar</Link>
+              <Link to="/explore">Explorar</Link>
             </li>
             <li onClick={handleClick}>
               <Link to="/contact">Contacto</Link>
