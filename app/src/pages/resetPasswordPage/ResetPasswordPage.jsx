@@ -1,42 +1,15 @@
-import React, { useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { toast } from "sonner";
+import React from "react";
 import { useUsers } from "@components/hooks";
 import "./ResetPasswordPage.css";
 
 const ResetPasswordPage = () => {
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
-  const [newPassword, setNewPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [isResetting, setIsResetting] = useState(false);
-  const navigate = useNavigate();
-
-  const { updateIsLoading } = useUsers();
-
-  const handleResetPassword = async () => {
-    setIsResetting(true);
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/reset-password",
-        { token, newPassword }
-      );
-      setMessage(response.data.message);
-      localStorage.setItem("passwordReset", "true");
-      updateIsLoading(true);
-      setTimeout(() => {
-        updateIsLoading(false);
-        navigate("/login");
-      }, 2000);
-    } catch (error) {
-      toast.error("Error al restablecer la contraseña");
-      setMessage(
-        error.response.data.message || "Error al restablecer la contraseña"
-      );
-      setIsResetting(false);
-    }
-  };
+  const {
+    handleResetPassword,
+    isResetting,
+    newPassword,
+    message,
+    setNewPassword,
+  } = useUsers();
 
   return (
     <div className="reset-password-container">

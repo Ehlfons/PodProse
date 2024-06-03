@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useUsers } from "@components/hooks";
 import "./VerifyEmailPage.css";

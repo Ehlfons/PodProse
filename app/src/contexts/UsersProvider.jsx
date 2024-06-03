@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import { usePodcasts, useInfo } from "@components/hooks";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 // Contexto para los usuarios.
 const UsersContext = createContext();
@@ -47,6 +47,10 @@ const UsersProvider = ({ children }) => {
   const [message, setMessage] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [recoveryEmail, setRecoveryEmail] = useState("");
+  const [isResetting, setIsResetting] = useState(false);
+  const [searchParams] = useSearchParams();
+  const tokenResetPassword = searchParams.get("token");
+  const [newPassword, setNewPassword] = useState("");
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -64,6 +68,29 @@ const UsersProvider = ({ children }) => {
     } catch (error) {
       toast.error("Error al verificar el correo electrónico");
       console.error("Error al verificar el correo electrónico:", error);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    setIsResetting(true);
+    try {
+      const response = await axios.post(`${apiURL}/auth/reset-password`, {
+        token: tokenResetPassword,
+        newPassword,
+      });
+      setMessage(response.data.message);
+      localStorage.setItem("passwordReset", "true");
+      updateIsLoading(true);
+      setTimeout(() => {
+        updateIsLoading(false);
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error("Error al restablecer la contraseña");
+      setMessage(
+        error.response.data.message || "Error al restablecer la contraseña"
+      );
+      setIsResetting(false);
     }
   };
 
@@ -405,6 +432,8 @@ const UsersProvider = ({ children }) => {
     message,
     showForgotPassword,
     recoveryEmail,
+    isResetting,
+    newPassword,
 
     updateShowForgotPassword,
     updateRecoveryEmail,
@@ -418,6 +447,7 @@ const UsersProvider = ({ children }) => {
     updateIsLoading,
     updateIsEditingProfile,
     updateEditProfileForm,
+    setNewPassword,
     isValidForm,
     manejarRegistro,
 
@@ -429,6 +459,7 @@ const UsersProvider = ({ children }) => {
     patchUserData,
     getUser,
     verifyEmail,
+    handleResetPassword,
   };
 
   return (
