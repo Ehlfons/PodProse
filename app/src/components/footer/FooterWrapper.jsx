@@ -5,8 +5,10 @@ const FooterWrapper = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/register";
-  const isVerifyEmailPage = /^\/auth\/verify\/[^/]+$/.test(location.pathname); // Check if the path matches /auth/verify/${token}
-  const isResetPasswordPage = location.pathname === "/auth/reset-password";
+  const isVerifyEmailPage = /^\/auth\/verify\/[^/]+$/.test(location.pathname);
+  const isResetPasswordPage =
+    location.pathname === "/reset-password" &&
+    new URLSearchParams(location.search).has("token");
 
   if (
     isLoginPage ||
