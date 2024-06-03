@@ -32,106 +32,72 @@ const HexagonLayout = () => {
         third: selectRandomPodcasts(usedIndexes),
       });
     }
-  }, [podcastsList]);
+  }, [podcastsList, numberOfPodcasts]);
 
   return (
     <Fragment>
-      <div className="container-hexagon-layout">
-        <div className="hexagonArea first">
-          {randomPodcastsPerRow.first.length ? (
-            <Fragment>
-              {randomPodcastsPerRow.first.map((podcast) => (
-                <Fragment key={podcast.id}>
-                  <Hexagon src={podcast.url_img} title={podcast.title}/>
-                </Fragment>
-              ))}
+  <div className="container-hexagon-layout">
+    <div className="hexagonArea first">
+      {randomPodcastsPerRow.first.length ? (
+        <Fragment>
+          {randomPodcastsPerRow.first.map((podcast, index) => (
+            <Fragment key={podcast.id}>
+              <Hexagon
+                class2={`hex-${index + 1}`}
+                src={podcast.url_img}
+                title={podcast.title}
+                podcast={podcast}
+              />
             </Fragment>
-          ) : (
-            <Fragment> {/* Podcasts falsos por si falla */}
-              <div className="hexagon">
-                <img src="src/assets/Test/trend14.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend9.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend8.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend4.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend2.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend1.jpg" alt="" />
-              </div>
-            </Fragment>
-          )}
-        </div>
-        <div className="hexagonArea second">
-          <div className="hexagon" id="short" />
-          {randomPodcastsPerRow.second.length ? (
-            <Fragment>
-              {randomPodcastsPerRow.second.map((podcast, index) => (
-                <Hexagon key={index} src={podcast.url_img} title={podcast.title} />
-              ))}
-            </Fragment>
-          ) : (
-            <Fragment> {/* Podcasts falsos por si falla */}
-              <div className="hexagon">
-                <img src="src/assets/Test/trend13.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend10.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend7.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend3.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend18.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend16.png" alt="" />
-              </div>
-            </Fragment>
-          )}
-        </div>
-        <div className="hexagonArea third">
-          {randomPodcastsPerRow.third.length ? (
-            <Fragment>
-              {randomPodcastsPerRow.third.map((podcast, index) => (
-                <Hexagon key={index} src={podcast.url_img} title={podcast.title} />
-              ))}
-            </Fragment>
-          ) : (
-            <Fragment> {/* Podcasts falsos por si falla */}
-              <div className="hexagon">
-                <img src="src/assets/Test/trend12.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend11.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend6.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend5.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend17.jpg" alt="" />
-              </div>
-              <div className="hexagon">
-                <img src="src/assets/Test/trend15.jpg" alt="" />
-              </div>
-            </Fragment>
-          )}
-        </div>
-      </div>
-    </Fragment>
+          ))}
+        </Fragment>
+      ) : (
+        <Fragment>
+          <p className="error-message">No se han encontrado podcasts, prueba a reiniciar la página</p>
+        </Fragment>
+      )}
+    </div>
+    <div className="hexagonArea second">
+      <div className="hexagon" id="short" />
+      {randomPodcastsPerRow.second.length ? (
+        <Fragment>
+          {randomPodcastsPerRow.second.map((podcast, index) => (
+            <Hexagon
+              key={podcast.id}
+              class2={`hex-${index + 1}`}
+              src={podcast.url_img}
+              title={podcast.title}
+              podcast={podcast}
+            />
+          ))}
+        </Fragment>
+      ) : (
+        <Fragment>
+          <p className="error-message">No se han encontrado podcasts, prueba a reiniciar la página</p>
+        </Fragment>
+      )}
+    </div>
+    <div className="hexagonArea third">
+      {randomPodcastsPerRow.third.length ? (
+        <Fragment>
+          {randomPodcastsPerRow.third.map((podcast, index) => (
+            <Hexagon
+              key={podcast.id}
+              class2={`hex-${index + 1}`}
+              src={podcast.url_img}
+              title={podcast.title}
+              podcast={podcast}
+            />
+          ))}
+        </Fragment>
+      ) : (
+        <Fragment>
+          <p className="error-message">No se han encontrado podcasts, prueba a reiniciar la página</p>
+        </Fragment>
+      )}
+    </div>
+  </div>
+</Fragment>
   );
 };
 

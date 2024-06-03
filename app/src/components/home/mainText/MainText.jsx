@@ -17,7 +17,7 @@ const MainText = () => {
           con PodProse!
         </p>
         <div className="start-container">
-          <img id="start-button" src="src/assets/Play-Green.svg" alt="Play" />
+          <img id="start-button" src="https://podprose-uploader.s3.amazonaws.com/Play-Green.svg" alt="Play" />
           <p id="start-text">Empieza a escuchar!</p>
         </div>
       </div>

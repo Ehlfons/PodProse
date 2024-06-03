@@ -6,16 +6,15 @@ import { PodcastUpload, PodcastList } from "@components/uploadPodcasts";
 import "./ContentManagementPage.css";
 
 const ContentManagementPage = () => {
-  const { fetchUserPodcasts } = usePodcasts();
+  const { fetchUserPodcasts, getPodcastsCategories } = usePodcasts();
   const { isLoading, updateIsLoading } = useUsers();
 
   useEffect(() => {
-    updateIsLoading(true);
+    // updateIsLoading(true);
     fetchUserPodcasts();
+    getPodcastsCategories();
     setTimeout(() => {
-      updateIsLoading(
-        false
-      ); /* Para evitar que se vea la renderización de los podcasts */
+      updateIsLoading(false); /* Para evitar que se vea la renderización de los podcasts */
     }, 1500);
   }, []);
 

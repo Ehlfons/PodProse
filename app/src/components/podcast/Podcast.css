@@ -23,7 +23,6 @@
 .podcast-info {
   display: flex;
   flex-direction: column;
-  z-index: 1001;
   box-sizing: border-box;
   align-items: flex-start;
 }
