@@ -31,6 +31,7 @@ const PodcastsProvider = ({ children }) => {
   const editingPodcastIdInitialValue = null;
   const podcastSelectedByIdInitialValue = null;
   const latestPodcastsListInitialValue = [];
+  const trendContentPodcastsInitialValue = [];
 
   // Estados.
   const [podcast, setPodcast] = useState(PodcastInitialValue); // Estado para guardar los datos del podcast.
@@ -53,7 +54,7 @@ const PodcastsProvider = ({ children }) => {
   const [podcastAudioEdit, setPodcastAudioEdit] = useState(podcastAudioEditInitialValue);
   const [editingPodcastId, setEditingPodcastId] = useState(editingPodcastIdInitialValue);
   const [podcastSelectedById, setPodcastSelectedById] = useState(podcastSelectedByIdInitialValue);
-  const [latestPodcastsList, setLatestPodcastsList] = useState(latestPodcastsListInitialValue);
+  const [trendContentPodcasts, setTrendContentPodcasts] = useState(trendContentPodcastsInitialValue);  
   
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -125,17 +126,6 @@ const PodcastsProvider = ({ children }) => {
     }
   };
 
-  const getLatestsPodcasts = async () => {
-    try {
-      const response = await axios.get(`${apiURL}/content/r-latests`);
-
-      console.log(response.data)
-      setLatestPodcastsList(response.data);
-    } catch (error) {
-      toast.error('Error de red');
-    }
-  };
-
   // Funcion para rellenar el formulario de edición con los datos del podcast seleccionado.
   const getPodcastById = async (podcastId) => {
     try {
@@ -152,6 +142,16 @@ const PodcastsProvider = ({ children }) => {
       updateModalVisibility(false);
       updateIsEditing(true);
 
+    } catch (error) {
+      toast.error('Error de red');
+    }
+  };
+
+  const getTrendsPodcasts = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/categories/random`);
+
+      setTrendContentPodcasts(response.data);
     } catch (error) {
       toast.error('Error de red');
     }
@@ -344,6 +344,7 @@ const PodcastsProvider = ({ children }) => {
     podcastAudioEdit,
     editingPodcastId,
     podcastSelectedById,
+    trendContentPodcasts,
 
     updateSelectedPodcast,
     updateAudioUrl,
@@ -370,7 +371,7 @@ const PodcastsProvider = ({ children }) => {
     getPodcastById,
     resetEditing,
     clearAllPodcasts,
-    getLatestsPodcasts,
+    getTrendsPodcasts,
   };
 
   return (

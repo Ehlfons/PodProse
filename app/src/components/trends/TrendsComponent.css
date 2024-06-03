@@ -1,5 +1,5 @@
 .container-trends {
-  height: 2410px;
+  padding-bottom: 78px;
   background-color: var(--secondary-dark-bg-color);
 }
 
@@ -58,18 +58,18 @@
 .trend-category {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 59.89%;
+  justify-content: flex-start;
+  gap: 40px;
 }
 
 .trend-category img {
-  width: 40.078%;
-  height: 100%;
+  width: 300px;
+  height: 300px;
   border-radius: 10px;
 }
 
 .trend-category-info {
-  width: 55.307%;
+  width: 414px;
 }
 
 .trend-category-info .trend-category-title {
@@ -94,7 +94,7 @@
 }
 
 .trend-podcasts {
-  width: 34.163%;
+  width: 427px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -109,7 +109,7 @@
 
 .trend-podcast img {
   width: 80px;
-  height: 100%;
+  height: 80px;
   border-radius: 10px;
   margin-right: 31px;
 }
@@ -120,6 +120,7 @@
   justify-content: space-between;
   height: 74px;
   margin-top: 3px;
+  width: 100%;
 }
 
 .trend-podcast-info .trend-podcast-title {
@@ -153,4 +154,57 @@
 
 .trends-cards img {
   cursor: pointer;
+}
+
+@media (max-width: 1683px) {
+  .trend-category-info .trend-category-title {
+    font-size: 24px;
+  }
+
+  .trend-category-info .trend-num-podcasts {
+    font-size: 12px;
+  }
+
+  .trend-category-info .trend-description {
+    font-size: 16px;
+  }
+
+  .trend-category-info {
+    width: 320px;
+  }
+}
+
+@media (max-width: 1511px) {
+  .trends-wrapper {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1183px) {
+  .trend-category img, .trend-category-info .trend-description {
+    display: none;
+  }
+
+  .trend-card {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
+
+  .trend-podcasts {
+    width: 100%;
+    gap: 20px;
+  }
+
+  .trends-card-separator {
+    margin-block: 40px;
+  }
+
+  .trend-category-info .trend-category-title {
+    margin-top: -10px;
+  }
+
+  .container-trends {
+    padding-bottom: 40px;
+  }
 }

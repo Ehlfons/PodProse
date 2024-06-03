@@ -7,11 +7,12 @@ import SpamComponent from "@components/spam/SpamComponent.jsx";
 import TrendsComponent from "@components/trends/TrendsComponent.jsx";
 
 const MainPage = () => {
-  const { fetchPodcasts } = usePodcasts();
+  const { fetchPodcasts, getTrendsPodcasts } = usePodcasts();
   const [isLoadingHome, setIsLoadingHome] = useState(true);
 
   useEffect(() => {
     fetchPodcasts();
+    getTrendsPodcasts();
     setTimeout(() => {
       setIsLoadingHome(false);
     }, 1000);
@@ -20,7 +21,7 @@ const MainPage = () => {
 
   return (
     <Fragment>
-      <main>
+      <main className="hp-main">
         <HomeComponent />
         <LatestComponent />
         <SpamComponent />

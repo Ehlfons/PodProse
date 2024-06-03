@@ -62,6 +62,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     updateIsLoading(true);
+
     // Simulate loading time para cargar la imagen
     setTimeout(() => {
       updateIsLoading(false);
