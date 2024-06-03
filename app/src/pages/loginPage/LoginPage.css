@@ -98,6 +98,10 @@
   width: 100%;
 }
 
+.forgot-password-form {
+  width: 100%;
+}
+
 .forgot-password-form .login-main-input-email {
   margin-bottom: 10px;
 }

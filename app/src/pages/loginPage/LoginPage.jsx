@@ -55,27 +55,29 @@ const LoginPage = () => {
           <div className="login-main-form">
             <div className="login-main-inputs">
               {showForgotPassword ? (
-                <div className="forgot-password-form">
-                  <div className="login-main-input-email">
-                    <label htmlFor="recoveryEmail">Correo Electrónico</label>
+                <div className="login-main-inputs-wrapper">
+                  <div className="forgot-password-form">
+                    <div className="login-main-input-email">
+                      <label htmlFor="recoveryEmail">Correo Electrónico</label>
+                      <input
+                        className="login-main-common-input"
+                        title="Correo de recuperación"
+                        type="email"
+                        id="recoveryEmail"
+                        name="recoveryEmail"
+                        value={recoveryEmail}
+                        onChange={(e) => updateRecoveryEmail(e.target.value)}
+                      />
+                    </div>
                     <input
-                      className="login-main-common-input"
-                      title="Correo de recuperación"
-                      type="email"
-                      id="recoveryEmail"
-                      name="recoveryEmail"
-                      value={recoveryEmail}
-                      onChange={(e) => updateRecoveryEmail(e.target.value)}
+                      className="login-main-input-login"
+                      title="Enviar"
+                      type="button"
+                      value="Enviar"
+                      onClick={handleForgotPassword}
                     />
+                    {message && <p className="message">{message}</p>}
                   </div>
-                  <input
-                    className="login-main-input-login"
-                    title="Enviar"
-                    type="button"
-                    value="Enviar"
-                    onClick={handleForgotPassword}
-                  />
-                  {message && <p className="message">{message}</p>}
                 </div>
               ) : (
                 <div className="login-main-inputs-wrapper">
