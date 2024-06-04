@@ -12,6 +12,7 @@ import {
   ErrorPage,
   ResetPasswordPage,
   VerifyEmailPage,
+  SubscriptionPage
 } from "@pages/index";
 
 const Routes = () => {
@@ -44,6 +45,7 @@ const Routes = () => {
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/my-content" element={<ContentManagementPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/subscription" element={<SubscriptionPage />} />
         </>
       )}
 

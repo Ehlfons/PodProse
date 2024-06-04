@@ -12,6 +12,7 @@
   border: 1px solid var(--main-text-color);
   cursor: pointer;
   box-sizing: border-box;
+  height: 112px !important;
 }
 
 .podcast img {

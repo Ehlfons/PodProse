@@ -33,7 +33,6 @@ const LatestSlider = () => {
   };
   
   useEffect(() => {
-    
     // Llama la función al montar el componente para ajustar el estado inicial
     handleResize();
     

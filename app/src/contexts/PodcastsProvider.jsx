@@ -33,6 +33,12 @@ const PodcastsProvider = ({ children }) => {
   const trendContentPodcastsInitialValue = [];
   const podcastCategoriesInitialValue = null;
   const selectedPodcastCategoryInitialValue = null;
+  const randomPodcastsInitialValue = [];
+  const filtersInitialValue = {
+    creator: "",
+    title: "",
+    category: "",
+  };
 
   // Estados.
   const [podcast, setPodcast] = useState(PodcastInitialValue); // Estado para guardar los datos del podcast.
@@ -58,6 +64,8 @@ const PodcastsProvider = ({ children }) => {
   const [trendContentPodcasts, setTrendContentPodcasts] = useState(trendContentPodcastsInitialValue);  
   const [podcastCategories, setPodcastCategories] = useState(podcastCategoriesInitialValue);
   const [selectedPodcastCategory, setSelectedPodcastCategory] = useState(selectedPodcastCategoryInitialValue);
+  const [randomPodcasts, setRandomPodcasts] = useState(randomPodcastsInitialValue);
+  const [filters, setFilters] = useState(filtersInitialValue);
   
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
@@ -252,53 +260,56 @@ const PodcastsProvider = ({ children }) => {
     return `${dia}-${mes}-${anio}`;
   };
 
-  // Funcion para validar el formulario
-  const validateForm = (podcast) => {
-    const errores = {}; // Objeto para almacenar los errores.
-
-    // Validar el título del podcast.
-    if (!podcast.title || podcast.title.trim() === "") {
-      errores.title = "El título es obligatorio";
+  const applyFilters = () => {
+    if (filters.creator === "" && filters.title === "" && filters.category === "") {
+      toast.warning("Por favor, ingrese al menos un filtro");
+      return;
     }
 
-    // Validar el título del podcast.
-    if (!podcast.title || podcast.title.length > 64) { 
-      errores.title = "El título no puede superar los 64 caracteres.";
+    let filteredPodcasts = [...podcastsList];
+
+    if (filters.creator) {
+      filteredPodcasts = filteredPodcasts.filter((podcast) =>
+        podcast.username.toLowerCase().includes(filters.creator.toLowerCase())
+      );
     }
 
-    // Validar la descripción del podcast si está presente.
-    if (podcast.description && podcast.description.length > 240) {
-      errores.description =
-        "La descripción no puede superar los 100 caracteres.";
+    if (filters.title) {
+      filteredPodcasts = filteredPodcasts.filter((podcast) =>
+        podcast.title.toLowerCase().includes(filters.title.toLowerCase())
+      );
     }
 
-    // Validar la URL del imagen del podcast si está presente.
-    /* if (podcast.cover_image && podcast.cover_image.trim() !== "") {
-      // Verificar si la URL del imagen es válida
-      const urlExpresion = /^(https?:\/\/)?[\w\-_.]+$/i;
-      const esURLValida = urlExpresion.test(podcast.cover_image);
-      if (!esURLValida) {
-        errores.cover_image =
-          "Por favor, ingrese una URL válida para la imagen.";
-      }
-    } */
+    if (filters.category) {
+      filteredPodcasts = filteredPodcasts.filter((podcast) =>
+        podcast.category.toLowerCase().includes(filters.category.toLowerCase())
+      );
+    }
 
-    // Validar la URL del audio del podcast.
-    /* if (!podcast.audio_url || podcast.audio_url.trim() === "") {
-      errores.audio_url = "La URL del audio es obligatoria.";
-    } else {
-      // Verificar si la URL del audio es válida
-      const urlExpresion =
-        /^(https?:\/\/)?([\w.]+)\.([a-z]{2,6}\.?)(\/[\w.&%?#=]*)?$/;
-      const esURLValida = urlExpresion.test(podcast.audio_url);
-      if (!esURLValida) {
-        errores.audio_url = "Por favor, ingrese una URL válida para el audio.";
-      }
-    } */
+    const shuffledPodcasts = [...filteredPodcasts];
+    for (let i = shuffledPodcasts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledPodcasts[i], shuffledPodcasts[j]] = [
+        shuffledPodcasts[j],
+        shuffledPodcasts[i],
+      ];
+    }
 
-    const esValido = Object.keys(errores).length === 0; // Si el objeto "errores" está vacío, es porque no hay errores.
+    setRandomPodcasts(shuffledPodcasts.slice(0, 100));
+  };
 
-    return { esValido, errores };
+  const resetFilters = () => {
+    if (filters.creator === "" && filters.title === "" && filters.category === "") {
+      toast.info("No hay filtros aplicados");
+      return;
+    }
+
+    setFilters({
+      creator: "",
+      title: "",
+      category: "",
+    });
+    setRandomPodcasts(podcastsList.slice(0, 100));
   };
 
   const clearAllPodcasts = () => {
@@ -334,6 +345,14 @@ const PodcastsProvider = ({ children }) => {
   }
   };
 
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
   const updateAudioUrl = (url) => setAudioUrl(url);
   const updateSelectedPodcast = (podcast) => setSelectedPodcast(podcast);
   const updateVisibility = (value) => setVisibility(value);
@@ -346,6 +365,7 @@ const PodcastsProvider = ({ children }) => {
   const updateImagePreview = (value) => setImagePreview(value);
   const updateEditingPodcastId = (value) => setEditingPodcastId(value);
   const updateSelectedPodcastCategory = (value) => setSelectedPodcastCategory(value);
+  const updateRandomPodcasts = (value) => setRandomPodcasts(value);
 
   // Datos a exportar al contexto.
   const dataToExport = {
@@ -369,6 +389,8 @@ const PodcastsProvider = ({ children }) => {
     trendContentPodcasts,
     podcastCategories,
     selectedPodcastCategory,
+    randomPodcasts,
+    filters,
 
     updateSelectedPodcast,
     updateAudioUrl,
@@ -382,6 +404,7 @@ const PodcastsProvider = ({ children }) => {
     updateImagePreview,
     updateEditingPodcastId,
     updateSelectedPodcastCategory,
+    updateRandomPodcasts,
     
     updateAudioFileChange,
     updateImageFileChange,
@@ -390,7 +413,6 @@ const PodcastsProvider = ({ children }) => {
     fetchUserPodcasts,
     handleDeletePodcast,
     handleEditPodcast,
-    validateForm,
     formatDate,
     clearForm,
     getPodcastById,
@@ -398,6 +420,9 @@ const PodcastsProvider = ({ children }) => {
     clearAllPodcasts,
     getTrendsPodcasts,
     getPodcastsCategories,
+    applyFilters,
+    resetFilters,
+    handleFilterChange,
   };
 
   return (

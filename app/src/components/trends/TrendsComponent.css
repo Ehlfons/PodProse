@@ -150,10 +150,17 @@
   margin: 78px 0;
 }
 
-/* effects */
-
 .trends-cards img {
   cursor: pointer;
+}
+
+.trend-podcast:hover {
+  background-color: var(--main-text-color-5);
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  box-sizing: content-box;
+  scale: 1.05;
 }
 
 @media (max-width: 1683px) {
@@ -171,10 +178,11 @@
 
   .trend-category-info {
     width: 320px;
+    margin-right: 20px;
   }
 }
 
-@media (max-width: 1511px) {
+@media (max-width: 1549px) {
   .trends-wrapper {
     width: 85%;
   }

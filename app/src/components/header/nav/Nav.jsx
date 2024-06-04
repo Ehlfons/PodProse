@@ -1,13 +1,21 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { useUsers } from "@components/hooks";
 
 import "./Nav.css";
 
 const Nav = ({show, updateShow, updateIcon, transitionEnabled}) => {
 
+  const { updateIsLoading } = useUsers();
+
   const handleClick = () => {
+    updateIsLoading(true);
     updateShow(false);
     updateIcon(false);
+
+    setTimeout(() => {
+      updateIsLoading(false);
+    }, 1500);
   }
 
   return (

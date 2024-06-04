@@ -1,2 +1,3 @@
-export { default as DeleteModal } from "./DeleteModal.jsx";
-export { default as EditOrDelete } from "./EditOrDelete.jsx";
+export { default as DeleteModal } from "./DeleteModal";
+export { default as EditOrDelete } from "./EditOrDelete";
+export { default as CreditCardModal } from "./creditCardModal/CreditCardModal";

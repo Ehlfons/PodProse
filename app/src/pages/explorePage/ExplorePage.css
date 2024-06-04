@@ -1,40 +1,3 @@
-.reproductor {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--primary-dark-bg-color);
-}
-
-.reproductor-component {
-  position: relative;
-  bottom: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: end;
-  width: 100%;
-  background-color: var(--primary-dark-bg-color);
-}
-
-.null {
-  margin-left: 20px;
-  color: var(--primary-red);
-}
-
-.container-explore {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--primary-dark-bg-color);
-  width: 80%;
-  gap: 50px;
-  margin-bottom: 40px;
-}
-
 #ep-main {
   display: flex;
   flex-direction: row;
@@ -42,37 +5,40 @@
   align-items: flex-start;
   margin: var(--default-space);
   margin-top: 60px;
+  gap: 20px;
 }
 
-.filters-explore {
-  width: 20%;
+@media (max-width: 1440px) {
+  #ep-main .podcast {
+    width: calc(100% - 40px) !important;
+  }
 }
 
-.explore-style {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  width: 100% !important;
+@media (max-width: 926px) {
+  #ep-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  .container-explore {
+    width: 100% !important;
+    gap: 60px !important;
+  }
+
+  #ep-main .podcast {
+    width: 99.5% !important;
+  }
+
+  .filters-explore {
+    width: 100% !important;
+    position: static !important;
+  }
 }
 
-#ep-main .podcast-info {
-  width: 100%;
-}
-
-#ep-main .podcast img {
-  position: absolute;
-  top: -15px;
-  left: -5px;
-  z-index: 600;
-  width: 130px;
-  height: 130px;
-  border-radius: 20px;
-  border: 2px solid var(--main-text-color-25);
-  border-right: none;
-}
-
-#ep-main .podcast {
-  padding-left: 145px;
-  border: 1px solid var(--main-text-color);
-  padding-right: 20px;
+@media (max-width: 510px) {
+  .podcast-info-text.explore-style p:nth-of-type(2), .podcast-title-description p {
+    display: none !important;
+  }
 }

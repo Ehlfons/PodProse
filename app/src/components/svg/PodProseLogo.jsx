@@ -6,6 +6,7 @@ const PodProseLogo = () => {
       <svg
         className="footer-logo"
         viewBox="0.00 0.00 1105.00 564.00"
+        id="podprose-header-logo"
       >
         <g strokeWidth="2.00" fill="none" strokeLinecap="butt">
           <path

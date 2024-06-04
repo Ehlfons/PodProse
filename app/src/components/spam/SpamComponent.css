@@ -134,7 +134,7 @@
   }
 }
 
-@media (max-width: 1511px) {
+@media (max-width: 1549px) {
   .spam-wrapper {
     width: 85%;
   }
@@ -198,5 +198,11 @@
 
   #social-newsletter-spam p {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 478px) {
+  #social-newsletter-spam {
+    width: 110%;
   }
 }

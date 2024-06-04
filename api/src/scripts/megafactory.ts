@@ -6,25 +6,37 @@ const prisma = new PrismaClient();
 async function main() {
   const hashedPassword = await bcrypt.hash('1234', 10);
 
-  // Eliminar usuario existente si ya existe
-  await prisma.user.deleteMany({
-    where: {
-      username: 'admin',
-    },
-  });
-
-  // Crear el usuario
-  const user = await prisma.user.create({
-    data: {
-      name: 'Podprose Admin',
-      username: `admin_${Date.now()}`,
-      email: 'admin@admin.com',
+  // Crear 10 usuarios
+  const usersData: Prisma.UserCreateInput[] = [];
+  for (let i = 1; i <= 10; i++) {
+    usersData.push({
+      name: `Podprose Admin ${i}`,
+      username: `PodProse_Admin${i}`,
+      email: `admin${i}@admin.com`,
       password: hashedPassword,
       role: 'user',
       url_img: 'https://podprose-uploader.s3.amazonaws.com/default.png',
       verificateAt: new Date(),
-    },
-  });
+    });
+  }
+
+  // Eliminar usuarios existentes si ya existen
+  for (const user of usersData) {
+    await prisma.user.deleteMany({
+      where: {
+        username: user.username,
+      },
+    });
+  }
+
+  // Crear los usuarios y almacenar los resultados
+  const createdUsers = [];
+  for (const userData of usersData) {
+    const user = await prisma.user.create({
+      data: userData,
+    });
+    createdUsers.push(user);
+  }
 
   // Definir las categorías
   const categoriesData: Prisma.CategoryCreateManyInput[] = [
@@ -36,14 +48,14 @@ async function main() {
     { name: 'Salud y Bienestar' },
     { name: 'Educación' },
     { name: 'Negocios y Finanzas' },
-    { name: 'Entretenimiento y Comedia' },
+    { name: 'Entretenimiento' },
     { name: 'Deportes' },
     { name: 'Cine y Televisión' },
     { name: 'Literatura y Libros' },
     { name: 'Música' },
     { name: 'Viajes y Aventura' },
-    { name: 'Espiritualidad y Religión' },
-    { name: 'Autoayuda y Desarrollo Personal' },
+    { name: 'Espiritualidad' },
+    { name: 'Desarrollo Personal' },
     { name: 'Crimen y Misterio' },
     { name: 'Política' },
     { name: 'Arte y Diseño' },
@@ -51,7 +63,7 @@ async function main() {
   ];
 
   // Crear las categorías
-  const categories = await prisma.category.createMany({
+  await prisma.category.createMany({
     data: categoriesData,
   });
 
@@ -60,20 +72,21 @@ async function main() {
   // Obtener todas las categorías
   const allCategories = await prisma.category.findMany();
 
-  // Crear 99 podcasts asociados a este usuario con categorías aleatorias
+  // Crear 99 podcasts y distribuirlos entre los 10 usuarios
   const podcastsData: Prisma.PodcastCreateManyInput[] = [];
   for (let i = 1; i <= 99; i++) {
     // Seleccionar una categoría aleatoria
-    const randomCategory =
-      allCategories[Math.floor(Math.random() * allCategories.length)];
+    const randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)];
+    // Asignar el usuario correspondiente (cada usuario recibe 10 podcasts excepto el último)
+    const userId = createdUsers[Math.floor((i - 1) / 10)].id;
 
     podcastsData.push({
-      title: `#${i} - Podcast`,
-      description: `Description for Podcast ${i}`,
+      title: `#${i} - Título número ${i}`,
+      description: `Episodio ${i}: Explora ideas innovadoras y nuevos contenidos`,
       url_img: `https://podprose-uploader.s3.amazonaws.com/img/${i}.png`,
       url_audio: `https://podprose-uploader.s3.amazonaws.com/audio/${i}.mp3`,
-      userId: user.id,
-      categoryId: randomCategory.id, // Asignar categoría aleatoria
+      userId: userId,
+      categoryId: randomCategory.id,
     });
   }
 
@@ -81,7 +94,7 @@ async function main() {
     data: podcastsData,
   });
 
-  console.log('Usuario y podcasts creados exitosamente');
+  console.log('Usuarios y podcasts creados exitosamente');
 
   // Definir los templates de newsletters con ids únicos
   const newsletterTemplatesData: Prisma.NewsletterTemplateCreateManyInput[] = [

@@ -1,0 +1,15 @@
+#sp-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-block: 60px 80px;
+  flex-wrap: wrap;
+  row-gap: 50px;
+}
+
+@media (max-width: 795px) {
+  #sp-main {
+    flex-direction: column;
+  }
+}
