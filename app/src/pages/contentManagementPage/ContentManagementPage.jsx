@@ -10,7 +10,7 @@ const ContentManagementPage = () => {
   const { isLoading, updateIsLoading } = useUsers();
 
   useEffect(() => {
-    // updateIsLoading(true);
+    updateIsLoading(true);
     fetchUserPodcasts();
     getPodcastsCategories();
     setTimeout(() => {

@@ -30,7 +30,7 @@ div.nav ul li a {
     left: 0;
     z-index: 8700;
     background-color: var(--primary-dark-bg-color);
-    transform: translateY(-100%);
+    transform: translateY(-200%);
   }
   
   header div.nav.show {

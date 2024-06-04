@@ -1,10 +1,19 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { GithubLogo, LinkedinLogo } from "@components/svg";
-import { useInfo } from "@components/hooks";
+import { useInfo, useUsers } from "@components/hooks";
+import { Loader } from "@components/loader";
 import "./ContactPage.css";
 
 const ContactPage = () => {
   const { emailFormData, handleChangeEmailFormData, handleSubmitContactEmail } = useInfo();
+  const { updateIsLoading, isLoading } = useUsers();
+
+  useEffect(() => {
+    updateIsLoading(true);
+    setTimeout(() => {
+      updateIsLoading(false);
+    }, 1500);
+  }, []);
 
   return (
     <Fragment>
@@ -154,6 +163,7 @@ const ContactPage = () => {
           </div>
         </div>
       </main>
+      {isLoading && <Loader />}
     </Fragment>
   );
 };

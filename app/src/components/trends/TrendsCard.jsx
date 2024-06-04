@@ -1,6 +1,8 @@
 import { Fragment } from "react";
+import {usePodcasts} from "@components/hooks";
 
 const TrendsCard = ({ category, isLast }) => {
+  const { updateAudioUrl, updateVisibility, updateSelectedPodcast } = usePodcasts();
   const { name, podcastCount } = category.category;
   const podcasts = category.podcasts;
 
@@ -13,7 +15,13 @@ const TrendsCard = ({ category, isLast }) => {
     <Fragment>
       <div className="trend-card">
         <div className="trend-category">
-          <img src={podcasts[0].url_img} alt="category" />
+          <img src={podcasts[0].url_img} alt="category" 
+            onClick={() => {
+              updateAudioUrl(podcasts[0].url_audio);
+              updateSelectedPodcast(podcasts[0]);
+              updateVisibility(true);
+            }}
+          />
           <div className="trend-category-info">
             <h4 className="trend-category-title">{name}</h4>
             <p className="trend-num-podcasts">{podcastCount} podcasts</p>
@@ -22,7 +30,15 @@ const TrendsCard = ({ category, isLast }) => {
         </div>
         <div className="trend-podcasts">
           {podcasts.slice(1, 4).map((podcast, index) => (
-            <div key={podcast.id} className="trend-podcast">
+            <div
+              key={podcast.id}
+              className="trend-podcast"
+              onClick={() => {
+                updateAudioUrl(podcast.url_audio);
+                updateSelectedPodcast(podcast);
+                updateVisibility(true);
+              }}
+            >
               <img src={podcast.url_img} alt={`podcast-${index}`} />
               <div className="trend-podcast-info">
                 <h4 className="trend-podcast-title">{podcast.title}</h4>

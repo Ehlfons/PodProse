@@ -8,3 +8,4 @@ export { default as ProfilePage } from "./profilePage/ProfilePage";
 export { default as ErrorPage } from "./errorPage/ErrorPage";
 export { default as ResetPasswordPage } from "./resetPasswordPage/ResetPasswordPage";
 export { default as VerifyEmailPage } from "./verifyEmailPage/VerifyEmailPage";
+export { default as SubscriptionPage } from "./subscriptionPage/SubscriptionPage";

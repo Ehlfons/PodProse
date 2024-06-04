@@ -88,3 +88,7 @@
 .swiper {
   height: 340px;
 }
+
+.latest-slider-fade {
+  cursor: pointer;
+}
