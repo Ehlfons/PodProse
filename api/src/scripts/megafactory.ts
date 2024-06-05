@@ -76,7 +76,8 @@ async function main() {
   const podcastsData: Prisma.PodcastCreateManyInput[] = [];
   for (let i = 1; i <= 99; i++) {
     // Seleccionar una categoría aleatoria
-    const randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)];
+    const randomCategory =
+      allCategories[Math.floor(Math.random() * allCategories.length)];
     // Asignar el usuario correspondiente (cada usuario recibe 10 podcasts excepto el último)
     const userId = createdUsers[Math.floor((i - 1) / 10)].id;
 
@@ -100,12 +101,12 @@ async function main() {
   const newsletterTemplatesData: Prisma.NewsletterTemplateCreateManyInput[] = [
     {
       id: `template1_${Date.now()}`,
-      subject: 'Nuevo episodio disponible: {{podcast.title}}',
+      subject: 'Nuevo episodio disponible: {{podcast1.title}}',
       body: `<p>¡Hola, {{user.name}}!</p>
-<p>Estamos emocionados de anunciar que ya está disponible un nuevo episodio de tu podcast favorito: {{podcast.title}}.</p>
-<p>Descripción: {{podcast.description}}</p>
+<p>Estamos emocionados de anunciar que ya está disponible un nuevo episodio de tu podcast favorito: {{podcast1.title}}.</p>
+<p>Descripción: {{podcast1.description}}</p>
 <p>Duración: 50 minutos</p>
-<p>Escúchalo ahora en <a href="{{podcast.url_audio}}">{{podcast.url_audio}}</a>.</p>
+<p>Escúchalo ahora en <a href="{{podcast1.url_audio}}">este enlace</a>.</p>
 <p>¡Gracias por seguir escuchando y apoyando a PodProse!</p>
 <p>Saludos,<br>El equipo de PodProse</p>`,
       createdAt: new Date(),
@@ -121,7 +122,7 @@ async function main() {
   <li>{{podcast2.title}} - {{podcast2.description}}</li>
   <li>{{podcast3.title}} - {{podcast3.description}}</li>
 </ol>
-<p>No te los pierdas, escúchalos ahora en <a href="https://podprose.com/episodios-semana">este enlace</a>.</p>
+<p>No te los pierdas, escúchalos ahora en <a href="http://app.podprose.tech/explore">este enlace</a>.</p>
 <p>¡Gracias por ser parte de nuestra comunidad!</p>
 <p>Saludos,<br>El equipo de PodProse</p>`,
       createdAt: new Date(),
@@ -129,12 +130,12 @@ async function main() {
     },
     {
       id: `template3_${Date.now()}`,
-      subject: 'Recordatorio: No te pierdas {{podcast.title}}',
+      subject: 'Recordatorio: No te pierdas {{podcast1.title}}',
       body: `<p>¡Hola, {{user.name}}!</p>
-<p>Solo un pequeño recordatorio de que no te pierdas este episodio de {{podcast.title}}:</p>
-<p>Descripción: {{podcast.description}}</p>
+<p>Solo un pequeño recordatorio de que no te pierdas este episodio de {{podcast1.title}}:</p>
+<p>Descripción: {{podcast1.description}}</p>
 <p>Duración: 60 minutos</p>
-<p>Escúchalo ahora en <a href="{{podcast.url_audio}}">{{podcast.url_audio}}</a>.</p>
+<p>Escúchalo ahora en <a href="{{podcast1.url_audio}}">este enlace</a>.</p>
 <p>¡Gracias por escuchar PodProse!</p>
 <p>Saludos,<br>El equipo de PodProse</p>`,
       createdAt: new Date(),
@@ -150,7 +151,7 @@ async function main() {
   <li>{{podcast2.title}} - {{podcast2.description}}</li>
   <li>{{podcast3.title}} - {{podcast3.description}}</li>
 </ol>
-<p>Encuentra algo nuevo para escuchar hoy en <a href="https://podprose.com/sugerencias">este enlace</a>.</p>
+<p>Encuentra algo nuevo para escuchar hoy en <a href="https://http://app.podprose.tech/explore">este enlace</a>.</p>
 <p>¡Disfruta escuchando!</p>
 <p>Saludos,<br>El equipo de PodProse</p>`,
       createdAt: new Date(),
@@ -165,7 +166,7 @@ async function main() {
 <p>Fecha: 25 de junio de 2024</p>
 <p>Hora: 18:00</p>
 <p>Descripción: Únete a nosotros para una noche de charlas inspiradoras y networking con algunos de los creadores de podcasts más influyentes de la industria.</p>
-<p>¡No te lo pierdas! Regístrate ahora en <a href="https://podprose.com/evento/encuentro-creadores">este enlace</a>.</p>
+<p>¡No te lo pierdas! Regístrate ahora en <a href="http://app.podprose.tech/explore">este enlace</a>.</p>
 <p>¡Gracias por ser parte de PodProse!</p>
 <p>Saludos,<br>El equipo de PodProse</p>`,
       createdAt: new Date(),

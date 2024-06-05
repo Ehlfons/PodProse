@@ -6,26 +6,25 @@ const TermsAndConditionsPage = () => {
   return (
     <Fragment>
       <main className="terms-page">
-        <h1>TÉRMINOS Y CONDICIONES — PodProse</h1>
+        <h1>Términos y Condiciones — PodProse</h1>
         <p>
-          Sergio Alfonso Deltell, persona jurídica de derecho privado describe, a través de
-          este documento, las normas de uso del sitio <strong>app.podprose.tech</strong> y de
-          cualquier otro sitio web, tienda o aplicación operada por el titular.
-          Al navegar por este sitio web, consideramos que está de acuerdo con
-          las condiciones de uso que figuran a continuación.
-          Si no está de acuerdo con los términos de este acuerdo, le pedimos que
-          no haga ningún otro uso de este sitio web, mucho menos que se registre
-          o envíe sus datos personales.
-          Si cambiamos nuestras condiciones de uso, publicaremos el nuevo texto
-          en este sitio web, con una fecha de revisión actualizada. Podemos
-          modificar este documento en cualquier momento.
-          Si hay un cambio significativo en los términos de este acuerdo,
-          podemos informarle utilizando la información de contacto que tenemos
-          en nuestra base de datos o mediante una notificación.
-          El uso de este sitio web después de los cambios significa que usted
-          acepta las condiciones de uso revisadas. Si, después de leer la
-          versión revisada, no está de acuerdo con sus términos, por favor,
-          termine su acceso.
+          Sergio Alfonso Deltell y Sergio Sánchez de Castro, personas jurídicas
+          de derecho privado, describen, a través de este documento, las normas
+          de uso del sitio <strong>app.podprose.tech</strong> y de cualquier
+          otro sitio web, tienda o aplicación operada por los titulares. Al
+          navegar por este sitio web, consideramos que está de acuerdo con las
+          condiciones de uso que figuran a continuación. Si no está de acuerdo
+          con los términos de este acuerdo, le pedimos que no haga ningún otro
+          uso de este sitio web, mucho menos que se registre o envíe sus datos
+          personales. Si cambiamos nuestras condiciones de uso, publicaremos el
+          nuevo texto en este sitio web, con una fecha de revisión actualizada.
+          Podemos modificar este documento en cualquier momento. Si hay un
+          cambio significativo en los términos de este acuerdo, podemos
+          informarle utilizando la información de contacto que tenemos en
+          nuestra base de datos o mediante una notificación. El uso de este
+          sitio web después de los cambios significa que usted acepta las
+          condiciones de uso revisadas. Si, después de leer la versión revisada,
+          no está de acuerdo con sus términos, por favor, termine su acceso.
         </p>
         <h2>Sección 1 - Usuario</h2>
         <p>
@@ -33,15 +32,16 @@ const TermsAndConditionsPage = () => {
           Usuario e implica su plena aceptación de todas las directrices y
           condiciones incluidas en estas Condiciones.
         </p>
-        <h2>Sección 2 - Adhesión junto con la política de privacidad</h2>
+        <h2>Sección 2 - Adhesión junto con la Política de Privacidad</h2>
         <p>
           El uso de este sitio web implica la adhesión a estas Condiciones de
           Uso y a la versión más actualizada de la Política de Privacidad de
           PodProse.
         </p>
-        <h2>Sección 3 - Condiciones de acceso</h2>
+        <h2>Sección 3 - Condiciones de Acceso</h2>
         <p>
-          En general, el acceso al sitio web de PodProse es gratuito y requiere registro previo.
+          En general, el acceso al sitio web de PodProse es gratuito y requiere
+          registro previo.
         </p>
         <p>
           Sin embargo, para hacer uso de algunas funcionalidades, el usuario
@@ -101,14 +101,14 @@ const TermsAndConditionsPage = () => {
           desactivación de las cookies en su dispositivo (incapacidad para
           establecer o leer una cookie).
         </p>
-        <h2>Sección 5 - Propiedad intelectual</h2>
+        <h2>Sección 5 - Propiedad Intelectual</h2>
         <p>
           Todos los elementos de PodProse son propiedad intelectual de la misma
           o de sus licenciantes. Estos términos o el uso del sitio web no le
           otorgan ninguna licencia o derecho de uso de los derechos de propiedad
           intelectual de PodProse o de cualquier tercero.
         </p>
-        <h2>Sección 6 - Enlaces a sitios web de terceros</h2>
+        <h2>Sección 6 - Enlaces a Sitios Web de Terceros</h2>
         <p>
           Este sitio web puede contener, de vez en cuando, enlaces de hipertexto
           que le redirigirán a sitios web de nuestros socios, anunciantes,
@@ -131,14 +131,14 @@ const TermsAndConditionsPage = () => {
           política de privacidad y las condiciones de uso de cada sitio web
           visitado o proveedor de servicios utilizado.
         </p>
-        <h2>Sección 7 - Plazos y modificaciones</h2>
+        <h2>Sección 7 - Plazos y Modificaciones</h2>
         <p>El funcionamiento de este sitio web es por tiempo indefinido.</p>
         <p>
           La totalidad del sitio web o cada una de sus secciones podrá ser
           cerrada, suspendida o interrumpida unilateralmente por PodProse, en
           cualquier momento y sin previo aviso.
         </p>
-        <h2>Sección 8 - Datos personales</h2>
+        <h2>Sección 8 - Datos Personales</h2>
         <p>
           Durante el uso de este sitio web, ciertos datos personales serán
           recogidos y procesados por PodProse y/o los Socios. Las normas

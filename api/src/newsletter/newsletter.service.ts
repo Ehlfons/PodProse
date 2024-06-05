@@ -23,7 +23,7 @@ export class NewsletterService {
       for (const key of keys) {
         value = value[key];
         if (value === undefined) {
-          return match; // Deja el marcador de posición si no se encuentra el valor
+          return match;
         }
       }
       return value;

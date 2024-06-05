@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useUsers } from "@components/hooks";
+import { useUsers, useInfo } from "@components/hooks";
 import { toast } from "sonner";
 import {
   ArrowLogin,
@@ -26,6 +26,8 @@ const LoginPage = () => {
     recoveryEmail,
     updateRecoveryEmail,
   } = useUsers();
+
+  const { handleKeyDown } = useInfo();
 
   useEffect(() => {
     if (localStorage.getItem("emailVerified")) {
@@ -67,6 +69,9 @@ const LoginPage = () => {
                         name="recoveryEmail"
                         value={recoveryEmail}
                         onChange={(e) => updateRecoveryEmail(e.target.value)}
+                        onKeyDown={(e) =>
+                          handleKeyDown(e, handleForgotPassword)
+                        }
                       />
                     </div>
                     <input
@@ -91,6 +96,7 @@ const LoginPage = () => {
                       name="email"
                       value={email}
                       onChange={(e) => updateEmail(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleLogin)}
                     />
                   </div>
                   <div className="login-main-input-passwd">
@@ -103,6 +109,7 @@ const LoginPage = () => {
                       name="password"
                       value={password}
                       onChange={(e) => updatePassword(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleLogin)}
                     />
                   </div>
                   <input
