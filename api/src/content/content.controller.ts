@@ -1,9 +1,12 @@
-import { Controller, Get, Param, Res, Delete, NotFoundException, Patch, Body, HttpStatus, UseInterceptors, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Param, Res, Delete, NotFoundException, Patch, Body, HttpStatus, UseInterceptors, UploadedFiles, ValidationPipe } from '@nestjs/common';
 import { Response } from 'express';
 import { Readable } from 'stream';
 import { ContentService } from './content.service';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
+import { UpdatePodcastDto } from './dto/update-podcast.dto';
 
+@ApiTags('Content - Podcasts')
 @Controller('content')
 class ContentController {
   constructor(private readonly contentService: ContentService) {}
@@ -45,13 +48,13 @@ class ContentController {
 
   @Patch('podcast/:id')
   @UseInterceptors(FilesInterceptor('files'))
+  @ApiBody({ type: UpdatePodcastDto })
   async updatePodcast(
     @Param('id') id: string,
     @UploadedFiles() files: Express.Multer.File[],
-    @Body('title') title: string,
-    @Body('description') description: string,
+    @Body(ValidationPipe) updatePodcastDto: UpdatePodcastDto,
   ) {
-    await this.contentService.updatePodcast(id, files, title, description);
+    await this.contentService.updatePodcast(id, files, updatePodcastDto.title, updatePodcastDto.description);
     return {
       statusCode: HttpStatus.OK,
       message: 'Podcast updated successfully',

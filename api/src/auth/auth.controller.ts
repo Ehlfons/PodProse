@@ -11,12 +11,13 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 
-@ApiTags('Registrar y Login')
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -57,8 +58,9 @@ export class AuthController {
   }
 
   @Post('forgot-password')
-  async forgotPassword(@Body('email') email: string) {
-    return this.authService.forgotPassword(email);
+  @ApiBody({ type: ForgotPasswordDto })
+  async forgotPassword(@Body(ValidationPipe) forgotPasswordDto: ForgotPasswordDto) {
+    return this.authService.forgotPassword(forgotPasswordDto.email);
   }
 
   @Post('reset-password')
