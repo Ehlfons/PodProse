@@ -90,7 +90,7 @@ For more detailed information about PodProse and its features, please refer to t
     CMD ["mysqld", "--user=mysql", "--console"]
     ```
 
-### Installation
+### Api Installation
 
 - Install dependencies:
 
@@ -118,7 +118,7 @@ For more detailed information about PodProse and its features, please refer to t
    npx prisma studio
    ```
 
-### Running the App
+### Running the Api
 
 - Watch mode:
 
@@ -126,7 +126,23 @@ For more detailed information about PodProse and its features, please refer to t
    npm run start:dev
    ```
 
-### API Documentation
+### Api Documentation
 
-Access the Swagger UI for API documentation at:
+Access the Swagger UI for Api documentation at:
 [http://localhost:3000/api/](http://localhost:3000/api/)
+
+### App Installation
+
+- Install dependencies:
+
+   ```bash
+   npm i
+   ```
+
+### Running the App
+
+- Watch mode:
+
+   ```bash
+   npm run dev
+   ```
