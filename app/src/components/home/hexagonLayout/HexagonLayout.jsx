@@ -36,68 +36,70 @@ const HexagonLayout = () => {
 
   return (
     <Fragment>
-  <div className="container-hexagon-layout">
-    <div className="hexagonArea first">
-      {randomPodcastsPerRow.first.length ? (
-        <Fragment>
-          {randomPodcastsPerRow.first.map((podcast, index) => (
-            <Fragment key={podcast.id}>
-              <Hexagon
-                class2={`hex-${index + 1}`}
-                src={podcast.url_img}
-                title={podcast.title}
-                podcast={podcast}
-              />
+      <div className="container-hexagon-layout">
+        <div className="hexagonArea first">
+          {randomPodcastsPerRow.first.length ? (
+            <Fragment>
+              {randomPodcastsPerRow.first.map((podcast, index) => (
+                <Fragment key={podcast.id}>
+                  <Hexagon
+                    class2={`hex-${index + 1}`}
+                    src={podcast.url_img}
+                    title={podcast.title}
+                    podcast={podcast}
+                  />
+                </Fragment>
+              ))}
             </Fragment>
-          ))}
-        </Fragment>
-      ) : (
-        <Fragment>
-          <p className="error-message">No se han encontrado podcasts, prueba a reiniciar la página</p>
-        </Fragment>
-      )}
-    </div>
-    <div className="hexagonArea second">
-      <div className="hexagon" id="short" />
-      {randomPodcastsPerRow.second.length ? (
-        <Fragment>
-          {randomPodcastsPerRow.second.map((podcast, index) => (
-            <Hexagon
-              key={podcast.id}
-              class2={`hex-${index + 1}`}
-              src={podcast.url_img}
-              title={podcast.title}
-              podcast={podcast}
-            />
-          ))}
-        </Fragment>
-      ) : (
-        <Fragment>
-          <p className="error-message">No se han encontrado podcasts, prueba a reiniciar la página</p>
-        </Fragment>
-      )}
-    </div>
-    <div className="hexagonArea third">
-      {randomPodcastsPerRow.third.length ? (
-        <Fragment>
-          {randomPodcastsPerRow.third.map((podcast, index) => (
-            <Hexagon
-              key={podcast.id}
-              class2={`hex-${index + 1}`}
-              src={podcast.url_img}
-              title={podcast.title}
-              podcast={podcast}
-            />
-          ))}
-        </Fragment>
-      ) : (
-        <Fragment>
-          <p className="error-message">No se han encontrado podcasts, prueba a reiniciar la página</p>
-        </Fragment>
-      )}
-    </div>
-  </div>
-</Fragment>
+          ) : (
+            <Fragment>
+              <p className="error-message">
+                No se han encontrado podcasts, prueba a reiniciar la página
+              </p>
+            </Fragment>
+          )}
+        </div>
+        <div className="hexagonArea second">
+          <div className="hexagon" id="short" />
+          {randomPodcastsPerRow.second.length ? (
+            <Fragment>
+              {randomPodcastsPerRow.second.map((podcast, index) => (
+                <Hexagon
+                  key={podcast.id}
+                  class2={`hex-${index + 1}`}
+                  src={podcast.url_img}
+                  title={podcast.title}
+                  podcast={podcast}
+                />
+              ))}
+            </Fragment>
+          ) : (
+            <Fragment>
+              <p className="error-message">No se han encontrado Podcasts</p>
+            </Fragment>
+          )}
+        </div>
+        <div className="hexagonArea third">
+          {randomPodcastsPerRow.third.length ? (
+            <Fragment>
+              {randomPodcastsPerRow.third.map((podcast, index) => (
+                <Hexagon
+                  key={podcast.id}
+                  class2={`hex-${index + 1}`}
+                  src={podcast.url_img}
+                  title={podcast.title}
+                  podcast={podcast}
+                />
+              ))}
+            </Fragment>
+          ) : (
+            <Fragment>
+              <p className="error-message">No se han encontrado Podcasts</p>
+            </Fragment>
+          )}
+        </div>
+      </div>
+    </Fragment>
   );
 };
 

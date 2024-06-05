@@ -1,7 +1,7 @@
 .listado-podcasts {
   display: flex;
   flex-direction: column;
-  gap: 45px;
+  gap: 12px;
 }
 
 .podcast-list-container {
@@ -37,4 +37,44 @@
 /* Para asegurarte de que el thumb no cambie en hover */
 .podcast-list-container::-webkit-scrollbar-thumb:hover {
   background-color: var(--accent-color);
+}
+
+.title-with-filter {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.title-with-filter input {
+  width: 300px;
+  height: 40px;
+  padding-right: 45px;
+}
+
+.input-filter-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  width: 100%;
+  margin-top: -10px;
+  position: relative;
+}
+
+.input-filter-div i {
+  position: absolute;
+  right: 16px;
+  top: 15px;
+}
+
+@media (max-width: 1557px) {
+  .input-filter-div {
+    margin-top: 16px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .title-with-filter input {
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+  }
 }

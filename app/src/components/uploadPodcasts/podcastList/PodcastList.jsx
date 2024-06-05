@@ -1,8 +1,8 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { usePodcasts } from "@components/hooks";
 import Podcast from "@components/podcast/Podcast.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPodcast } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faPodcast } from "@fortawesome/free-solid-svg-icons";
 import { EditOrDelete } from "@components/modals";
 
 import "./PodcastList.css";
@@ -23,18 +23,42 @@ const PodcastList = () => {
     updateEditingPodcastId(null);
   };
 
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const filteredPodcasts = userPodcastsList.filter(podcast =>
+    podcast.title.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <Fragment>
       <section className="listado-podcasts">
-        <div className="section-title">
-          <i>
-            <FontAwesomeIcon icon={faPodcast} />
-          </i>
-          <h1>Mis Podcasts</h1>
+        <div className="title-with-filter">
+          <div className="section-title">
+            <i>
+              <FontAwesomeIcon icon={faPodcast} />
+            </i>
+            <h1>Mis Podcasts</h1>
+          </div>
+          <div className="input-filter-div">
+            <i>
+              <FontAwesomeIcon icon={faFilter}/>
+            </i>
+            <input
+              className="form-input-podcasts"
+              type="text"
+              placeholder="Nombre del podcast..."
+              value={searchText}
+              onChange={handleSearchChange}
+            />
+          </div>
         </div>
         <div className="podcast-list-container">
-          {userPodcastsList.length > 0 ? (
-            userPodcastsList.map((podcast, i) => {
+          {filteredPodcasts.length > 0 ? (
+            filteredPodcasts.map((podcast, i) => {
               return (
                 <Fragment key={podcast.id}>
                   <Podcast
@@ -52,7 +76,7 @@ const PodcastList = () => {
             })
           ) : (
             <div className="error-message">
-              No tienes podcasts publicados o no se han encontrado.
+              No tienes podcasts publicados o no se han encontrado
             </div>
           )}
         </div>
