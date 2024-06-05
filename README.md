@@ -2,8 +2,8 @@
 
 [![Discord](https://img.shields.io/discord/1056947417842454678?label=DISCORD%20SERVER&logo=discord&style=for-the-badge)](https://discord.gg/FVaPTTs7MY)
 ![Language count](https://img.shields.io/github/languages/count/LitoHDD/PodProse?label=%F0%9F%8C%8E%20LANGUAGES&style=for-the-badge)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/LitoHDD/PodProse?color=orange&label=%F0%9F%93%A2%20LAST%20VERSION&style=for-the-badge)
-![GitHub License](https://img.shields.io/github/license/LitoHDD/PodProse?style=for-the-badge)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/LitoHDD/PodProse?color=orange&label=%F0%9F%93%A2%20LAST%20VERSION&style=for-the-badge)](https://github.com/LitoHDD/PodProse/releases/latest)
+[![GitHub License](https://img.shields.io/github/license/LitoHDD/PodProse?style=for-the-badge)](https://github.com/LitoHDD/PodProse/blob/main/LICENSE)
 
 ## 📝 Description
 
@@ -90,7 +90,7 @@ For more detailed information about PodProse and its features, please refer to t
     CMD ["mysqld", "--user=mysql", "--console"]
     ```
 
-### Api Installation
+## [API](https://github.com/LitoHDD/PodProse/tree/main/api) Installation
 
 - Install dependencies:
 
@@ -118,7 +118,7 @@ For more detailed information about PodProse and its features, please refer to t
    npx prisma studio
    ```
 
-### Running the Api
+### Running the API
 
 - Watch mode:
 
@@ -126,12 +126,12 @@ For more detailed information about PodProse and its features, please refer to t
    npm run start:dev
    ```
 
-### Api Documentation
+### API Documentation
 
-Access the Swagger UI for Api documentation at:
+Access the Swagger UI for API documentation at:
 [http://localhost:3000/api/](http://localhost:3000/api/)
 
-### App Installation
+## [APP](https://github.com/LitoHDD/PodProse/tree/main/app) Installation
 
 - Install dependencies:
 
@@ -139,7 +139,7 @@ Access the Swagger UI for Api documentation at:
    npm i
    ```
 
-### Running the App
+### Running the APP
 
 - Watch mode:
 
