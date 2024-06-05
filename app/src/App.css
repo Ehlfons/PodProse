@@ -55,7 +55,7 @@ body {
 .error-message {
   padding: 10vh 0;
   text-align: center;
-  color: var(--primary-red);
+  color: var(--main-text-color);
   font-size: 22px;
 }
 

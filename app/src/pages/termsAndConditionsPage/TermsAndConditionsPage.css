@@ -1,0 +1,27 @@
+.terms-page {
+  display: flex;
+  flex-direction: column;
+  margin: var(--default-space);
+}
+
+.terms-page h1 {
+  font-size: 2rem;
+}
+
+.terms-page h2 {
+  font-size: 1.5rem;
+  margin-block: 10px;
+}
+
+.terms-page h2::before {
+  content: "•";
+  margin-inline-end: 10px;
+}
+
+.terms-page p {
+  margin-block: 10px;
+}
+
+.terms-page a {
+  color: var(--accent-color);
+}

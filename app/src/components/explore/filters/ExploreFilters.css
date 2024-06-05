@@ -17,10 +17,16 @@
   flex-direction: column;
   gap: 12px;
 
+  box-sizing: border-box;
+}
+
+.filters-container-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   position: sticky;
   top: 40px;
   z-index: 601;
-  box-sizing: border-box;
 }
 
 .filter-btn {

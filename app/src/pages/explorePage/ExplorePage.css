@@ -31,7 +31,7 @@
     width: 99.5% !important;
   }
 
-  .filters-explore {
+  .filters-explore, .filters-container-section {
     width: 100% !important;
     position: static !important;
   }

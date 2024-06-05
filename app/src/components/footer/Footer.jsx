@@ -108,8 +108,8 @@ const Footer = () => {
             <em className="middot">&middot;</em>Todos los derechos reservados
           </p>
           <div className="footer-terms">
-            <a href="">Política de Privacidad</a>
-            <a href="">Términos y Condiciones</a>
+            <Link to="/privacy-policies">Política de Privacidad</Link>
+            <Link to="/terms-and-conditions">Términos y Condiciones</Link>
           </div>
         </small>
       </footer>
