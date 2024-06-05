@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Injectable()
 export class EnviarCorreoService {
   private transporter: nodemailer.Transporter;
+  private frontUrl: string;
 
   constructor() {
     this.transporter = nodemailer.createTransport({
@@ -13,6 +17,7 @@ export class EnviarCorreoService {
         pass: 'huod lgcr cpix bevd',
       },
     });
+    this.frontUrl = process.env.FRONT;
   }
 
   async enviarCorreo(
@@ -23,8 +28,8 @@ export class EnviarCorreoService {
   ) {
     const link =
       type === 'verify'
-        ? `http://localhost:5173/auth/verify/${token}` // Asegúrate de que esta URL es correcta
-        : `http://localhost:5173/reset-password?token=${token}`;
+        ? `${this.frontUrl}auth/verify/${token}` // Asegúrate de que esta URL es correcta
+        : `${this.frontUrl}reset-password?token=${token}`;
 
     const subject =
       type === 'verify'

@@ -16,14 +16,20 @@ import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
+  private frontUrl: string;
   constructor(
     private readonly authService: AuthService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) {
+    this.frontUrl = process.env.FRONT;
+  }
 
   @Post('register')
   async register(@Body(ValidationPipe) registerDto: RegisterDto) {
@@ -41,7 +47,7 @@ export class AuthController {
         secret: process.env.API_KEY,
       });
       await this.authService.verifyUser(payload.usuario_id);
-      return res.redirect('http://localhost:5173');
+      return res.redirect(`${this.frontUrl}`);
     } catch (error) {
       throw new UnauthorizedException('Token inválido o expirado');
     }
