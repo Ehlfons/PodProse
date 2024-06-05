@@ -151,7 +151,7 @@ async function main() {
   <li>{{podcast2.title}} - {{podcast2.description}}</li>
   <li>{{podcast3.title}} - {{podcast3.description}}</li>
 </ol>
-<p>Encuentra algo nuevo para escuchar hoy en <a href="https://http://app.podprose.tech/explore">este enlace</a>.</p>
+<p>Encuentra algo nuevo para escuchar hoy en <a href="http://app.podprose.tech/explore">este enlace</a>.</p>
 <p>¡Disfruta escuchando!</p>
 <p>Saludos,<br>El equipo de PodProse</p>`,
       createdAt: new Date(),
