@@ -34,10 +34,99 @@ The main objectives of PodProse are:
 
 This project is under the MIT License. For more information, please refer to the LICENSE file.
 
-## 🚀 Let's Get Started
+## 🔰 Let's Get Started
 
 To get involved with PodProse, start by exploring our content on the platform. Creators interested in contributing their podcasts can reach out via our Discord server or follow the instructions on our GitHub repository for content submission.
 
 ## 📝 Additional Notes
 
 For more detailed information about PodProse and its features, please refer to the README.md file located at the root of the repository. Our Discord server is also a great place for help and discussions with other developers and content creators.
+
+## 🚀 How to Start the Application
+
+### Requirements
+
+- MySQL:
+
+  - Server
+  - Shell
+
+- NodeJs
+
+  - NPM
+
+### Docker
+
+- Build Docker image:
+
+    ```bash
+    docker build -t mysql-image .
+    ```
+
+- Run Docker container:
+
+    ```bash
+    docker run --name mysql-container -d -p 3306:3306 -v mysql-data:/var/lib/mysql mysql-image
+    ```
+
+- Dockerfile
+
+    ```Dockerfile
+    FROM mysql:latest
+    
+    # Set the root password (change it to whatever you want)
+    ENV MYSQL_ROOT_PASSWORD=password
+    
+    # Exposes port 3306 so it can be accessed from other machines
+    EXPOSE 3306
+    
+    # Custom MySQL configuration
+    RUN echo "[mysqld]\nbind-address = 0.0.0.0" > /etc/mysql/my.cnf
+    
+    # Create a directory for the volume where the data will be stored
+    VOLUME /var/lib/mysql
+    
+    # CMD to start MySQL automatically when starting container
+    CMD ["mysqld", "--user=mysql", "--console"]
+    ```
+
+### Installation
+
+- Install dependencies:
+
+   ```bash
+   npm i
+   ```
+
+### Database Setup
+
+- Create tables:
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+- Insert required data:
+
+   ```bash
+   npm run megafactory
+   ```
+
+- Open graphical environment:
+
+   ```bash
+   npx prisma studio
+   ```
+
+### Running the App
+
+- Watch mode:
+
+   ```bash
+   npm run start:dev
+   ```
+
+### API Documentation
+
+Access the Swagger UI for API documentation at:
+[http://localhost:3000/api/](http://localhost:3000/api/)
