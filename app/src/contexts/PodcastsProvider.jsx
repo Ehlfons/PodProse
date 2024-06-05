@@ -98,7 +98,7 @@ const PodcastsProvider = ({ children }) => {
     formData.append('userId', userId);
 
     try {
-      const response = await axios.post('http://localhost:3000/upload', formData, {
+      const response = await axios.post(`${apiURL}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -141,7 +141,7 @@ const PodcastsProvider = ({ children }) => {
   // Funcion para rellenar el formulario de edición con los datos del podcast seleccionado.
   const getPodcastById = async (podcastId) => {
     try {
-      const response = await axios.get(`http://localhost:3000/content/podcast/${podcastId}`);
+      const response = await axios.get(`${apiURL}/content/podcast/${podcastId}`);
 
       setPodcastSelectedById(response.data);
 
@@ -173,10 +173,10 @@ const PodcastsProvider = ({ children }) => {
   // Función para eliminar un podcast.
   const handleDeletePodcast = async (podcastId) => {
     try {
-      await axios.get(`http://localhost:3000/content/podcast/${podcastId}`);
+      await axios.get(`${apiURL}/content/podcast/${podcastId}`);
 
       try {
-        const response = await axios.delete(`http://localhost:3000/content/podcast/${podcastId}`);
+        const response = await axios.delete(`${apiURL}/content/podcast/${podcastId}`);
 
         if (response.status === 200) {
           toast.success("Podcast eliminado");
@@ -213,7 +213,7 @@ const PodcastsProvider = ({ children }) => {
     formData.append('categoryId', selectedPodcastCategory && selectedPodcastCategory);
     formData.append('userId', userId);
 
-    axios.patch(`http://localhost:3000/content/podcast/${editingPodcastId}`, formData, {
+    axios.patch(`${apiURL}/content/podcast/${editingPodcastId}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

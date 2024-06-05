@@ -11,18 +11,25 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import * as dotenv from 'dotenv';
 
-@ApiTags('Registrar y Login')
+dotenv.config();
+
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
+  private frontUrl: string;
   constructor(
     private readonly authService: AuthService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) {
+    this.frontUrl = process.env.FRONT;
+  }
 
   @Post('register')
   async register(@Body(ValidationPipe) registerDto: RegisterDto) {
@@ -40,7 +47,7 @@ export class AuthController {
         secret: process.env.API_KEY,
       });
       await this.authService.verifyUser(payload.usuario_id);
-      return res.redirect('http://localhost:5173');
+      return res.redirect(`${this.frontUrl}`);
     } catch (error) {
       throw new UnauthorizedException('Token inválido o expirado');
     }
@@ -57,8 +64,9 @@ export class AuthController {
   }
 
   @Post('forgot-password')
-  async forgotPassword(@Body('email') email: string) {
-    return this.authService.forgotPassword(email);
+  @ApiBody({ type: ForgotPasswordDto })
+  async forgotPassword(@Body(ValidationPipe) forgotPasswordDto: ForgotPasswordDto) {
+    return this.authService.forgotPassword(forgotPasswordDto.email);
   }
 
   @Post('reset-password')
