@@ -1,6 +1,5 @@
 # 💻 PodProse
 
-[![Discord](https://img.shields.io/discord/1056947417842454678?label=DISCORD%20SERVER&logo=discord&style=for-the-badge)](https://discord.gg/FVaPTTs7MY)
 ![Language count](https://img.shields.io/github/languages/count/LitoHDD/PodProse?label=%F0%9F%8C%8E%20LANGUAGES&style=for-the-badge)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/LitoHDD/PodProse?color=orange&label=%F0%9F%93%A2%20LAST%20VERSION&style=for-the-badge)](https://github.com/LitoHDD/PodProse/releases/latest)
 [![GitHub License](https://img.shields.io/github/license/LitoHDD/PodProse?style=for-the-badge)](https://github.com/LitoHDD/PodProse/blob/main/LICENSE)
