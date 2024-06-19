@@ -1,8 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
 import { toast } from "sonner";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { usePodcasts, useInfo } from "@components/hooks";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 // Contexto para los usuarios.
 const UsersContext = createContext();
@@ -10,7 +10,6 @@ const UsersContext = createContext();
 const UsersProvider = ({ children }) => {
   // Hook para redirigir a otras páginas.
   const navigate = useNavigate();
-  const location = useLocation();
 
   // Valores iniciales.
   const userInitialValue = null;
@@ -28,7 +27,6 @@ const UsersProvider = ({ children }) => {
     email: "",
   };
   const isEditingProfileInitialValue = false;
-  const loadingLoggedInInitialValue = true;
 
   // Estados del contexto.
   const [user, setUser] = useState(userInitialValue);
@@ -46,12 +44,55 @@ const UsersProvider = ({ children }) => {
   const [isEditingProfile, setIsEditingProfile] = useState(
     isEditingProfileInitialValue
   );
-  const [loadingLoggedIn, setLoadingLoggedIn] = useState(
-    loadingLoggedInInitialValue
-  );
+  const [message, setMessage] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [recoveryEmail, setRecoveryEmail] = useState("");
+  const [isResetting, setIsResetting] = useState(false);
+  const [searchParams] = useSearchParams();
+  const tokenResetPassword = searchParams.get("token");
+  const [newPassword, setNewPassword] = useState("");
 
   // Variables
   const apiURL = import.meta.env.VITE_API_URL;
+  const { clearAllPodcasts } = usePodcasts();
+  const { clearAllInfo } = useInfo();
+
+  // Función para verificar el correo electrónico
+  const verifyEmail = async (token) => {
+    try {
+      await axios.get(`${apiURL}/auth/verify/${token}`);
+      localStorage.setItem("emailVerified", "true");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error("Error al verificar el correo electrónico");
+      console.error("Error al verificar el correo electrónico:", error);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    setIsResetting(true);
+    try {
+      const response = await axios.post(`${apiURL}/auth/reset-password`, {
+        token: tokenResetPassword,
+        newPassword,
+      });
+      setMessage(response.data.message);
+      localStorage.setItem("passwordReset", "true");
+      updateIsLoading(true);
+      setTimeout(() => {
+        updateIsLoading(false);
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      toast.error("Error al restablecer la contraseña");
+      setMessage(
+        error.response.data.message || "Error al restablecer la contraseña"
+      );
+      setIsResetting(false);
+    }
+  };
 
   // Función para iniciar sesión.
   const handleLogin = async (e) => {
@@ -110,15 +151,14 @@ const UsersProvider = ({ children }) => {
     try {
       // Se eliminan los datos del usuario y el token del localStorage.
       localStorage.clear();
-
-      setToken(tokenInitialvalue);
-      setUser(userInitialValue);
-
-      setLoggedIn(loggedInInitialValue);
       toast.success("Sesión cerrada exitosamente");
 
+      clearAllUsers(); // Limpiar todos los estados de usuarios.
+      clearAllPodcasts(); // Limpiar todos los estados de podcasts.
+      clearAllInfo(); // Limpiar todos los estados de info.
+
       // Redirigir a la página de login.
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       toast.error("Error al cerrar sesión");
     }
@@ -274,6 +314,20 @@ const UsersProvider = ({ children }) => {
     return Object.keys(errors).length === 0;
   };
 
+  const clearAllUsers = () => {
+    setEmail(emailInitialValue);
+    setPassword(passwordInitialValue);
+    setName(nameInitialValue);
+    setUsername(usernameInitialValue);
+    setToken(tokenInitialvalue);
+    setUser(userInitialValue);
+    setLoggedIn(loggedInInitialValue);
+    setErrors(errorsInitialValue);
+    setIsLoading(isLoadingInitialValue);
+    setEditProfileForm(editProfileFormInitialValue);
+    setIsEditingProfile(isEditingProfileInitialValue);
+  };
+
   const readCookie = async () => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
@@ -281,10 +335,70 @@ const UsersProvider = ({ children }) => {
     if (user && token) {
       setUser(user);
       setToken(token);
-      await getUser();
       setLoggedIn(true);
+      await getUser();
     }
-    setLoadingLoggedIn(false);
+  };
+
+  const updateEditProfileForm = (key, value) => {
+    setEditProfileForm({
+      ...editProfileForm,
+      [key]: value,
+    });
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      const response = await axios.post(`${apiURL}/auth/forgot-password`, {
+        email: recoveryEmail,
+      });
+
+      setMessage(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        setMessage(
+          error.response.data.message ||
+            "Error al enviar el correo de recuperación"
+        );
+      } else {
+        setMessage("Error al enviar el correo de recuperación");
+      }
+    }
+  };
+
+  const isValidForm = () => {
+    if (!name || !username || !email || !password) {
+      toast.error("Todos los campos son obligatorios.");
+      return false;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      toast.error("Por favor, introduce un correo electrónico válido.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const manejarRegistro = (e) => {
+    e.preventDefault();
+    if (!isValidForm()) {
+      return;
+    }
+
+    const promise = () =>
+      new Promise((resolve) =>
+        setTimeout(() => {
+          handleRegister();
+          resolve({});
+          navigate("/");
+        }, 2000)
+      );
+
+    toast.promise(promise, {
+      loading: "Registrando usuario...",
+    });
   };
 
   const updateEmail = (value) => setEmail(value);
@@ -296,28 +410,12 @@ const UsersProvider = ({ children }) => {
   const updateErrors = (value) => setErrors(value);
   const updateIsLoading = (value) => setIsLoading(value);
   const updateIsEditingProfile = (value) => setIsEditingProfile(value);
-
-  const updateEditProfileForm = (key, value) => {
-    setEditProfileForm({
-      ...editProfileForm,
-      [key]: value,
-    });
-  };
+  const updateShowForgotPassword = (value) => setShowForgotPassword(value);
+  const updateRecoveryEmail = (value) => setRecoveryEmail(value);
 
   useEffect(() => {
-    const fetchCheckLoggedInData = async () => {
-      await readCookie();
-    };
-
-    fetchCheckLoggedInData();
+    readCookie();
   }, []);
-
-  useEffect(() => {
-    const isRegisterPage = location.pathname === "/register";
-    if (!loggedIn && !loadingLoggedIn && !isRegisterPage) {
-      navigate("/");
-    }
-  }, [loggedIn, navigate, loadingLoggedIn, location.pathname]);
 
   const dataToExport = {
     email,
@@ -331,8 +429,14 @@ const UsersProvider = ({ children }) => {
     isLoading,
     editProfileForm,
     isEditingProfile,
-    loadingLoggedIn,
+    message,
+    showForgotPassword,
+    recoveryEmail,
+    isResetting,
+    newPassword,
 
+    updateShowForgotPassword,
+    updateRecoveryEmail,
     updateEmail,
     updatePassword,
     updateName,
@@ -343,13 +447,19 @@ const UsersProvider = ({ children }) => {
     updateIsLoading,
     updateIsEditingProfile,
     updateEditProfileForm,
+    setNewPassword,
+    isValidForm,
+    manejarRegistro,
 
     handleLogin,
     handleLogout,
     handleRegister,
     handleImageUpload,
+    handleForgotPassword,
     patchUserData,
     getUser,
+    verifyEmail,
+    handleResetPassword,
   };
 
   return (

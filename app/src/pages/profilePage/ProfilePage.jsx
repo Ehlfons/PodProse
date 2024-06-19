@@ -4,7 +4,7 @@ import { useUsers } from "@components/hooks";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightToBracket, faPodcast, faGear, faCircleXmark, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faRightToBracket, faPodcast, faGear, faCircleXmark, faCheckCircle, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { Loader } from "@components/loader";
 
 import "./ProfilePage.css";
@@ -62,6 +62,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     updateIsLoading(true);
+
     // Simulate loading time para cargar la imagen
     setTimeout(() => {
       updateIsLoading(false);
@@ -158,6 +159,10 @@ const ProfilePage = () => {
               >
                 <FontAwesomeIcon icon={faPodcast} />
                 <p>Mis podcasts</p>
+              </button>
+              <button className="button-with-icon" onClick={()=>navigate("/subscription")}>
+                <FontAwesomeIcon icon={faDollarSign} />
+                <p>Suscripciones</p>
               </button>
               <button className="button-with-icon" onClick={handleLogout}>
                 <FontAwesomeIcon icon={faRightToBracket} />

@@ -1,7 +1,8 @@
-import { Fragment } from "react";
-import json from "@objects/podcasts.json";
+import { Fragment, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { usePodcasts } from "@components/hooks";
+import { Loader } from "@components/loader";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -9,47 +10,75 @@ import "swiper/css/pagination";
 import "./LatestSlider.css";
 
 const LatestSlider = () => {
+  const { podcastsList } = usePodcasts();
+  const { updateAudioUrl, updateSelectedPodcast, updateVisibility } = usePodcasts();
+
+  const [randomPodcasts, setRandomPodcasts] = useState([]);
+  const [slidesPerViewNumber, setSlidesPerViewNumber] = useState(3);
+
+  useEffect(() => {
+    if (podcastsList.length > 0) {
+      setRandomPodcasts(getRandomPodcasts(podcastsList, 7));
+    }
+  }, [podcastsList]);
+  
+  const handleResize = () => {
+    if (window.innerWidth <= 805) {
+      setSlidesPerViewNumber(1);
+    } else if (window.innerWidth <= 1254) {
+      setSlidesPerViewNumber(2);
+    } else {  
+      setSlidesPerViewNumber(3);
+    }
+  };
+  
+  useEffect(() => {
+    // Llama la función al montar el componente para ajustar el estado inicial
+    handleResize();
+    
+    // Añade un listener para el evento resize
+    window.addEventListener('resize', handleResize);
+    
+    // Limpia el listener al desmontar el componente
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   /**
-   * Obtiene un número aleatorio de podcasts del objeto JSON.
-   * @param {Object} json - El objeto JSON que contiene los podcasts.
+   * Obtiene un número aleatorio de podcasts del estado.
+   * @param {Array} podcasts - El array de podcasts.
    * @param {number} numeroPodcasts - El número de podcasts aleatorios a obtener.
    * @returns {Array} - Un array de objetos con la imagen, nombre, categoría y enlace correspondiente.
    */
-  const getRandomPodcasts = (json, numeroPodcasts) => {
-    // Filtra los podcasts que tienen la propiedad "upload_date"
-    const podcastsWithUploadDate = Object.values(json).filter(
-      (podcast) => podcast.upload_date
+  const getRandomPodcasts = (podcasts, numeroPodcasts) => {
+    // Filtra los podcasts que tienen la propiedad "createdAt"
+    const podcastsWithUploadDate = podcasts.filter(
+      (podcast) => podcast.createdAt
     );
 
     // Ordena los podcasts por fecha de subida de forma descendente
     const sortedPodcasts = podcastsWithUploadDate.sort(
-      (a, b) => new Date(b.upload_date) - new Date(a.upload_date)
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
 
-    // Selecciona los 12 podcasts más recientes
-    const latestPodcasts = sortedPodcasts.slice(0, 12);
+    // Selecciona los 20 podcasts más recientes
+    const latestPodcasts = sortedPodcasts.slice(0, 20);
 
     // Obtiene un número aleatorio de los podcasts seleccionados
     const randomPodcasts = [];
+    const usedIndexes = new Set();
 
-    while (randomPodcasts.length < numeroPodcasts) {
+    while (randomPodcasts.length < numeroPodcasts && latestPodcasts.length > 0) {
       const randomIndex = Math.floor(Math.random() * latestPodcasts.length);
-      const randomPodcast = latestPodcasts[randomIndex];
-      if (!randomPodcasts.includes(randomPodcast)) {
-        randomPodcasts.push(randomPodcast);
+      if (!usedIndexes.has(randomIndex)) {
+        usedIndexes.add(randomIndex);
+        randomPodcasts.push(latestPodcasts[randomIndex]);
       }
     }
 
-    // Devuelve un array de objetos con la imagen, nombre, categoría y enlace correspondiente.
-    return randomPodcasts.map((podcast) => ({
-      image: podcast.image,
-      name: podcast.name,
-      category: podcast.category,
-      link: `creador/${podcast.uuid}`, // La URL es pagina creador/id del podcast
-    }));
+    return randomPodcasts;
   };
-
-  const randomPodcasts = getRandomPodcasts(json, 7);
 
   const pagination = {
     clickable: true,
@@ -58,37 +87,44 @@ const LatestSlider = () => {
     },
   };
 
+  const handlePodcastClick = (podcast) => {
+    updateAudioUrl(podcast.url_audio);
+    updateSelectedPodcast(podcast);
+    updateVisibility(true);
+  }
+
   return (
     <Fragment>
       <div className="latest-slider-wrapper">
-        <Swiper
-          pagination={pagination}
-          modules={[Pagination]}
-          slidesPerView={3}
-          spaceBetween={120}
-          className="mySwiper"
-        >
-          {randomPodcasts.map((podcast, index) => (
-            <SwiperSlide key={index}>
-              <a href={podcast.link}>
-                <div className="latest-slider-fade">
-                  <div className="latest-info-img">
-                    <h5>{podcast.name}</h5>
-                    <p>{podcast.category}</p>
+        {randomPodcasts.length > 0 ? (
+          <Swiper
+            pagination={pagination}
+            modules={[Pagination]}
+            slidesPerView={slidesPerViewNumber}
+            spaceBetween={120}
+            className="mySwiper"
+          >
+            {randomPodcasts.map((podcast, index) => (
+              <SwiperSlide key={index}>
+                <a onClick={() => handlePodcastClick(podcast)}>
+                  <div className="latest-slider-fade">
+                    <div className="latest-info-img">
+                      <h5>{podcast.title}</h5>
+                      <p>{podcast.category}</p>
+                    </div>
+                    <img
+                      className="latest-slider-img"
+                      src={podcast.url_img}
+                      alt={`Image ${index + 1}`}
+                    />
                   </div>
-                  <img
-                    className="latest-slider-img"
-                    src={podcast.image}
-                    alt={`Image ${index + 1}`}
-                    onClick={() => {
-                      window.location.href = podcast.link;
-                    }}
-                  />
-                </div>
-              </a>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                </a>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <Loader />
+        )}
       </div>
     </Fragment>
   );

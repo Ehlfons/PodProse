@@ -43,8 +43,18 @@ const InfoProvider = ({ children }) => {
     }
   };
 
+  const clearAllInfo = () => {
+    setEmailFormData(emailFormDataInitialValue);
+  };
+
   const handleChangeEmailFormData = (e) => {
     setEmailFormData({ ...emailFormData, [e.target.name]: e.target.value });
+  };
+
+  const handleKeyDown = (e, handleLogin) => {
+    if (e.key === "Enter") {
+      handleLogin(e);
+    }
   };
 
   // Datos a exportar al contexto.
@@ -52,12 +62,12 @@ const InfoProvider = ({ children }) => {
     emailFormData,
     handleChangeEmailFormData,
     handleSubmitContactEmail,
+    clearAllInfo,
+    handleKeyDown,
   };
 
   return (
-    <InfoContext.Provider value={dataToExport}>
-      {children}
-    </InfoContext.Provider>
+    <InfoContext.Provider value={dataToExport}>{children}</InfoContext.Provider>
   );
 };
 

@@ -16,28 +16,19 @@ const RegisterPage = () => {
     updateEmail,
     password,
     updatePassword,
-    handleRegister,
+    updateShowForgotPassword,
+    manejarRegistro,
   } = useUsers();
 
-  // Lógica para el evento onClick del botón de registro.
-  const manejarRegistro = (e) => {
-    e.preventDefault();
-    const promise = () => new Promise((resolve) => setTimeout(() => {
-      handleRegister();
-      resolve({})
-    }, 2000));
-
-    toast.promise(promise, {
-      loading: 'Registrando usuario...',
-    });
-  };
-
-  const navigate = useNavigate();
   return (
     <Fragment>
       <main>
         <header className="register-header">
-          <Link to="/" className="register-header-back">
+          <Link
+            to="/login"
+            className="register-header-back"
+            onClick={() => updateShowForgotPassword(false)}
+          >
             <ArrowLogin />
             Iniciar sesión
           </Link>
@@ -78,7 +69,7 @@ const RegisterPage = () => {
                     }}
                   />
                 </div>
-  
+
                 <div className="register-main-input-email">
                   <label htmlFor="email">Correo electrónico</label>
                   <input
@@ -93,7 +84,7 @@ const RegisterPage = () => {
                     }}
                   />
                 </div>
-  
+
                 <div className="register-main-input-passwd">
                   <label htmlFor="password">Contraseña</label>
                   <input
@@ -108,7 +99,7 @@ const RegisterPage = () => {
                     }}
                   />
                 </div>
-  
+
                 <input
                   className="register-main-input-register"
                   title="Registrarse"
@@ -122,16 +113,16 @@ const RegisterPage = () => {
             </div>
           </div>
           <div className="register-main-footer">
-            <a
+            <Link
+              to="/login"
               className="register-main-footer-passwd"
-              onClick={() => {
-                navigate("/");
-              }}
+              onClick={() => updateShowForgotPassword(false)}
             >
               ¿Ya estás registrado?
-            </a>
+            </Link>
             <p className="register-main-footer-terms">
-              Registro Seguro con 2FA sujeto a los Términos y Privacidad de Google
+              Registro Seguro con 2FA sujeto a los Términos y Privacidad de
+              Google
             </p>
           </div>
         </section>

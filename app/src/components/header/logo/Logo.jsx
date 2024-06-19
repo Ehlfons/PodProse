@@ -8,7 +8,7 @@ const Logo = () => {
   return (
     <Fragment>
       <figure className="container-logo-svg">
-        <Link to="/">
+        <Link to="/home">
           <PodProseLogo />
         </Link>
       </figure>

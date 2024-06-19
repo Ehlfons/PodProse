@@ -1,7 +1,10 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { useUsers } from "@components/hooks";
 import "./MainText.css";
 
 const MainText = () => {
+  const { updateIsLoading } = useUsers();
   return (
     <Fragment>
       <div className="maintext-component">
@@ -17,7 +20,13 @@ const MainText = () => {
           con PodProse!
         </p>
         <div className="start-container">
-          <img id="start-button" src="src/assets/Play-Green.svg" alt="Play" />
+          <Link to="/explore" onClick={ () => {
+            updateIsLoading(true)
+
+            setTimeout(() => {
+              updateIsLoading(false)
+            }, 1500)
+          }}><img id="start-button" src="https://podprose-uploader.s3.amazonaws.com/Play-Green.svg" alt="Play" /></Link>
           <p id="start-text">Empieza a escuchar!</p>
         </div>
       </div>

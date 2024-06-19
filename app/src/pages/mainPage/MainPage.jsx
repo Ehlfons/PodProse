@@ -1,21 +1,33 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { HomeComponent } from "@components/home";
 import { LatestComponent } from "@components/latest";
+import { usePodcasts } from "@components/hooks";
 import Loader from "@components/loader/Loader.jsx";
 import SpamComponent from "@components/spam/SpamComponent.jsx";
 import TrendsComponent from "@components/trends/TrendsComponent.jsx";
-import { useUsers } from "@components/hooks";
 
 const MainPage = () => {
-  const { isLoading } = useUsers();
+  const { fetchPodcasts, getTrendsPodcasts } = usePodcasts();
+  const [isLoadingHome, setIsLoadingHome] = useState(true);
+
+  useEffect(() => {
+    fetchPodcasts();
+    getTrendsPodcasts();
+    setTimeout(() => {
+      setIsLoadingHome(false);
+    }, 1000);
+  }
+  , []);
+
   return (
     <Fragment>
-      <main>
+      <main className="hp-main">
         <HomeComponent />
         <LatestComponent />
         <SpamComponent />
         <TrendsComponent />
-        {isLoading && <Loader />}
+        
+        {isLoadingHome ? <Loader /> : null}
       </main>
     </Fragment>
   );

@@ -12,6 +12,7 @@
   border: 1px solid var(--main-text-color);
   cursor: pointer;
   box-sizing: border-box;
+  height: 112px !important;
 }
 
 .podcast img {
@@ -23,7 +24,6 @@
 .podcast-info {
   display: flex;
   flex-direction: column;
-  z-index: 1001;
   box-sizing: border-box;
   align-items: flex-start;
 }

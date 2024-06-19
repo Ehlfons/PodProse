@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useUsers } from "@components/hooks";
 
 import {
   PodProseLogo,
@@ -11,7 +12,7 @@ import {
 import "./Footer.css";
 
 const Footer = () => {
-  const navigate = useNavigate();
+  const { updateIsLoading } = useUsers();
 
   return (
     <Fragment>
@@ -27,9 +28,18 @@ const Footer = () => {
               PodProse es narrativa pura. Cada episodio, una nueva aventura a
               descubrir.
             </p>
-            <a className="footer-link" href="">
+            <Link
+              className="footer-link"
+              to="/explore"
+              onClick={() => {
+                updateIsLoading(true);
+                setTimeout(() => {
+                  updateIsLoading(false);
+                }, 1500);
+              }}
+            >
               ¡ DESCUBRE MÁS !
-            </a>
+            </Link>
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Contacto</h4>
@@ -38,9 +48,18 @@ const Footer = () => {
               Contacta con nosotros y solucionaremos tus problemas y cuestiones
               lo antes posible!
             </p>
-            <a className="footer-link" onClick={() => navigate("/contact")}>
+            <Link
+              to="/contact"
+              className="footer-link"
+              onClick={() => {
+                updateIsLoading(true);
+                setTimeout(() => {
+                  updateIsLoading(false);
+                }, 1500);
+              }}
+            >
               ¡ CONTÁCTANOS !
-            </a>
+            </Link>
           </div>
           <div className="footer-col">
             <h4 className="footer-col-title">Newsletter</h4>
@@ -49,7 +68,16 @@ const Footer = () => {
               Suscríbete gratuitamente a nuestro Newsletter para tener toda la
               información de tus creadores favoritos.
             </p>
-            <Link className="footer-link" to="/home#container-spam">
+            <Link
+              className="footer-link"
+              to="/home#container-spam"
+              onClick={() => {
+                updateIsLoading(true);
+                setTimeout(() => {
+                  updateIsLoading(false);
+                }, 1500);
+              }}
+            >
               ¡SUSCRÍBETE!
             </Link>
           </div>
@@ -80,8 +108,8 @@ const Footer = () => {
             <em className="middot">&middot;</em>Todos los derechos reservados
           </p>
           <div className="footer-terms">
-            <a href="">Política de Privacidad</a>
-            <a href="">Términos y Condiciones</a>
+            <Link to="/privacy-policies">Política de Privacidad</Link>
+            <Link to="/terms-and-conditions">Términos y Condiciones</Link>
           </div>
         </small>
       </footer>

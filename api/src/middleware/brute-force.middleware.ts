@@ -7,9 +7,7 @@ export class BruteForceMiddleware implements NestMiddleware {
   constructor(private readonly failedLoginService: FailedLoginService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
-    console.log("Estás dentro del middleware");
-    const username = req.body.email; // Suponiendo que el nombre de usuario está en el campo "email" del cuerpo de la solicitud
-    console.log(username);
+    const username = req.body.email; 
     const maxAttempts = 3;
 
     const lockoutPeriod =  20 * 1000; // 20 segundos en milisegundos
@@ -18,20 +16,16 @@ export class BruteForceMiddleware implements NestMiddleware {
 
     try {
       const failedAttempts = await this.failedLoginService.getFailedAttempts(username);
-      console.log(failedAttempts);
-
       const lastAttempt = await this.failedLoginService.getFailedTime(username);
-      console.log(lastAttempt);
 
       if (failedAttempts >= maxAttempts && lastAttempt) {
         const lastAttemptTime = new Date(lastAttempt.createdAt).getTime();
-        console.log(lastAttemptTime);
+
         if (Date.now() - lastAttemptTime < lockoutPeriod) {
           // La cuenta está bloqueada temporalmente
           return res.status(203).json({ message: 'La cuenta está bloqueada temporalmente. Inténtalo de nuevo más tarde.' });
         } else {
           // Reiniciar los intentos fallidos si ha pasado el período de bloqueo
-          console.log("Lo reinicio todo brotheerrr");
           await this.failedLoginService.clearFailedAttempts(username);
         }
       }

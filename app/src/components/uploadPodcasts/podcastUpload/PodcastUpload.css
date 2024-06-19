@@ -2,6 +2,18 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-left: 10px;
+}
+
+.upload-podcast-section h2.podcast-title {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word; /* Sólo WebKit */
+
+  -ms-hyphens: auto; /* Guiones para separar en sílabas */
+  -moz-hyphens: auto; /*  depende de lang en <html> */
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 .section-title {
@@ -104,6 +116,7 @@ textarea.form-input-podcasts {
 
 .podcast-preview.podcast {
   margin-top: 5px;
+  cursor: default;
 }
 
 .send-podcast {
@@ -123,4 +136,77 @@ textarea.form-input-podcasts {
 .send-podcast:hover {
   background-color: var(--main-text-color);
   color: var(--primary-dark-bg-color);
+}
+
+.send-podcast-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.send-podcast-container svg {
+  font-size: 40px;
+  color: var(--main-text-color-25);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.send-podcast-container svg:hover {
+  color: var(--main-text-color)
+}
+
+.double-input-container {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: end;
+  width: 100%;
+}
+
+.double-input-container .input-label:nth-of-type(1) {
+  width: 100%;
+}
+
+.double-input-container select {
+  background-color: var(--primary-dark-bg-color);
+}
+
+.no-podcasts-msg {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--main-text-color);
+  text-align: center;
+  border: 1px solid var(--main-text-color-60);
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+}
+
+.container-explore:has(.no-podcasts-msg) {
+  margin-top: 0;
+}
+
+option {
+  color: var(--main-text-color);
+  background-color: var(--primary-dark-bg-color);
+}
+
+@media (max-width: 813px) {
+  .double-input-container {
+    flex-direction: column;
+  }
+  .double-input-container select, .double-input-container .input-label:nth-of-type(2), .select-container-pu {
+    width: 100%;
+  }
+
+  h2.podcast-title {
+    max-width: 550px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+  }
 }

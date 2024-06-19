@@ -1,0 +1,35 @@
+#sp-main .modal-overlay {
+  z-index: 8700 !important;
+}
+
+#sp-main .modal input:focus {
+  outline: none;
+}
+
+#sp-main .modal input {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0 10px;
+  color: var(--primary-dark-bg-color-90);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#sp-main .modal button {
+  border: none;
+  border-radius: 8px;
+  background-color: var(--main-text-color-25);
+  color: var(--main-text-color);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+#sp-main .modal button:hover {
+  background-color: var(--main-text-color);
+  color: var(--primary-dark-bg-color);
+}

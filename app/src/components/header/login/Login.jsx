@@ -9,15 +9,23 @@ const Login = () => {
   // Importar el estado y las funciones del contexto de usuarios.
   const { loggedIn, updateIsLoading } = useUsers();
 
+  const handleClick = () => {
+    updateIsLoading(true);
+
+    setTimeout(() => {
+      updateIsLoading(false);
+    }, 1500);
+  }
+
   return (
     <Fragment>
-      <div className="login-button">
+      <div className="login-button icon-hide-small">
         <div>
-          <Link onClick={() => updateIsLoading(true)} to="/my-content">
+          <Link onClick={() => handleClick()} to="/my-content">
             <PlusIcon />
           </Link>
           {loggedIn && (
-            <Link onClick={() => updateIsLoading(true)} to="/profile" className="userProfile">
+            <Link onClick={() => handleClick()} to="/profile" className="userProfile">
               <DefaultUserProfile />
             </Link>
           )}

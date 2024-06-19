@@ -44,7 +44,7 @@
 }
 
 .login-main-title h1 {
-  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-family: "Poppins", "DM Sans", sans-serif;
   font-size: 35.9px;
   font-weight: 500;
   transition: all 0.3s ease-in-out;
@@ -83,12 +83,13 @@
 }
 
 .login-main-inputs-wrapper label {
-  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-family: "Poppins", "DM Sans", sans-serif;
   font-size: 14px;
   color: var(--main-text-color-80);
 }
 
-.login-main-input-email, .login-main-input-passwd {
+.login-main-input-email,
+.login-main-input-passwd {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -97,10 +98,28 @@
   width: 100%;
 }
 
+.forgot-password-form {
+  width: 100%;
+}
+
+.forgot-password-form .login-main-input-email {
+  margin-bottom: 10px;
+}
+
+.forgot-password-form .login-main-input-login {
+  margin-top: 10px;
+}
+
+.message {
+  margin-top: 8px;
+  font-size: 12px;
+  text-align: center;
+}
+
 .login-main-common-input {
   width: 100%;
   border-radius: 10px;
-  border: 1px solid var(--main-text-color-80) ;
+  border: 1px solid var(--main-text-color-80);
   background-color: transparent;
   padding: 0 20px;
   box-sizing: border-box;
@@ -118,7 +137,7 @@
   background-color: var(--main-text-color-25);
   border: none;
   color: var(--main-text-color);
-  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-family: "Poppins", "DM Sans", sans-serif;
   font-size: 17px;
   font-weight: 300;
   cursor: pointer;
@@ -216,14 +235,16 @@
   transition: fill 0.3s ease-in-out;
 }
 
-.login-main-option-github svg, .login-main-option-x svg {
+.login-main-option-github svg,
+.login-main-option-x svg {
   width: 28px;
   height: 28px;
   fill: var(--primary-dark-bg-color);
   transition: fill 0.3s ease-in-out;
 }
 
-.login-main-option-github:hover svg, .login-main-option-x:hover svg {
+.login-main-option-github:hover svg,
+.login-main-option-x:hover svg {
   fill: var(--main-text-color);
 }
 /* ------------------------------------------------- */
@@ -237,7 +258,7 @@
 }
 
 .login-main-footer-passwd {
-  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-family: "Poppins", "DM Sans", sans-serif;
   font-size: 14px;
   color: var(--main-text-color);
   cursor: pointer;
@@ -249,7 +270,7 @@
 
 .login-main-footer-terms {
   text-align: center;
-  font-family: 'Poppins', 'DM Sans', sans-serif;
+  font-family: "Poppins", "DM Sans", sans-serif;
   font-size: 12px;
   color: var(--main-text-color-60);
   cursor: default;
@@ -262,7 +283,9 @@
     margin-bottom: 80px;
   }
 
-  .login-main-inputs, .login-main-options, .login-main-separator {
+  .login-main-inputs,
+  .login-main-options,
+  .login-main-separator {
     width: 75%;
   }
 
@@ -279,7 +302,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .login-main-separator p::before {
     content: "";
     position: absolute;
@@ -289,7 +312,7 @@
     height: 2px;
     background-color: var(--main-text-color-60);
   }
-  
+
   .login-main-separator p::after {
     content: "";
     position: absolute;
@@ -300,7 +323,8 @@
     background-color: var(--main-text-color-60);
   }
 
-  .login-main-inputs-wrapper, .login-main-options-wrapper {
+  .login-main-inputs-wrapper,
+  .login-main-options-wrapper {
     width: 100%;
   }
 }

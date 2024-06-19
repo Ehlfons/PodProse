@@ -4,7 +4,7 @@
   align-items: flex-start;
   gap: 55px;
   margin: 55px;
-  height: 75vh;
+  min-height: 75vh;
 }
 
 #cmp-main section {
@@ -12,8 +12,49 @@
 }
 
 .vertical-line-content {
-  height: 100%;
   width: 2px;
   background-color: var(--main-text-color-60);
   border-radius: 50%;
+  height: 680px;
+}
+
+@media (max-width: 1240px) {
+  #cmp-main {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 55px;
+  }
+
+  #cmp-main section {
+    width: 100%;
+  }
+
+  .vertical-line-content {
+    width: 100%;
+    margin: 0 auto;
+    height: 2px;
+  }
+
+  .upload-podcast-section {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 655px) {
+  h2.podcast-title {
+    font-size: 16px
+  }
+  .podcast-title-description p, .podcast-info-text p {
+    font-size: 12px;
+  }
+  .section-title h1, .section-title i {
+    font-size: 30px;
+  }
+  .section-title h1 {
+    letter-spacing: 1px;
+  }
+  #cmp-main .error-message {
+    font-size: 16px;
+  }
 }

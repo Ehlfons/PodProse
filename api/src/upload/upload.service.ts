@@ -1,19 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import {
-  PutObjectCommand,
-  GetObjectCommand,
-  ListObjectsV2Command,
-  DeleteObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3';
+import { PutObjectCommand, DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
-import {
-  GetObjectCommandOutput,
-  ListObjectsV2CommandOutput,
-  DeleteObjectCommandOutput,
-} from '@aws-sdk/client-s3';
-import { Readable } from 'stream';
 
 @Injectable()
 export class UploadService {
@@ -26,15 +14,9 @@ export class UploadService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async upload(fileName: string, file: Buffer, type: 'audio' | 'image', userId: string, title: string, description: string) {
+  async upload(fileName: string, file: Buffer, type: 'audio' | 'image', userId: string, title: string, description: string, categoryId: string) {
     const bucketName = this.configService.getOrThrow('AWS_S3_BUCKET_NAME');
-    await this.s3Client.send(
-      new PutObjectCommand({
-        Bucket: bucketName,
-        Key: fileName,
-        Body: file,
-      }),
-    );
+    const fileKey2 = type === 'audio' ? `audio/${fileName}` : `img/${fileName}`;
 
     const userExists = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -44,16 +26,35 @@ export class UploadService {
       throw new NotFoundException('User not found');
     }
 
+    const categoryExists = await this.prisma.category.findUnique({
+      where: { id: categoryId },
+    });
+
+    if (!categoryExists) {
+      throw new NotFoundException('Category not found');
+    }
+
+    await this.s3Client.send(
+      new PutObjectCommand({
+        Bucket: bucketName,
+        Key: fileKey2,
+        Body: file,
+      }),
+    );
+
     if (type === 'audio') {
       // Guarda el podcast en la base de datos
       await this.prisma.podcast.create({
         data: {
           title,
           description,
-          url_audio: `https://${bucketName}.s3.amazonaws.com/${fileName}`,
+          url_audio: `https://${bucketName}.s3.amazonaws.com/${fileKey2}`,
           url_img: '',
           user: {
             connect: { id: userId },
+          },
+          category: {
+            connect: { id: categoryId },
           },
         },
       });
@@ -62,7 +63,7 @@ export class UploadService {
       await this.prisma.podcast.update({
         where: { title },
         data: {
-          url_img: `https://${bucketName}.s3.amazonaws.com/${fileName}`,
+          url_img: `https://${bucketName}.s3.amazonaws.com/${fileKey2}`,
         },
       });
     }
@@ -82,11 +83,12 @@ export class UploadService {
     }
 
     const previousImageUrl = user.url_img;
+    const fileKey = `img/${fileName}`;
 
     await this.s3Client.send(
       new PutObjectCommand({
         Bucket: bucketName,
-        Key: fileName,
+        Key: fileKey,
         Body: file,
       }),
     );
@@ -94,7 +96,7 @@ export class UploadService {
     await this.prisma.user.update({
       where: { id: userId },
       data: {
-        url_img: `https://${bucketName}.s3.amazonaws.com/${fileName}`,
+        url_img: `https://${bucketName}.s3.amazonaws.com/${fileKey}`,
       },
     });
 
@@ -109,12 +111,12 @@ export class UploadService {
         await this.s3Client.send(
           new DeleteObjectCommand({
             Bucket: bucketName,
-            Key: previousImageKey,
+            Key: `img/${previousImageKey}`,
           }),
         );
       }
     }
 
-    return `https://${bucketName}.s3.amazonaws.com/${fileName}`;
+    return `https://${bucketName}.s3.amazonaws.com/${fileKey}`;
   }
 }

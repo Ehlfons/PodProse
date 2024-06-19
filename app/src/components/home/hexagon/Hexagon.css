@@ -1,4 +1,4 @@
-.container-hexagon-layout .hexagonArea .hexagon {
+ .container-hexagon-layout .hexagonArea .hexagon {
   position: relative;
   width: 159px; /* 130 */
   height: 185px; /* 150 */
@@ -17,6 +17,8 @@
 .container-hexagon-layout .hexagonArea .hexagon img {
   width: 100%;
   height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .container-hexagon-layout .hexagonArea .hexagon:hover {
@@ -25,8 +27,8 @@
   transition: all 0.3s ease-in-out;
 }
 
-.container-hexagon-layout .hexagonArea .hexagon:hover::before {
-  content: "username profile";
+.hexagon-title-overlay {
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
@@ -34,12 +36,72 @@
   z-index: 1000;
 
   display: flex;
-      justify-content: center;
-      align-items: center;
+  justify-content: center;
+  align-items: center;
   color: var(--main-text-color);
   font-size: 0.8em;
   font-weight: 600;
   text-align: center;
 
   box-sizing: border-box;
+  pointer-events: none; /* Para que el overlay no interfiera con los eventos del mouse */
+}
+
+.hexagon-title-overlay p {
+  margin-inline: 5px;
+}
+
+@media (max-width: 1835px) {
+  .hexagon.hex-6 {
+    display: none !important;
+  }
+
+  .home-container {
+    justify-content: center;
+  }
+}
+
+
+@media (max-width: 1667px) {
+  .hexagon.hex-5 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1525px) {
+  .hexagon.hex-4 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1332px) {
+  .hexagon.hex-3 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1183px) {
+  .maintext-component {
+    display: none;
+  }
+
+  .hexagon.hex-3, .hexagon.hex-4 {
+    display: block !important;
+  }
+}
+
+@media (max-width: 870px) {
+  .hexagon.hex-4 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 669px) {
+  .hexagon.hex-3 {
+    display: none !important;
+  }
+
+  .hexagonArea.first .hexagon.hex-1, .hexagonArea.third .hexagon.hex-2, #short {
+    display: none !important;
+  }
 }

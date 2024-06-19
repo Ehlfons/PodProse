@@ -2,8 +2,8 @@
 
 [![Discord](https://img.shields.io/discord/1056947417842454678?label=DISCORD%20SERVER&logo=discord&style=for-the-badge)](https://discord.gg/FVaPTTs7MY)
 ![Language count](https://img.shields.io/github/languages/count/LitoHDD/PodProse?label=%F0%9F%8C%8E%20LANGUAGES&style=for-the-badge)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/LitoHDD/PodProse?color=orange&label=%F0%9F%93%A2%20LAST%20VERSION&style=for-the-badge)
-![GitHub License](https://img.shields.io/github/license/LitoHDD/PodProse?style=for-the-badge)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/LitoHDD/PodProse?color=orange&label=%F0%9F%93%A2%20LAST%20VERSION&style=for-the-badge)](https://github.com/LitoHDD/PodProse/releases/latest)
+[![GitHub License](https://img.shields.io/github/license/LitoHDD/PodProse?style=for-the-badge)](https://github.com/LitoHDD/PodProse/blob/main/LICENSE)
 
 ## 📝 Description
 
@@ -34,10 +34,115 @@ The main objectives of PodProse are:
 
 This project is under the MIT License. For more information, please refer to the LICENSE file.
 
-## 🚀 Let's Get Started
+## 🔰 Let's Get Started
 
 To get involved with PodProse, start by exploring our content on the platform. Creators interested in contributing their podcasts can reach out via our Discord server or follow the instructions on our GitHub repository for content submission.
 
 ## 📝 Additional Notes
 
 For more detailed information about PodProse and its features, please refer to the README.md file located at the root of the repository. Our Discord server is also a great place for help and discussions with other developers and content creators.
+
+## 🚀 How to Start the Application
+
+### Requirements
+
+- MySQL:
+
+  - Server
+  - Shell
+
+- NodeJs
+
+  - NPM
+
+### Docker
+
+- Build Docker image:
+
+    ```bash
+    docker build -t mysql-image .
+    ```
+
+- Run Docker container:
+
+    ```bash
+    docker run --name mysql-container -d -p 3306:3306 -v mysql-data:/var/lib/mysql mysql-image
+    ```
+
+- Dockerfile
+
+    ```Dockerfile
+    FROM mysql:latest
+    
+    # Set the root password (change it to whatever you want)
+    ENV MYSQL_ROOT_PASSWORD=password
+    
+    # Exposes port 3306 so it can be accessed from other machines
+    EXPOSE 3306
+    
+    # Custom MySQL configuration
+    RUN echo "[mysqld]\nbind-address = 0.0.0.0" > /etc/mysql/my.cnf
+    
+    # Create a directory for the volume where the data will be stored
+    VOLUME /var/lib/mysql
+    
+    # CMD to start MySQL automatically when starting container
+    CMD ["mysqld", "--user=mysql", "--console"]
+    ```
+
+## [API](https://github.com/LitoHDD/PodProse/tree/main/api) Installation
+
+- Install dependencies:
+
+   ```bash
+   npm i
+   ```
+
+### Database Setup
+
+- Create tables:
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+- Insert required data:
+
+   ```bash
+   npm run megafactory
+   ```
+
+- Open graphical environment:
+
+   ```bash
+   npx prisma studio
+   ```
+
+### Running the API
+
+- Watch mode:
+
+   ```bash
+   npm run start:dev
+   ```
+
+### API Documentation
+
+Access the Swagger UI for API documentation at:
+[http://localhost:3000/api/](http://localhost:3000/api/)
+
+## [APP](https://github.com/LitoHDD/PodProse/tree/main/app) Installation
+
+- Install dependencies:
+
+   ```bash
+   npm i
+   ```
+
+### Running the APP
+
+- Watch mode:
+
+   ```bash
+   npm run dev
+   ```

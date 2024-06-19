@@ -2,18 +2,20 @@ import { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {usePodcasts} from "@components/hooks";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "sonner";
 import "./Podcast.css";
 
 // Estructura de cada Podcast.
 const Podcast = (props) => {
-  const { podcast_id, title, description, createdAt, url_img } = props.datos; // Datos del podcast.
-  const { formatDate } = usePodcasts();
+  const { id, title, description, createdAt, url_img, username } = props.datos; // Datos del podcast.
+  const { editbtn } = props; // Botón de editar.
+  const { formatDate, updateModalVisibility, updateEditingPodcastId, editingPodcastId } = usePodcasts();
 
   return (
     <Fragment>
       <article
         className="podcast"
-        id={podcast_id}
+        id={id}
         onClick={() => {
           props.onClick();
         }}
@@ -32,17 +34,27 @@ const Podcast = (props) => {
             <h2 className="podcast-title">{title}</h2>
             <p>{description ? description : "Sin descripción."}</p>
           </div>
-          <div className="podcast-info-text">
+          <div className={editbtn ? "podcast-info-text" : "podcast-info-text explore-style"}>
+            {editbtn ? null : <p>{username}</p>}
             <p>{formatDate(createdAt)}</p>
           </div>
-          <div className="podcast-icons">
-            <div alt="edit" onClick={(e) => {
-              e.stopPropagation();
-              
-            }}>
+          {editbtn && <div className="podcast-icons">
+            <div
+              alt="config"
+              onClick={(e) => {
+                e.stopPropagation();
+
+                if (editingPodcastId === null || editingPodcastId === id) {
+                    updateEditingPodcastId(id);
+                    updateModalVisibility(true);
+                } else {
+                  toast.info("No puedes gestionar dos podcasts al mismo tiempo");
+                }
+            }}
+            >
               <FontAwesomeIcon icon={faGear} />
             </div>
-          </div>
+          </div>}
         </div>
       </article>
     </Fragment>

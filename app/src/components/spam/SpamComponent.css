@@ -15,12 +15,12 @@
 
 #social-media-spam {
   text-align: center;
-  width: 40.3%;
+  width: 541px;
 }
 
 #social-newsletter-spam {
   text-align: center;
-  width: 35.6%;
+  width: 478px;
 }
 
 #social-newsletter-spam p {
@@ -29,9 +29,9 @@
 
 .social-media-logos-spam {
   display: flex;
-  justify-content: space-between;
-  
-  width: 470px;
+  justify-content: center;
+  gap: 43px;
+
   height: 125px;
   
   margin: 26px auto 0;
@@ -131,5 +131,78 @@
   }
   100% {
     transform: translateY(120px);
+  }
+}
+
+@media (max-width: 1549px) {
+  .spam-wrapper {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1183px) {
+  .spam-wrapper {
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 70px;
+  }
+
+  #container-spam {
+    height: auto;
+    margin-bottom: 70px;
+  }
+}
+
+@media (max-width: 645px) {
+  #social-media-spam {
+    width: 400px;
+  }
+
+  .titles-spam {
+    font-size: 30px;
+  }
+
+  .social-media-logos-spam {
+    gap: 24px;
+  }
+
+  .social-media-logos-spam .container-instagram-logo-spam svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .social-media-logos-spam .container-github-logo-spam svg {
+    width: 45px;
+    height: 45px;
+  
+  }
+
+  .social-media-logos-spam .container-x-logo-spam svg {
+    width: 50px;
+    height:  50px;
+  }
+
+  .spam-logo-greenLine {
+    width: 90px;
+  }
+
+  .container-x-logo-spam {
+    width: auto;
+  }
+
+  .input-spam {
+    width: 80%;
+  }
+
+  #social-newsletter-spam p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 478px) {
+  #social-newsletter-spam {
+    width: 110%;
   }
 }

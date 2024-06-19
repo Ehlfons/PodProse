@@ -1,8 +1,13 @@
 export { default as MainPage } from "./mainPage/MainPage";
 export { default as ContactPage } from "./contactPage/ContactPage";
-export { default as CreatorPage } from "./creatorPage/CreatorPage";
+export { default as ExplorePage } from "./explorePage/ExplorePage";
 export { default as LoginPage } from "./loginPage/LoginPage";
 export { default as RegisterPage } from "./registerPage/RegisterPage";
 export { default as ContentManagementPage } from "./contentManagementPage/ContentManagementPage";
 export { default as ProfilePage } from "./profilePage/ProfilePage";
 export { default as ErrorPage } from "./errorPage/ErrorPage";
+export { default as ResetPasswordPage } from "./resetPasswordPage/ResetPasswordPage";
+export { default as VerifyEmailPage } from "./verifyEmailPage/VerifyEmailPage";
+export { default as SubscriptionPage } from "./subscriptionPage/SubscriptionPage";
+export { default as TermsAndConditionsPage } from "./termsAndConditionsPage/TermsAndConditionsPage";
+export { default as PrivacyPoliciesPage } from "./privacyPoliciesPage/PrivacyPoliciesPage";

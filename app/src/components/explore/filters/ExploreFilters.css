@@ -1,0 +1,67 @@
+.filters-explore select {
+  background-color: var(--primary-dark-bg-color);
+}
+.filters-explore option {
+  font-family: "Dm Sans", "Rubik", sans-serif;
+  background-color: var(--primary-dark-bg-color);
+}
+
+.filters-explore {
+  width: 380px;
+  border: 1px solid var(--main-text-color);
+  background-color: var(--primary-dark-bg-color);
+  padding: 20px;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-sizing: border-box;
+}
+
+.filters-container-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: sticky;
+  top: 40px;
+  z-index: 601;
+}
+
+.filter-btn {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  background-color: var(--main-text-color-25) !important;
+  font-size: 1.1em !important;
+  font-family: "DM Sans", "Rubik", Helvetica, sans-serif !important;
+  font-weight: 300 !important;
+}
+
+.filter-btn:hover {
+  background-color: var(--main-text-color) !important;
+  color: var(--primary-dark-bg-color) !important;
+}
+
+.filter-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.filter-btn-container i {
+  font-size: 40px;
+  color: var(--main-text-color-25);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.filter-btn-container i:hover {
+  color: var(--main-text-color);
+}
+
+.filter-btn-container i svg {
+  margin-top: 15px;
+}

@@ -51,23 +51,11 @@ $ npx prisma migrate reset
 $ npx prisma studio
 ```
 
-## Insert data
-
-> Insert 4 users
+## Insert data - REQUIRED
 
 ```bash
-$ npm run seed
+$ npm run megafactory
 ```
-
-> Insert 300 users
-
-```bash
-$ npm run factory
-```
-
-## .env file
-
-DATABASE_URL="mysql://usuario:contraseña@localhost:3306/nombre_bd"
 
 ## Installation
 
@@ -88,18 +76,9 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Tests
+## Swagger URL - Api Documentation
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+http://localhost:3000/api/
 
 ## Support
 
@@ -108,23 +87,3 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 # Nest is [MIT licensed](LICENSE).
-
-## Swagger URL
-
-http://localhost:3000/api/
-
-# API Documentation
-
-**AuthController:**
-
-- POST /auth/register: User register.
-- POST /auth/login: Login.
-- GET /auth/user: Get authenticated user information.
-
-**UsersController:**
-
-- POST /users: Create a new user.
-- GET /users: Get all users.
-- GET /users/:id: Get information about a specific user.
-- PATCH /users/:id: Update user information.
-- DELETE /users/:id: Delete a user.
