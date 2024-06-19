@@ -25,11 +25,6 @@ The main objectives of PodProse are:
 ![NestJS](https://img.shields.io/badge/NestJS-Node.js-%23d9224c?style=for-the-badge&logo=NestJS&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-DB-%2300628c?style=for-the-badge&logo=MySQL&logoColor=white)
 
-## 🤝 Contributors
-
-[![Contributors](https://contrib.rocks/image?repo=LitoHDD/PodProse&max=12)](https://github.com/LitoHDD/PodProse/graphs/contributors)  
-[![GitHub contributors](https://img.shields.io/github/contributors/LitoHDD/PodProse?style=for-the-badge)](https://github.com/LitoHDD/PodProse/graphs/contributors)
-
 ## 📄 License
 
 This project is under the MIT License. For more information, please refer to the LICENSE file.
